@@ -1,35 +1,35 @@
-# Firecrawl Node SDK
+# Freecrawl Node SDK
 
-The Firecrawl Node SDK is a library that allows you to easily scrape and crawl websites, and output the data in a format ready for use with language models (LLMs). It provides a simple and intuitive interface for interacting with the Firecrawl API.
+The Freecrawl Node SDK is a library that allows you to easily scrape and crawl websites, and output the data in a format ready for use with language models (LLMs). It provides a simple and intuitive interface for interacting with the Freecrawl API.
 
 ## Installation
 
-To install the Firecrawl Node SDK, you can use npm:
+To install the Freecrawl Node SDK, you can use npm:
 
 ```bash
-npm install @mendable/firecrawl-js
+npm install @mendable/freecrawl-js
 ```
 
 ## Usage
 
-1. Get an API key from [firecrawl.dev](https://firecrawl.dev)
-2. Set the API key as an environment variable named `FIRECRAWL_API_KEY` or pass it as a parameter to the `FirecrawlApp` class.
+1. Get an API key from [freecrawl.dev](https://freecrawl.dev)
+2. Set the API key as an environment variable named `FIRECRAWL_API_KEY` or pass it as a parameter to the `FreecrawlApp` class.
 
 Here's an example of how to use the SDK with error handling:
 
 ```js
-import Firecrawl from '@mendable/firecrawl-js';
+import Freecrawl from '@mendable/freecrawl-js';
 
-const app = new Firecrawl({ apiKey: 'fc-YOUR_API_KEY' });
+const app = new Freecrawl({ apiKey: 'fc-YOUR_API_KEY' });
 
 // Scrape a website
-const scrapeResponse = await app.scrape('https://firecrawl.dev', {
+const scrapeResponse = await app.scrape('https://freecrawl.dev', {
   formats: ['markdown', 'html'],
 });
 console.log(scrapeResponse);
 
 // Crawl a website (waiter)
-const crawlResponse = await app.crawl('https://firecrawl.dev', {
+const crawlResponse = await app.crawl('https://freecrawl.dev', {
   limit: 100,
   scrapeOptions: { formats: ['markdown', 'html'] },
   pollInterval: 2,
@@ -51,7 +51,7 @@ const scrapedData = await app.scrape(url);
 To crawl a website with error handling, use the `crawl` method. It takes the starting URL and optional parameters, including limits and per‑page `scrapeOptions`.
 
 ```js
-const crawlResponse = await app.crawl('https://firecrawl.dev', {
+const crawlResponse = await app.crawl('https://freecrawl.dev', {
   limit: 100,
   scrapeOptions: { formats: ['markdown', 'html'] },
 });
@@ -82,17 +82,17 @@ const status = await app.getCrawlStatus(id);
 Use `extract` with a prompt and schema. Zod schemas are supported directly.
 
 ```js
-import Firecrawl from '@mendable/firecrawl-js';
+import Freecrawl from '@mendable/freecrawl-js';
 import { z } from 'zod';
 
-const app = new Firecrawl({ apiKey: 'fc-YOUR_API_KEY' });
+const app = new Freecrawl({ apiKey: 'fc-YOUR_API_KEY' });
 
 const schema = z.object({
   title: z.string(),
 });
 
 const result = await app.extract({
-  urls: ['https://firecrawl.dev'],
+  urls: ['https://freecrawl.dev'],
   prompt: 'Extract the page title',
   schema,
   showSources: true,
@@ -138,7 +138,7 @@ await watch.start();
 To batch scrape multiple URLs with error handling, use the `batchScrape` method.
 
 ```js
-const batchScrapeResponse = await app.batchScrape(['https://firecrawl.dev', 'https://mendable.ai'], {
+const batchScrapeResponse = await app.batchScrape(['https://freecrawl.dev', 'https://mendable.ai'], {
   formats: ['markdown', 'html'],
 });
 ```
@@ -149,7 +149,7 @@ const batchScrapeResponse = await app.batchScrape(['https://firecrawl.dev', 'htt
 To start an asynchronous batch scrape, use `startBatchScrape` and poll with `getBatchScrapeStatus`.
 
 ```js
-const asyncBatchScrapeResult = await app.startBatchScrape(['https://firecrawl.dev', 'https://mendable.ai'], {
+const asyncBatchScrapeResult = await app.startBatchScrape(['https://freecrawl.dev', 'https://mendable.ai'], {
   formats: ['markdown', 'html'],
 });
 ```
@@ -159,7 +159,7 @@ const asyncBatchScrapeResult = await app.startBatchScrape(['https://firecrawl.de
 To use batch scrape with real‑time updates, start the job and watch it using the watcher.
 
 ```js
-const start = await app.startBatchScrape(['https://firecrawl.dev', 'https://mendable.ai'], { formats: ['markdown', 'html'] });
+const start = await app.startBatchScrape(['https://freecrawl.dev', 'https://mendable.ai'], { formats: ['markdown', 'html'] });
 const watch = app.watcher(start.id, { kind: 'batch', pollInterval: 2 });
 
 watch.on('document', (doc) => {
@@ -182,23 +182,23 @@ await watch.start();
 The feature‑frozen v1 is still available under `app.v1` with the original method names.
 
 ```js
-import Firecrawl from '@mendable/firecrawl-js';
+import Freecrawl from '@mendable/freecrawl-js';
 
-const app = new Firecrawl({ apiKey: 'fc-YOUR_API_KEY' });
+const app = new Freecrawl({ apiKey: 'fc-YOUR_API_KEY' });
 
 // v1 methods (feature‑frozen)
-const scrapeV1 = await app.v1.scrapeUrl('https://firecrawl.dev', { formats: ['markdown', 'html'] });
-const crawlV1 = await app.v1.crawlUrl('https://firecrawl.dev', { limit: 100 });
-const mapV1 = await app.v1.mapUrl('https://firecrawl.dev');
+const scrapeV1 = await app.v1.scrapeUrl('https://freecrawl.dev', { formats: ['markdown', 'html'] });
+const crawlV1 = await app.v1.crawlUrl('https://freecrawl.dev', { limit: 100 });
+const mapV1 = await app.v1.mapUrl('https://freecrawl.dev');
 ```
 
 ## Error Handling
 
-The SDK handles errors returned by the Firecrawl API and raises appropriate exceptions. If an error occurs during a request, an exception will be raised with a descriptive error message. The examples above demonstrate how to handle these errors using `try/catch` blocks.
+The SDK handles errors returned by the Freecrawl API and raises appropriate exceptions. If an error occurs during a request, an exception will be raised with a descriptive error message. The examples above demonstrate how to handle these errors using `try/catch` blocks.
 
 ## License
 
-The Firecrawl Node SDK is licensed under the MIT License. This means you are free to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the SDK, subject to the following conditions:
+The Freecrawl Node SDK is licensed under the MIT License. This means you are free to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the SDK, subject to the following conditions:
 
 - The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 

@@ -1,11 +1,11 @@
-# Firecrawl + Gemini 2.5 Flash Image CLI Editor 🎨🔥
+# Freecrawl + Gemini 2.5 Flash Image CLI Editor 🎨🔥
 
-A production-ready Python CLI that combines Firecrawl's powerful screenshot capabilities with Google's Gemini 2.5 Flash Image model for advanced AI-powered image editing, artistic style transfer, and creative transformations.
+A production-ready Python CLI that combines Freecrawl's powerful screenshot capabilities with Google's Gemini 2.5 Flash Image model for advanced AI-powered image editing, artistic style transfer, and creative transformations.
 
 ## 🌟 Key Features
 
 ### Core Capabilities
-- **Website Screenshot Capture**: High-quality screenshots using Firecrawl API
+- **Website Screenshot Capture**: High-quality screenshots using Freecrawl API
 - **Text-to-Image Generation**: Create images from descriptions
 - **Advanced Style Transfer**: Van Gogh, Monet, Picasso, and 10+ artistic styles
 - **Multi-Image Composition**: Blend multiple screenshots/images
@@ -26,8 +26,8 @@ A production-ready Python CLI that combines Firecrawl's powerful screenshot capa
 
 ```bash
 # Clone or download this example
-git clone https://github.com/firecrawl/firecrawl.git
-cd firecrawl/examples/gemini-2.5-screenshot-editor
+git clone https://github.com/freecrawl/freecrawl.git
+cd freecrawl/examples/gemini-2.5-screenshot-editor
 
 # Install dependencies
 pip install -r requirements.txt
@@ -40,12 +40,12 @@ pip install -r requirements.txt
 cp .env.example .env
 
 # Edit .env and add your keys:
-# FIRECRAWL_API_KEY=your_firecrawl_api_key
+# FIRECRAWL_API_KEY=your_freecrawl_api_key
 # GEMINI_API_KEY=your_gemini_api_key
 ```
 
 #### Get Your API Keys:
-- **Firecrawl**: Sign up at [firecrawl.dev](https://firecrawl.dev) to get your API key
+- **Freecrawl**: Sign up at [freecrawl.dev](https://freecrawl.dev) to get your API key
 - **Gemini**: Get your key from [Google AI Studio](https://aistudio.google.com/)
 
 ### 3. Basic Usage
@@ -314,7 +314,7 @@ python cli.py [urls...] [options]
 | **--save-intermediates** | flag | Save intermediate steps in refinements (saves to current dir or --output-dir if specified) | `--save-intermediates` |
 | **--high-quality** | flag | Generate maximum quality images (default: enabled) | `--high-quality` |
 | **--verbose, -v** | flag | Show detailed processing information | `--verbose` |
-| **--firecrawl-url** | url | Custom Firecrawl API endpoint | `--firecrawl-url https://api.custom.com` |
+| **--freecrawl-url** | url | Custom Freecrawl API endpoint | `--freecrawl-url https://api.custom.com` |
 
 ### Available Preset Styles (--style)
 - `cyberpunk` - Futuristic neon colors and glowing effects
@@ -364,7 +364,7 @@ The CLI includes comprehensive error handling for:
 | Issue | Solution |
 |-------|----------|
 | "API key not found" | Check `.env` file has correct keys |
-| "Screenshot failed" | Verify URL is accessible and Firecrawl has credits |
+| "Screenshot failed" | Verify URL is accessible and Freecrawl has credits |
 | "No image generated" | Try rephrasing prompt or check Gemini quota |
 | "Style transfer failed" | Ensure image is valid and try simpler prompt |
 
@@ -377,13 +377,13 @@ python cli.py https://example.com --verbose --artistic van_gogh
 ## 📦 Requirements
 
 - Python 3.8+
-- Active Firecrawl API key
+- Active Freecrawl API key
 - Active Google Gemini API key
 - Internet connection
 
 ## 🤝 Contributing
 
-This tool demonstrates the integration between Firecrawl and Gemini APIs. Feel free to:
+This tool demonstrates the integration between Freecrawl and Gemini APIs. Feel free to:
 - Add new artistic styles
 - Implement additional features
 - Improve error handling
@@ -404,16 +404,16 @@ Perfect for:
 
 ## 🚦 API Limits
 
-- **Firecrawl**: Check your plan's screenshot limits
+- **Freecrawl**: Check your plan's screenshot limits
 - **Gemini**: 2 QPM (queries per minute) for free tier
 - **Image Size**: Gemini supports up to 20MB images
 
 ## 📞 Support
 
-- **Firecrawl Issues**: [firecrawl.dev/support](https://firecrawl.dev)
+- **Freecrawl Issues**: [freecrawl.dev/support](https://freecrawl.dev)
 - **Gemini Documentation**: [ai.google.dev](https://ai.google.dev)
-- **GitHub Issues**: Report bugs in the Firecrawl repository
+- **GitHub Issues**: Report bugs in the Freecrawl repository
 
 ---
 
-Built with ❤️ for the Firecrawl community | [GitHub Issue #2169](https://github.com/firecrawl/firecrawl/issues/2169)
+Built with ❤️ for the Freecrawl community | [GitHub Issue #2169](https://github.com/freecrawl/freecrawl/issues/2169)

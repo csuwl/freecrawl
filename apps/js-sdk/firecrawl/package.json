@@ -1,7 +1,7 @@
 {
-  "name": "@mendable/firecrawl-js",
+  "name": "@mendable/freecrawl-js",
   "version": "4.13.1",
-  "description": "JavaScript SDK for Firecrawl API",
+  "description": "JavaScript SDK for Freecrawl API",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
@@ -21,7 +21,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/firecrawl/firecrawl.git"
+    "url": "git+https://github.com/freecrawl/freecrawl.git"
   },
   "author": "Mendable.ai",
   "license": "MIT",
@@ -32,9 +32,9 @@
     "zod-to-json-schema": "^3.23.0"
   },
   "bugs": {
-    "url": "https://github.com/firecrawl/firecrawl/issues"
+    "url": "https://github.com/freecrawl/freecrawl/issues"
   },
-  "homepage": "https://github.com/firecrawl/firecrawl#readme",
+  "homepage": "https://github.com/freecrawl/freecrawl#readme",
   "devDependencies": {
     "@jest/globals": "^30.2.0",
     "@types/dotenv": "^8.2.0",
@@ -50,7 +50,7 @@
     "uuid": "^9.0.1"
   },
   "keywords": [
-    "firecrawl",
+    "freecrawl",
     "mendable",
     "crawler",
     "web",

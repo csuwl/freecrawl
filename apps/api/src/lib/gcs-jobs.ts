@@ -18,7 +18,7 @@ const credentials = config.GCS_CREDENTIALS
 export const storage = new Storage({ credentials });
 
 export async function saveScrapeToGCS(scrape: LoggedScrape): Promise<void> {
-  return await withSpan("firecrawl-gcs-save-job", async span => {
+  return await withSpan("freecrawl-gcs-save-job", async span => {
     setSpanAttributes(span, {
       "gcs.operation": "save_job",
       "job.id": scrape.id,
@@ -112,7 +112,7 @@ export async function saveScrapeToGCS(scrape: LoggedScrape): Promise<void> {
 }
 
 export async function saveSearchToGCS(search: LoggedSearch): Promise<void> {
-  return await withSpan("firecrawl-gcs-save-search", async span => {
+  return await withSpan("freecrawl-gcs-save-search", async span => {
     setSpanAttributes(span, {
       "gcs.operation": "save_search",
       "search.id": search.id,
@@ -191,7 +191,7 @@ export async function saveSearchToGCS(search: LoggedSearch): Promise<void> {
 }
 
 export async function saveExtractToGCS(extract: LoggedExtract): Promise<void> {
-  return await withSpan("firecrawl-gcs-save-extract", async span => {
+  return await withSpan("freecrawl-gcs-save-extract", async span => {
     setSpanAttributes(span, {
       "gcs.operation": "save_extract",
       "extract.id": extract.id,
@@ -265,7 +265,7 @@ export async function saveExtractToGCS(extract: LoggedExtract): Promise<void> {
 }
 
 export async function saveMapToGCS(map: LoggedMap): Promise<void> {
-  return await withSpan("firecrawl-gcs-save-map", async span => {
+  return await withSpan("freecrawl-gcs-save-map", async span => {
     setSpanAttributes(span, {
       "gcs.operation": "save_map",
       "map.id": map.id,
@@ -339,7 +339,7 @@ export async function saveMapToGCS(map: LoggedMap): Promise<void> {
 export async function saveDeepResearchToGCS(
   deepResearch: LoggedDeepResearch,
 ): Promise<void> {
-  return await withSpan("firecrawl-gcs-save-deep-research", async span => {
+  return await withSpan("freecrawl-gcs-save-deep-research", async span => {
     setSpanAttributes(span, {
       "gcs.operation": "save_deep_research",
       "deep_research.id": deepResearch.id,
@@ -412,7 +412,7 @@ export async function saveDeepResearchToGCS(
 }
 
 export async function saveLlmsTxtToGCS(llmsTxt: LoggedLlmsTxt): Promise<void> {
-  return await withSpan("firecrawl-gcs-save-llms-txt", async span => {
+  return await withSpan("freecrawl-gcs-save-llms-txt", async span => {
     setSpanAttributes(span, {
       "gcs.operation": "save_llms_txt",
       "llms_txt.id": llmsTxt.id,
@@ -486,7 +486,7 @@ export async function saveLlmsTxtToGCS(llmsTxt: LoggedLlmsTxt): Promise<void> {
 }
 
 export async function getJobFromGCS(jobId: string): Promise<Document[] | null> {
-  return await withSpan("firecrawl-gcs-get-job", async span => {
+  return await withSpan("freecrawl-gcs-get-job", async span => {
     setSpanAttributes(span, {
       "gcs.operation": "get_job",
       "job.id": jobId,
@@ -526,7 +526,7 @@ export async function getJobFromGCS(jobId: string): Promise<Document[] | null> {
 }
 
 export async function removeJobFromGCS(jobId: string): Promise<void> {
-  return await withSpan("firecrawl-gcs-remove-job", async span => {
+  return await withSpan("freecrawl-gcs-remove-job", async span => {
     setSpanAttributes(span, {
       "gcs.operation": "remove_job",
       "job.id": jobId,

@@ -29,7 +29,7 @@ import * as Sentry from "@sentry/node";
 import { specialtyScrapeCheck } from "../utils/specialtyHandler";
 import { fireEngineDelete } from "./delete";
 import { MockState } from "../../lib/mock";
-import { getInnerJson } from "@mendable/firecrawl-rs";
+import { getInnerJson } from "@mendable/freecrawl-rs";
 import { hasFormatOfType } from "../../../../lib/format-utils";
 import { InternalAction } from "../../../../controllers/v1/types";
 import { AbortManagerThrownError } from "../../lib/abortManager";
@@ -311,7 +311,7 @@ export async function scrapeURLWithFireEngineChromeCDP(
             {
               type: "executeJavascript" as const,
               script: getBrandingScript(),
-              metadata: { __firecrawl_internal: true },
+              metadata: { __freecrawl_internal: true },
             },
           ]
         : []),

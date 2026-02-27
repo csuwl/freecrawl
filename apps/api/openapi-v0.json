@@ -1,18 +1,18 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Firecrawl API",
+    "title": "Freecrawl API",
     "version": "0.0.0",
-    "description": "API for interacting with Firecrawl services to perform web scraping and crawling tasks.",
+    "description": "API for interacting with Freecrawl services to perform web scraping and crawling tasks.",
     "contact": {
-      "name": "Firecrawl Support",
-      "url": "https://firecrawl.dev/support",
-      "email": "support@firecrawl.dev"
+      "name": "Freecrawl Support",
+      "url": "https://freecrawl.dev/support",
+      "email": "support@freecrawl.dev"
     }
   },
   "servers": [
     {
-      "url": "https://api.firecrawl.dev/v0"
+      "url": "https://api.freecrawl.dev/v0"
     }
   ],
   "paths": {

@@ -7,7 +7,7 @@ import { redisEvictConnection } from "./redis";
 import type { Logger } from "winston";
 import psl from "psl";
 import { MapDocument } from "../controllers/v2/types";
-import { PdfMetadata } from "@mendable/firecrawl-rs";
+import { PdfMetadata } from "@mendable/freecrawl-rs";
 import { storage } from "../lib/gcs-jobs";
 import { withSpan, setSpanAttributes } from "../lib/otel-tracer";
 import { config } from "../config";
@@ -67,7 +67,7 @@ export async function getIndexFromGCS(
   logger?: Logger,
 ): Promise<any | null> {
   try {
-    return await withSpan("firecrawl-index-get-from-gcs", async span => {
+    return await withSpan("freecrawl-index-get-from-gcs", async span => {
       setSpanAttributes(span, {
         "index.operation": "get_from_gcs",
         "index.url": url,
@@ -161,7 +161,7 @@ export async function saveIndexToGCS(
     postprocessorsUsed?: string[];
   },
 ): Promise<void> {
-  return await withSpan("firecrawl-index-save-to-gcs", async span => {
+  return await withSpan("freecrawl-index-save-to-gcs", async span => {
     setSpanAttributes(span, {
       "index.operation": "save_to_gcs",
       "index.id": id,

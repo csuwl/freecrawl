@@ -33,7 +33,7 @@ describe("E2E Tests for v0 API Routes", () => {
           .post("/v0/scrape")
           .set("Authorization", `Bearer invalid-api-key`)
           .set("Content-Type", "application/json")
-          .send({ url: "https://firecrawl.dev" });
+          .send({ url: "https://freecrawl.dev" });
         expect(response.statusCode).toBe(401);
       },
     );
@@ -56,15 +56,15 @@ describe("E2E Tests for v0 API Routes", () => {
         expect(response.body.data.metadata.pageError).toBeUndefined();
         expect(response.body.data.metadata.title).toBe("Roast My Website");
         expect(response.body.data.metadata.description).toBe(
-          "Welcome to Roast My Website, the ultimate tool for putting your website through the wringer! This repository harnesses the power of Firecrawl to scrape and capture screenshots of websites, and then unleashes the latest LLM vision models to mercilessly roast them. 🌶️",
+          "Welcome to Roast My Website, the ultimate tool for putting your website through the wringer! This repository harnesses the power of Freecrawl to scrape and capture screenshots of websites, and then unleashes the latest LLM vision models to mercilessly roast them. 🌶️",
         );
         expect(response.body.data.metadata.keywords).toBe(
-          "Roast My Website,Roast,Website,GitHub,Firecrawl",
+          "Roast My Website,Roast,Website,GitHub,Freecrawl",
         );
         expect(response.body.data.metadata.robots).toBe("follow, index");
         expect(response.body.data.metadata.ogTitle).toBe("Roast My Website");
         expect(response.body.data.metadata.ogDescription).toBe(
-          "Welcome to Roast My Website, the ultimate tool for putting your website through the wringer! This repository harnesses the power of Firecrawl to scrape and capture screenshots of websites, and then unleashes the latest LLM vision models to mercilessly roast them. 🌶️",
+          "Welcome to Roast My Website, the ultimate tool for putting your website through the wringer! This repository harnesses the power of Freecrawl to scrape and capture screenshots of websites, and then unleashes the latest LLM vision models to mercilessly roast them. 🌶️",
         );
         expect(response.body.data.metadata.ogUrl).toBe(
           "https://www.roastmywebsite.ai",
@@ -340,7 +340,7 @@ describe("E2E Tests for v0 API Routes", () => {
           .post("/v0/crawl")
           .set("Authorization", `Bearer invalid-api-key`)
           .set("Content-Type", "application/json")
-          .send({ url: "https://firecrawl.dev" });
+          .send({ url: "https://freecrawl.dev" });
         expect(response.statusCode).toBe(401);
       },
     );
@@ -352,7 +352,7 @@ describe("E2E Tests for v0 API Routes", () => {
           .post("/v0/crawl")
           .set("Authorization", `Bearer ${config.TEST_API_KEY}`)
           .set("Content-Type", "application/json")
-          .send({ url: "https://firecrawl.dev" });
+          .send({ url: "https://freecrawl.dev" });
         expect(response.statusCode).toBe(200);
         expect(response.body).toHaveProperty("jobId");
         expect(response.body.jobId).toMatch(
@@ -556,7 +556,7 @@ describe("E2E Tests for v0 API Routes", () => {
           .post("/v0/crawlWebsitePreview")
           .set("Authorization", `Bearer invalid-api-key`)
           .set("Content-Type", "application/json")
-          .send({ url: "https://firecrawl.dev" });
+          .send({ url: "https://freecrawl.dev" });
         expect(response.statusCode).toBe(401);
       },
     );
@@ -568,7 +568,7 @@ describe("E2E Tests for v0 API Routes", () => {
           .post("/v0/scrape")
           .set("Authorization", `Bearer ${config.TEST_API_KEY}`)
           .set("Content-Type", "application/json")
-          .send({ url: "https://firecrawl.dev", timeout: 1000 });
+          .send({ url: "https://freecrawl.dev", timeout: 1000 });
 
         expect(response.statusCode).toBe(408);
       },
@@ -644,7 +644,7 @@ describe("E2E Tests for v0 API Routes", () => {
           .post("/v0/crawl")
           .set("Authorization", `Bearer ${config.TEST_API_KEY}`)
           .set("Content-Type", "application/json")
-          .send({ url: "https://firecrawl.dev/blog" });
+          .send({ url: "https://freecrawl.dev/blog" });
         expect(crawlResponse.statusCode).toBe(200);
 
         let isCompleted = false;
@@ -674,7 +674,7 @@ describe("E2E Tests for v0 API Routes", () => {
         expect(completedResponse.body.data[0]).toHaveProperty("content");
         expect(completedResponse.body.data[0]).toHaveProperty("markdown");
         expect(completedResponse.body.data[0]).toHaveProperty("metadata");
-        expect(completedResponse.body.data[0].content).toContain("Firecrawl");
+        expect(completedResponse.body.data[0].content).toContain("Freecrawl");
         expect(completedResponse.body.data[0].metadata.pageStatusCode).toBe(
           200,
         );
@@ -686,7 +686,7 @@ describe("E2E Tests for v0 API Routes", () => {
           doc =>
             doc.metadata &&
             doc.metadata.sourceURL &&
-            doc.metadata.sourceURL.includes("firecrawl.dev/blog"),
+            doc.metadata.sourceURL.includes("freecrawl.dev/blog"),
         );
 
         expect(childrenLinks.length).toBe(completedResponse.body.data.length);

@@ -41,8 +41,8 @@ describe("Search Query Builder", () => {
     });
 
     it("should handle multiple simple categories", () => {
-      const result = buildSearchQuery("firecrawl", ["github", "research"]);
-      expect(result.query).toContain("firecrawl (");
+      const result = buildSearchQuery("freecrawl", ["github", "research"]);
+      expect(result.query).toContain("freecrawl (");
       expect(result.query).toContain("site:github.com");
       expect(result.query).toContain("site:arxiv.org");
       expect(result.query).toContain(" OR ");

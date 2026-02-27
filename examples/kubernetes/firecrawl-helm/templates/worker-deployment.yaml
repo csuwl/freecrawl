@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "firecrawl.fullname" . }}-worker
+  name: {{ include "freecrawl.fullname" . }}-worker
   labels:
-    app: {{ include "firecrawl.name" . }}-worker
+    app: {{ include "freecrawl.name" . }}-worker
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ include "firecrawl.name" . }}-worker
+      app: {{ include "freecrawl.name" . }}-worker
   template:
     metadata:
       labels:
-        app: {{ include "firecrawl.name" . }}-worker
+        app: {{ include "freecrawl.name" . }}-worker
     spec:
       {{- if .Values.image.dockerSecretEnabled }}
       imagePullSecrets:
@@ -28,6 +28,6 @@ spec:
               value: "worker"
           envFrom:
             - configMapRef:
-                name: {{ include "firecrawl.fullname" . }}-config
+                name: {{ include "freecrawl.fullname" . }}-config
             - secretRef:
-                name: {{ include "firecrawl.fullname" . }}-secret
+                name: {{ include "freecrawl.fullname" . }}-secret

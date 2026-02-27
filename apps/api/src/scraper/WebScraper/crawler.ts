@@ -7,7 +7,7 @@ import robotsParser, { Robot } from "robots-parser";
 import { getURLDepth } from "./utils/maxDepthUtils";
 import { logger as _logger } from "../../lib/logger";
 import { redisEvictConnection } from "../../services/redis";
-import { extractLinks } from "@mendable/firecrawl-rs";
+import { extractLinks } from "@mendable/freecrawl-rs";
 import {
   fetchRobotsTxt,
   createRobotsChecker,
@@ -15,7 +15,7 @@ import {
 } from "../../lib/robots-txt";
 import { ScrapeJobTimeoutError } from "../../lib/error";
 import { ScrapeOptions } from "../../controllers/v2/types";
-import { filterLinks, filterUrl } from "@mendable/firecrawl-rs";
+import { filterLinks, filterUrl } from "@mendable/freecrawl-rs";
 
 export const SITEMAP_LIMIT = 25;
 const SITEMAP_MAX_AGE = 7 * 24 * 60 * 60 * 1000;
@@ -30,14 +30,14 @@ enum DenialReason {
   DEPTH_LIMIT = "This URL exceeds the maximum crawl depth you configured. The URL's depth (number of path segments) is greater than the maxDepth parameter. To crawl this URL, increase the maxDepth value in your crawl request.",
   EXCLUDE_PATTERN = "This URL's path matches one of the regex patterns you provided in the excludePaths parameter. URLs matching excludePaths are intentionally skipped during crawling. If this URL should be crawled, adjust your excludePaths patterns.",
   INCLUDE_PATTERN = "This URL's path does not match any of the regex patterns you provided in the includePaths parameter. When includePaths is specified, only URLs matching at least one pattern are crawled. If this URL should be crawled, add a matching pattern to includePaths or remove the includePaths restriction.",
-  ROBOTS_TXT = "This URL is blocked by the website's robots.txt file, which instructs crawlers not to access this page. Firecrawl respects robots.txt by default. To crawl this URL anyway, set ignoreRobotsTxt: true in your crawl request (note: this may violate the website's crawling policies).",
-  FILE_TYPE = "This URL points to a file type that Firecrawl does not crawl (e.g., images, videos, fonts, archives). Firecrawl automatically skips non-document file extensions like .png, .jpg, .mp4, .zip, .css, .js, etc.",
+  ROBOTS_TXT = "This URL is blocked by the website's robots.txt file, which instructs crawlers not to access this page. Freecrawl respects robots.txt by default. To crawl this URL anyway, set ignoreRobotsTxt: true in your crawl request (note: this may violate the website's crawling policies).",
+  FILE_TYPE = "This URL points to a file type that Freecrawl does not crawl (e.g., images, videos, fonts, archives). Freecrawl automatically skips non-document file extensions like .png, .jpg, .mp4, .zip, .css, .js, etc.",
   URL_PARSE_ERROR = "This URL could not be parsed as a valid URL. The URL may be malformed, contain invalid characters, or use an unsupported format. Please verify the URL is correctly formatted.",
-  BACKWARD_CRAWLING = "This URL is outside the initial URL's path hierarchy, and backward crawling is disabled. By default, Firecrawl only crawls URLs that are 'below' or 'within' the starting URL path. To crawl this URL, either set allowBackwardCrawling: true or set crawlEntireDomain: true to crawl the entire domain.",
-  SOCIAL_MEDIA = "This URL points to a social media platform or is an email link. Firecrawl automatically skips social media links and mailto: links during crawling.",
-  EXTERNAL_LINK = "This URL points to a different domain than the one being crawled, and external links are disabled. By default, Firecrawl only crawls URLs on the same domain as the starting URL. To crawl external links, set allowExternalLinks: true in your crawl request.",
-  SECTION_LINK = "This URL contains a section anchor (#) and points to a specific section of a page rather than a separate page. Firecrawl treats these as duplicates of the base URL and skips them to avoid crawling the same content multiple times.",
-  NON_WEB_PROTOCOL = "This URL uses a non-web protocol (such as mailto:, tel:, ftp:, ssh:, file:, or telnet:) that Firecrawl cannot scrape. Firecrawl only supports HTTP and HTTPS protocols.",
+  BACKWARD_CRAWLING = "This URL is outside the initial URL's path hierarchy, and backward crawling is disabled. By default, Freecrawl only crawls URLs that are 'below' or 'within' the starting URL path. To crawl this URL, either set allowBackwardCrawling: true or set crawlEntireDomain: true to crawl the entire domain.",
+  SOCIAL_MEDIA = "This URL points to a social media platform or is an email link. Freecrawl automatically skips social media links and mailto: links during crawling.",
+  EXTERNAL_LINK = "This URL points to a different domain than the one being crawled, and external links are disabled. By default, Freecrawl only crawls URLs on the same domain as the starting URL. To crawl external links, set allowExternalLinks: true in your crawl request.",
+  SECTION_LINK = "This URL contains a section anchor (#) and points to a specific section of a page rather than a separate page. Freecrawl treats these as duplicates of the base URL and skips them to avoid crawling the same content multiple times.",
+  NON_WEB_PROTOCOL = "This URL uses a non-web protocol (such as mailto:, tel:, ftp:, ssh:, file:, or telnet:) that Freecrawl cannot scrape. Freecrawl only supports HTTP and HTTPS protocols.",
 }
 
 interface FilterLinksResult {
@@ -234,14 +234,14 @@ export class WebCrawler {
             const initialPath = new URL(this.initialUrl).pathname;
             fancyDenialReasons.set(
               key,
-              `This URL's path ("${urlPath}") is outside the initial URL's path hierarchy ("${initialPath}"), and backward crawling is disabled. By default, Firecrawl only crawls URLs that are 'below' or 'within' the starting URL path. To crawl this URL, either set allowBackwardCrawling: true or set crawlEntireDomain: true to crawl the entire domain.`,
+              `This URL's path ("${urlPath}") is outside the initial URL's path hierarchy ("${initialPath}"), and backward crawling is disabled. By default, Freecrawl only crawls URLs that are 'below' or 'within' the starting URL path. To crawl this URL, either set allowBackwardCrawling: true or set crawlEntireDomain: true to crawl the entire domain.`,
             );
             break;
           case "FILE_TYPE":
             const extension = key.split("?")[0].split(".").pop()?.toLowerCase();
             fancyDenialReasons.set(
               key,
-              `This URL points to a file with extension ".${extension}" that Firecrawl does not crawl. Firecrawl automatically skips non-document file extensions like .png, .jpg, .mp4, .zip, .css, .js, etc. to focus on web pages with textual content.`,
+              `This URL points to a file with extension ".${extension}" that Freecrawl does not crawl. Freecrawl automatically skips non-document file extensions like .png, .jpg, .mp4, .zip, .css, .js, etc. to focus on web pages with textual content.`,
             );
             break;
           default:
@@ -389,7 +389,7 @@ export class WebCrawler {
             }
             denialReasons.set(
               link,
-              `This URL's path ("${normalizedLink.pathname}") is outside the initial URL's path hierarchy ("${normalizedInitialUrl.pathname}"), and backward crawling is disabled. By default, Firecrawl only crawls URLs that are 'below' or 'within' the starting URL path. To crawl this URL, either set allowBackwardCrawling: true or set crawlEntireDomain: true to crawl the entire domain.`,
+              `This URL's path ("${normalizedLink.pathname}") is outside the initial URL's path hierarchy ("${normalizedInitialUrl.pathname}"), and backward crawling is disabled. By default, Freecrawl only crawls URLs that are 'below' or 'within' the starting URL path. To crawl this URL, either set allowBackwardCrawling: true or set crawlEntireDomain: true to crawl the entire domain.`,
             );
             return false;
           }
@@ -399,7 +399,7 @@ export class WebCrawler {
           this.ignoreRobotsTxt || skipRobots
             ? true
             : ((this.robots.isAllowed(link, "FireCrawlAgent") ||
-                this.robots.isAllowed(link, "FirecrawlAgent")) ??
+                this.robots.isAllowed(link, "FreecrawlAgent")) ??
               true);
         // Check if the link is disallowed by robots.txt
         if (!isAllowed) {
@@ -412,7 +412,7 @@ export class WebCrawler {
           }
           denialReasons.set(
             link,
-            `This URL is blocked by the website's robots.txt file, which instructs crawlers not to access this page. Firecrawl respects robots.txt by default. To crawl this URL anyway, set ignoreRobotsTxt: true in your crawl request (note: this may violate the website's crawling policies).`,
+            `This URL is blocked by the website's robots.txt file, which instructs crawlers not to access this page. Freecrawl respects robots.txt by default. To crawl this URL anyway, set ignoreRobotsTxt: true in your crawl request (note: this may violate the website's crawling policies).`,
           );
           return false;
         }
@@ -424,7 +424,7 @@ export class WebCrawler {
           const extension = link.split("?")[0].split(".").pop()?.toLowerCase();
           denialReasons.set(
             link,
-            `This URL points to a file with extension ".${extension}" that Firecrawl does not crawl. Firecrawl automatically skips non-document file extensions like .png, .jpg, .mp4, .zip, .css, .js, etc. to focus on web pages with textual content.`,
+            `This URL points to a file with extension ".${extension}" that Freecrawl does not crawl. Freecrawl automatically skips non-document file extensions like .png, .jpg, .mp4, .zip, .css, .js, etc. to focus on web pages with textual content.`,
           );
           return false;
         }
@@ -487,7 +487,7 @@ export class WebCrawler {
     this.robotsTxtUrl = checker.robotsTxtUrl;
     const delay =
       this.robots.getCrawlDelay("FireCrawlAgent") ||
-      this.robots.getCrawlDelay("FirecrawlAgent");
+      this.robots.getCrawlDelay("FreecrawlAgent");
     this.robotsCrawlDelay = delay !== undefined ? delay : null;
 
     const sitemaps = this.robots.getSitemaps();

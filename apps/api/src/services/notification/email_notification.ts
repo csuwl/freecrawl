@@ -22,45 +22,45 @@ type EmailTemplate = {
 
 const emailTemplates: Record<NotificationType, EmailTemplate> = {
   [NotificationType.APPROACHING_LIMIT]: {
-    subject: "You've used 80% of your credit limit - Firecrawl",
-    html: "Hey there,<br/><p>You are approaching your credit limit for this billing period. Your usage right now is around 80% of your total credit limit. Consider upgrading your plan to avoid hitting the limit. Check out our <a href='https://firecrawl.dev/pricing'>pricing page</a> for more info.</p><br/>Thanks,<br/>Firecrawl Team<br/>",
+    subject: "You've used 80% of your credit limit - Freecrawl",
+    html: "Hey there,<br/><p>You are approaching your credit limit for this billing period. Your usage right now is around 80% of your total credit limit. Consider upgrading your plan to avoid hitting the limit. Check out our <a href='https://freecrawl.dev/pricing'>pricing page</a> for more info.</p><br/>Thanks,<br/>Freecrawl Team<br/>",
   },
   [NotificationType.LIMIT_REACHED]: {
     subject:
-      "Credit Limit Reached! Take action now to resume usage - Firecrawl",
-    html: "Hey there,<br/><p>You have reached your credit limit for this billing period. To resume usage, please upgrade your plan. Check out our <a href='https://firecrawl.dev/pricing'>pricing page</a> for more info.</p><br/>Thanks,<br/>Firecrawl Team<br/>",
+      "Credit Limit Reached! Take action now to resume usage - Freecrawl",
+    html: "Hey there,<br/><p>You have reached your credit limit for this billing period. To resume usage, please upgrade your plan. Check out our <a href='https://freecrawl.dev/pricing'>pricing page</a> for more info.</p><br/>Thanks,<br/>Freecrawl Team<br/>",
   },
   [NotificationType.RATE_LIMIT_REACHED]: {
-    subject: "Rate Limit Reached - Firecrawl",
-    html: "Hey there,<br/><p>You've hit one of the Firecrawl endpoint's rate limit! Take a breather and try again in a few moments. If you need higher rate limits, consider upgrading your plan. Check out our <a href='https://firecrawl.dev/pricing'>pricing page</a> for more info.</p><p>If you have any questions, feel free to reach out to us at <a href='mailto:help@firecrawl.com'>help@firecrawl.com</a></p><br/>Thanks,<br/>Firecrawl Team<br/><br/>Ps. this email is only sent once every 7 days if you reach a rate limit.",
+    subject: "Rate Limit Reached - Freecrawl",
+    html: "Hey there,<br/><p>You've hit one of the Freecrawl endpoint's rate limit! Take a breather and try again in a few moments. If you need higher rate limits, consider upgrading your plan. Check out our <a href='https://freecrawl.dev/pricing'>pricing page</a> for more info.</p><p>If you have any questions, feel free to reach out to us at <a href='mailto:help@freecrawl.com'>help@freecrawl.com</a></p><br/>Thanks,<br/>Freecrawl Team<br/><br/>Ps. this email is only sent once every 7 days if you reach a rate limit.",
   },
   [NotificationType.AUTO_RECHARGE_SUCCESS]: {
-    subject: "Auto recharge successful - Firecrawl",
+    subject: "Auto recharge successful - Freecrawl",
     html: (ctx: NotificationContext) => {
       const creditsText =
         ctx.autoRechargeCredits != null
           ? `${ctx.autoRechargeCredits.toLocaleString()} credits`
           : "additional credits";
-      return `Hey there,<br/><p>Your account was successfully recharged with ${creditsText} because your remaining credits were below the threshold. Consider upgrading your plan at <a href='https://firecrawl.dev/pricing'>firecrawl.dev/pricing</a> to avoid hitting the limit.</p><br/>Thanks,<br/>Firecrawl Team<br/>`;
+      return `Hey there,<br/><p>Your account was successfully recharged with ${creditsText} because your remaining credits were below the threshold. Consider upgrading your plan at <a href='https://freecrawl.dev/pricing'>freecrawl.dev/pricing</a> to avoid hitting the limit.</p><br/>Thanks,<br/>Freecrawl Team<br/>`;
     },
   },
   [NotificationType.AUTO_RECHARGE_FAILED]: {
-    subject: "Auto recharge failed - Firecrawl",
-    html: "Hey there,<br/><p>Your auto recharge failed. Please try again manually. If the issue persists, please reach out to us at <a href='mailto:help@firecrawl.com'>help@firecrawl.com</a></p><br/>Thanks,<br/>Firecrawl Team<br/>",
+    subject: "Auto recharge failed - Freecrawl",
+    html: "Hey there,<br/><p>Your auto recharge failed. Please try again manually. If the issue persists, please reach out to us at <a href='mailto:help@freecrawl.com'>help@freecrawl.com</a></p><br/>Thanks,<br/>Freecrawl Team<br/>",
   },
   [NotificationType.AUTO_RECHARGE_FREQUENT]: {
-    subject: "Consider upgrading your plan - Firecrawl",
-    html: "Hey there,<br/><p>We've noticed frequent auto-recharges on your account. To optimize your costs and get better features, we recommend upgrading to a higher tier plan with:</p><ul><li>More included credits</li><li>Better pricing per credit</li><li>Higher rate limits</li></ul><p>View our plans at <a href='https://firecrawl.dev/pricing'>firecrawl.dev/pricing</a>. If none fit your needs, email us at <a href='mailto:help@firecrawl.com'>help@firecrawl.com</a> with 'Scale pricing' in the subject and we'll quickly help you move to a scale plan.</p><br/>Thanks,<br/>Firecrawl Team<br/>",
+    subject: "Consider upgrading your plan - Freecrawl",
+    html: "Hey there,<br/><p>We've noticed frequent auto-recharges on your account. To optimize your costs and get better features, we recommend upgrading to a higher tier plan with:</p><ul><li>More included credits</li><li>Better pricing per credit</li><li>Higher rate limits</li></ul><p>View our plans at <a href='https://freecrawl.dev/pricing'>freecrawl.dev/pricing</a>. If none fit your needs, email us at <a href='mailto:help@freecrawl.com'>help@freecrawl.com</a> with 'Scale pricing' in the subject and we'll quickly help you move to a scale plan.</p><br/>Thanks,<br/>Freecrawl Team<br/>",
   },
   [NotificationType.CONCURRENCY_LIMIT_REACHED]: {
-    subject: "You could be scraping faster - Firecrawl",
+    subject: "You could be scraping faster - Freecrawl",
     html: `Hey there,
     <br/>
     <p>We've improved our system by transitioning to concurrency limits, allowing faster scraping by default and eliminating* the often rate limit errors.</p>
-    <p>You're hitting the concurrency limit for your plan quite often, which means Firecrawl can't scrape as fast as it could. But don't worry, it is not failing your requests and you are still getting your results.</p>
-    <p>This is just to let you know that you could be scraping faster by having more concurrent browsers. Consider upgrading your plan at <a href='https://firecrawl.dev/pricing'>firecrawl.dev/pricing</a>.</p>
-    <p>You can modify your notification settings anytime at <a href='https://www.firecrawl.dev/app/account-settings'>firecrawl.dev/app/account-settings</a>.</p>
-    <br/>Thanks,<br/>Firecrawl Team<br/>`,
+    <p>You're hitting the concurrency limit for your plan quite often, which means Freecrawl can't scrape as fast as it could. But don't worry, it is not failing your requests and you are still getting your results.</p>
+    <p>This is just to let you know that you could be scraping faster by having more concurrent browsers. Consider upgrading your plan at <a href='https://freecrawl.dev/pricing'>freecrawl.dev/pricing</a>.</p>
+    <p>You can modify your notification settings anytime at <a href='https://www.freecrawl.dev/app/account-settings'>freecrawl.dev/app/account-settings</a>.</p>
+    <br/>Thanks,<br/>Freecrawl Team<br/>`,
   },
 };
 
@@ -162,9 +162,9 @@ async function sendEmailNotification(
         : template.html;
 
     const { error } = await resend.emails.send({
-      from: "Firecrawl <notifications@notifications.firecrawl.dev>",
+      from: "Freecrawl <notifications@notifications.freecrawl.dev>",
       to: [email],
-      reply_to: "help@firecrawl.com",
+      reply_to: "help@freecrawl.com",
       subject: template.subject,
       html,
     });

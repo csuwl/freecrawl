@@ -1,7 +1,7 @@
 /**
  * E2E tests for v2 map (translated from Python tests)
  */
-import Firecrawl from "../../../index";
+import Freecrawl from "../../../index";
 import { config } from "dotenv";
 import { getIdentity, getApiUrl } from "./utils/idmux";
 import { describe, test, expect, beforeAll } from "@jest/globals";
@@ -9,18 +9,18 @@ import { describe, test, expect, beforeAll } from "@jest/globals";
 config();
 
 const API_URL = getApiUrl();
-let client: Firecrawl;
+let client: Freecrawl;
 
 beforeAll(async () => {
   const { apiKey } = await getIdentity({ name: "js-e2e-map" });
-  client = new Firecrawl({ apiKey, apiUrl: API_URL });
+  client = new Freecrawl({ apiKey, apiUrl: API_URL });
 });
 
 describe("v2.map e2e", () => {
 
   test("minimal request", async () => {
     if (!client) throw new Error();
-    const resp = await client.map("https://docs.firecrawl.dev");
+    const resp = await client.map("https://docs.freecrawl.dev");
 
     expect(resp).toBeTruthy();
     expect(Array.isArray(resp.links)).toBe(true);
@@ -34,7 +34,7 @@ describe("v2.map e2e", () => {
 
   test.each(["only", "skip", "include"]) ("with options sitemap=%s", async (sitemap) => {
     if (!client) throw new Error();
-    const resp = await client.map("https://docs.firecrawl.dev", {
+    const resp = await client.map("https://docs.freecrawl.dev", {
       search: "docs",
       includeSubdomains: true,
       limit: 10,

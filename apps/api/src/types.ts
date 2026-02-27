@@ -103,7 +103,7 @@ export interface RunWebScraperParams {
   costTracking: CostTracking;
 }
 
-export interface FirecrawlScrapeResponse {
+export interface FreecrawlScrapeResponse {
   statusCode: number;
   body: {
     status: string;
@@ -112,7 +112,7 @@ export interface FirecrawlScrapeResponse {
   error?: string;
 }
 
-export interface FirecrawlCrawlResponse {
+export interface FreecrawlCrawlResponse {
   statusCode: number;
   body: {
     status: string;
@@ -121,7 +121,7 @@ export interface FirecrawlCrawlResponse {
   error?: string;
 }
 
-export interface FirecrawlCrawlStatusResponse {
+export interface FreecrawlCrawlStatusResponse {
   statusCode: number;
   body: {
     status: string;

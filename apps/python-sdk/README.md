@@ -1,38 +1,38 @@
-# Firecrawl Python SDK
+# Freecrawl Python SDK
 
-The Firecrawl Python SDK is a library that allows you to easily scrape and crawl websites, and output the data in a format ready for use with language models (LLMs). It provides a simple and intuitive interface for interacting with the Firecrawl API.
+The Freecrawl Python SDK is a library that allows you to easily scrape and crawl websites, and output the data in a format ready for use with language models (LLMs). It provides a simple and intuitive interface for interacting with the Freecrawl API.
 
 ## Installation
 
-To install the Firecrawl Python SDK, you can use pip:
+To install the Freecrawl Python SDK, you can use pip:
 
 ```bash 
-pip install firecrawl-py
+pip install freecrawl-py
 ```
 
 ## Usage
 
-1. Get an API key from [firecrawl.dev](https://firecrawl.dev)
-2. Set the API key as an environment variable named `FIRECRAWL_API_KEY` or pass it as a parameter to the `Firecrawl` class.
+1. Get an API key from [freecrawl.dev](https://freecrawl.dev)
+2. Set the API key as an environment variable named `FIRECRAWL_API_KEY` or pass it as a parameter to the `Freecrawl` class.
 
 Here's an example of how to use the SDK:
 
 ```python 
-from firecrawl import Firecrawl
-from firecrawl.types import ScrapeOptions
+from freecrawl import Freecrawl
+from freecrawl.types import ScrapeOptions
 
-firecrawl = Firecrawl(api_key="fc-YOUR_API_KEY")
+freecrawl = Freecrawl(api_key="fc-YOUR_API_KEY")
 
 # Scrape a website (v2):
-data = firecrawl.scrape(
-  'https://firecrawl.dev', 
+data = freecrawl.scrape(
+  'https://freecrawl.dev', 
   formats=['markdown', 'html']
 )
 print(data)
 
 # Crawl a website (v2 waiter):
-crawl_status = firecrawl.crawl(
-  'https://firecrawl.dev', 
+crawl_status = freecrawl.crawl(
+  'https://freecrawl.dev', 
   limit=100, 
   scrape_options=ScrapeOptions(formats=['markdown', 'html'])
 )
@@ -45,7 +45,7 @@ To scrape a single URL, use the `scrape` method. It takes the URL as a parameter
 
 ```python 
 # Scrape a website (v2):
-scrape_result = firecrawl.scrape('https://firecrawl.dev', formats=['markdown', 'html'])
+scrape_result = freecrawl.scrape('https://freecrawl.dev', formats=['markdown', 'html'])
 print(scrape_result)
 ```
 
@@ -54,8 +54,8 @@ print(scrape_result)
 To crawl a website, use the `crawl` method. It takes the starting URL and optional parameters as arguments. You can control depth, limits, formats, and more.
 
 ```python 
-crawl_status = firecrawl.crawl(
-  'https://firecrawl.dev', 
+crawl_status = freecrawl.crawl(
+  'https://freecrawl.dev', 
   limit=100, 
   scrape_options=ScrapeOptions(formats=['markdown', 'html']),
   poll_interval=30
@@ -70,8 +70,8 @@ print(crawl_status)
 To enqueue a crawl asynchronously, use `start_crawl`. It returns the crawl `ID` which you can use to check the status of the crawl job.
 
 ```python 
-crawl_job = firecrawl.start_crawl(
-  'https://firecrawl.dev', 
+crawl_job = freecrawl.start_crawl(
+  'https://freecrawl.dev', 
   limit=100, 
   scrape_options=ScrapeOptions(formats=['markdown', 'html']),
 )
@@ -83,7 +83,7 @@ print(crawl_job)
 To check the status of a crawl job, use the `get_crawl_status` method. It takes the job ID as a parameter and returns the current status of the crawl job.
 
 ```python 
-crawl_status = firecrawl.get_crawl_status("<crawl_id>")
+crawl_status = freecrawl.get_crawl_status("<crawl_id>")
 print(crawl_status)
 ```
 
@@ -92,25 +92,25 @@ print(crawl_status)
 Crawl and batch scrape status responses may include a `next` URL when more data is available. The SDK auto-paginates by default; to page manually, disable auto-pagination and pass the opaque `next` URL back to the SDK.
 
 ```python
-from firecrawl.v2.types import PaginationConfig
+from freecrawl.v2.types import PaginationConfig
 
 # Crawl: fetch one page at a time
-crawl_job = firecrawl.start_crawl("https://firecrawl.dev", limit=100)
-status = firecrawl.get_crawl_status(
+crawl_job = freecrawl.start_crawl("https://freecrawl.dev", limit=100)
+status = freecrawl.get_crawl_status(
   crawl_job.id,
   pagination_config=PaginationConfig(auto_paginate=False),
 )
 if status.next:
-  page2 = firecrawl.get_crawl_status_page(status.next)
+  page2 = freecrawl.get_crawl_status_page(status.next)
 
 # Batch scrape: fetch one page at a time
-batch_job = firecrawl.start_batch_scrape(["https://firecrawl.dev"])
-status = firecrawl.get_batch_scrape_status(
+batch_job = freecrawl.start_batch_scrape(["https://freecrawl.dev"])
+status = freecrawl.get_batch_scrape_status(
   batch_job.id,
   pagination_config=PaginationConfig(auto_paginate=False),
 )
 if status.next:
-  page2 = firecrawl.get_batch_scrape_status_page(status.next)
+  page2 = freecrawl.get_batch_scrape_status_page(status.next)
 ```
 
 ### Cancelling a Crawl
@@ -118,7 +118,7 @@ if status.next:
 To cancel an asynchronous crawl job, use the `cancel_crawl` method. It takes the job ID of the asynchronous crawl as a parameter and returns the cancellation status.
 
 ```python 
-cancel_crawl = firecrawl.cancel_crawl(id)
+cancel_crawl = freecrawl.cancel_crawl(id)
 print(cancel_crawl)
 ```
 
@@ -128,7 +128,7 @@ Use `map` to generate a list of URLs from a website. Options let you customize t
 
 ```python 
 # Map a website (v2):
-map_result = firecrawl.map('https://firecrawl.dev')
+map_result = freecrawl.map('https://freecrawl.dev')
 print(map_result)
 ```
 
@@ -159,7 +159,7 @@ def on_done(detail):
     # Function to start the crawl and watch process
 async def start_crawl_and_watch():
     # Initiate the crawl job and get the watcher
-    watcher = app.crawl_url_and_watch('firecrawl.dev', exclude_paths=['blog/*'], limit=5)
+    watcher = app.crawl_url_and_watch('freecrawl.dev', exclude_paths=['blog/*'], limit=5)
 
     # Add event listeners
     watcher.add_event_listener("document", on_document)
@@ -175,39 +175,39 @@ await start_crawl_and_watch()
 
 ## Error Handling
 
-The SDK handles errors returned by the Firecrawl API and raises appropriate exceptions. If an error occurs during a request, an exception will be raised with a descriptive error message.
+The SDK handles errors returned by the Freecrawl API and raises appropriate exceptions. If an error occurs during a request, an exception will be raised with a descriptive error message.
 
 ## Async Class
 
-For async operations, you can use the `AsyncFirecrawl` class. Its methods mirror the `Firecrawl` class, but you `await` them.
+For async operations, you can use the `AsyncFreecrawl` class. Its methods mirror the `Freecrawl` class, but you `await` them.
 
 ```python 
-from firecrawl import AsyncFirecrawl
+from freecrawl import AsyncFreecrawl
 
-firecrawl = AsyncFirecrawl(api_key="YOUR_API_KEY")
+freecrawl = AsyncFreecrawl(api_key="YOUR_API_KEY")
 
 # Async Scrape (v2)
 async def example_scrape():
-  scrape_result = await firecrawl.scrape(url="https://example.com")
+  scrape_result = await freecrawl.scrape(url="https://example.com")
   print(scrape_result)
 
 # Async Crawl (v2)
 async def example_crawl():
-  crawl_result = await firecrawl.crawl(url="https://example.com")
+  crawl_result = await freecrawl.crawl(url="https://example.com")
   print(crawl_result)
 ```
 
 ## v1 compatibility
 
-For legacy code paths, v1 remains available under `firecrawl.v1` with the original method names.
+For legacy code paths, v1 remains available under `freecrawl.v1` with the original method names.
 
 ```python
-from firecrawl import Firecrawl
+from freecrawl import Freecrawl
 
-firecrawl = Firecrawl(api_key="YOUR_API_KEY")
+freecrawl = Freecrawl(api_key="YOUR_API_KEY")
 
 # v1 methods (feature‑frozen)
-doc_v1 = firecrawl.v1.scrape_url('https://firecrawl.dev', formats=['markdown', 'html'])
-crawl_v1 = firecrawl.v1.crawl_url('https://firecrawl.dev', limit=100)
-map_v1 = firecrawl.v1.map_url('https://firecrawl.dev')
+doc_v1 = freecrawl.v1.scrape_url('https://freecrawl.dev', formats=['markdown', 'html'])
+crawl_v1 = freecrawl.v1.crawl_url('https://freecrawl.dev', limit=100)
+map_v1 = freecrawl.v1.map_url('https://freecrawl.dev')
 ```

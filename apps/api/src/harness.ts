@@ -441,7 +441,7 @@ async function buildNuqPostgresImage(runtime: string): Promise<void> {
   logger.info("Building nuq-postgres Docker image");
   const build = execForward(
     `${runtime}@build`,
-    `${runtime} build -t firecrawl-nuq-postgres:latest ${NUQ_POSTGRES_PATH}`,
+    `${runtime} build -t freecrawl-nuq-postgres:latest ${NUQ_POSTGRES_PATH}`,
   );
   await build.promise;
   logger.success("nuq-postgres image built");
@@ -454,7 +454,7 @@ async function startNuqPostgresContainer(
   logger.info(`Starting PostgreSQL container: ${containerName}`);
   const start = execForward(
     `${runtime}@start`,
-    `${runtime} run -d --name ${containerName} -p 5432:5432 -e POSTGRES_PASSWORD=${shellEscape(POSTGRES_PASSWORD)} -e POSTGRES_USER=${shellEscape(POSTGRES_USER)} -e POSTGRES_DB=${shellEscape(POSTGRES_DB)} firecrawl-nuq-postgres:latest`,
+    `${runtime} run -d --name ${containerName} -p 5432:5432 -e POSTGRES_PASSWORD=${shellEscape(POSTGRES_PASSWORD)} -e POSTGRES_USER=${shellEscape(POSTGRES_USER)} -e POSTGRES_DB=${shellEscape(POSTGRES_DB)} freecrawl-nuq-postgres:latest`,
   );
   await start.promise;
   logger.success(`PostgreSQL container started: ${containerName}`);
@@ -532,7 +532,7 @@ async function setupNuqPostgres(): Promise<Services["nuqPostgres"]> {
 
   logger.success(`Using container runtime: ${runtime}`);
 
-  const containerName = "firecrawl-nuq-postgres";
+  const containerName = "freecrawl-nuq-postgres";
 
   // Stop and remove any existing container
   await stopAndRemoveContainer(runtime, containerName);
@@ -637,7 +637,7 @@ async function setupNuqRabbitMQ(): Promise<Services["nuqRabbitMQ"]> {
 
   logger.success(`Using container runtime: ${runtime}`);
 
-  const containerName = "firecrawl-nuq-rabbitmq";
+  const containerName = "freecrawl-nuq-rabbitmq";
 
   // Stop and remove any existing container
   await stopAndRemoveContainer(runtime, containerName);

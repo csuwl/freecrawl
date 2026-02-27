@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "firecrawl.fullname" . }}-api
+  name: {{ include "freecrawl.fullname" . }}-api
   labels:
-    app: {{ include "firecrawl.name" . }}-api
+    app: {{ include "freecrawl.name" . }}-api
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ include "firecrawl.name" . }}-api
+      app: {{ include "freecrawl.name" . }}-api
   template:
     metadata:
       labels:
-        app: {{ include "firecrawl.name" . }}-api
+        app: {{ include "freecrawl.name" . }}-api
     spec:
       {{- if .Values.image.dockerSecretEnabled }}
       imagePullSecrets:
@@ -30,9 +30,9 @@ spec:
               value: "app"
           envFrom:
             - configMapRef:
-                name: {{ include "firecrawl.fullname" . }}-config
+                name: {{ include "freecrawl.fullname" . }}-config
             - secretRef:
-                name: {{ include "firecrawl.fullname" . }}-secret
+                name: {{ include "freecrawl.fullname" . }}-secret
           livenessProbe:
             httpGet:
               path: /v0/health/liveness

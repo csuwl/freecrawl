@@ -15,7 +15,7 @@ A powerful web crawler that uses Google's Gemini 2.5 Pro model to intelligently 
 
 - Python 3.8+
 - Google Cloud API key with Gemini API access
-- Firecrawl API key
+- Freecrawl API key
 
 ## Installation
 
@@ -41,7 +41,7 @@ cp .env.example .env
 4. Add your API keys to the `.env` file:
 
 ```
-FIRECRAWL_API_KEY=your_firecrawl_api_key
+FIRECRAWL_API_KEY=your_freecrawl_api_key
 GEMINI_API_KEY=your_gemini_api_key
 ```
 

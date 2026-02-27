@@ -69,10 +69,10 @@ type InferredJsonFromOptions<Opts> = Opts extends { formats?: infer Fmts }
 /**
  * Configuration for the v2 client transport.
  */
-export interface FirecrawlClientOptions {
+export interface FreecrawlClientOptions {
   /** API key (falls back to FIRECRAWL_API_KEY). */
   apiKey?: string | null;
-  /** API base URL (falls back to FIRECRAWL_API_URL or https://api.firecrawl.dev). */
+  /** API base URL (falls back to FIRECRAWL_API_URL or https://api.freecrawl.dev). */
   apiUrl?: string | null;
   /** Per-request timeout in milliseconds (optional). */
   timeoutMs?: number;
@@ -83,23 +83,23 @@ export interface FirecrawlClientOptions {
 }
 
 /**
- * Firecrawl v2 client. Provides typed access to all v2 endpoints and utilities.
+ * Freecrawl v2 client. Provides typed access to all v2 endpoints and utilities.
  */
 
-export class FirecrawlClient {
+export class FreecrawlClient {
   private readonly http: HttpClient;
 
   private isCloudService(url: string): boolean {
-    return url.includes('api.firecrawl.dev');
+    return url.includes('api.freecrawl.dev');
   }
 
   /**
    * Create a v2 client.
    * @param options Transport configuration (API key, base URL, timeouts, retries).
    */
-  constructor(options: FirecrawlClientOptions = {}) {
+  constructor(options: FreecrawlClientOptions = {}) {
     const apiKey = options.apiKey ?? process.env.FIRECRAWL_API_KEY ?? "";
-    const apiUrl = (options.apiUrl ?? process.env.FIRECRAWL_API_URL ?? "https://api.firecrawl.dev").replace(/\/$/, "");
+    const apiUrl = (options.apiUrl ?? process.env.FIRECRAWL_API_URL ?? "https://api.freecrawl.dev").replace(/\/$/, "");
 
     if (this.isCloudService(apiUrl) && !apiKey) {
       throw new Error("API key is required for the cloud API. Set FIRECRAWL_API_KEY env or pass apiKey.");
@@ -256,7 +256,7 @@ export class FirecrawlClient {
    * @param args Extraction request (urls, schema or prompt, flags).
    * @returns Job id or processing state.
    * @deprecated The extract endpoint is in maintenance mode and its use is discouraged.
-   * Review https://docs.firecrawl.dev/developer-guides/usage-guides/choosing-the-data-extractor to find a replacement.
+   * Review https://docs.freecrawl.dev/developer-guides/usage-guides/choosing-the-data-extractor to find a replacement.
    */
   async startExtract(args: Parameters<typeof startExtract>[1]): Promise<ExtractResponse> {
     return startExtract(this.http, args);
@@ -265,7 +265,7 @@ export class FirecrawlClient {
    * Get extract job status/data.
    * @param jobId Extract job id.
    * @deprecated The extract endpoint is in maintenance mode and its use is discouraged.
-   * Review https://docs.firecrawl.dev/developer-guides/usage-guides/choosing-the-data-extractor to find a replacement.
+   * Review https://docs.freecrawl.dev/developer-guides/usage-guides/choosing-the-data-extractor to find a replacement.
    */
   async getExtractStatus(jobId: string): Promise<ExtractResponse> {
     return getExtractStatus(this.http, jobId);
@@ -275,7 +275,7 @@ export class FirecrawlClient {
    * @param args Extraction request plus waiter controls (pollInterval, timeout seconds).
    * @returns Final extract response.
    * @deprecated The extract endpoint is in maintenance mode and its use is discouraged.
-   * Review https://docs.firecrawl.dev/developer-guides/usage-guides/choosing-the-data-extractor to find a replacement.
+   * Review https://docs.freecrawl.dev/developer-guides/usage-guides/choosing-the-data-extractor to find a replacement.
    */
   async extract(args: Parameters<typeof startExtract>[1] & { pollInterval?: number; timeout?: number }): Promise<ExtractResponse> {
     return extractWaiter(this.http, args);
@@ -395,5 +395,5 @@ export class FirecrawlClient {
   }
 }
 
-export default FirecrawlClient;
+export default FreecrawlClient;
 

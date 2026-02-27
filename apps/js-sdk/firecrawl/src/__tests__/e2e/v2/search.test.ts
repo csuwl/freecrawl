@@ -1,7 +1,7 @@
 /**
  * E2E tests for v2 search (translated from Python tests)
  */
-import Firecrawl from "../../../index";
+import Freecrawl from "../../../index";
 import type { Document, SearchResultWeb, SearchResultNews, SearchResultImages } from "../../../index";
 import { config } from "dotenv";
 import { getIdentity, getApiUrl } from "./utils/idmux";
@@ -10,11 +10,11 @@ import { describe, test, expect, beforeAll } from "@jest/globals";
 config();
 
 const API_URL = getApiUrl();
-let client: Firecrawl;
+let client: Freecrawl;
 
 beforeAll(async () => {
   const { apiKey } = await getIdentity({ name: "js-e2e-search" });
-  client = new Firecrawl({ apiKey, apiUrl: API_URL });
+  client = new Freecrawl({ apiKey, apiUrl: API_URL });
 });
 
 function collectTexts(entries: any[] | undefined): string[] {
@@ -76,7 +76,7 @@ describe("v2.search e2e", () => {
 
   test("with sources web+news and limit", async () => {
     if (!client) throw new Error();
-    const results = await client.search("firecrawl", { sources: ["web", "news"], limit: 3 });
+    const results = await client.search("freecrawl", { sources: ["web", "news"], limit: 3 });
     expect(results).toBeTruthy();
     expect(results.web).toBeTruthy();
     expect((results.web || []).length).toBeLessThanOrEqual(3);
@@ -92,7 +92,7 @@ describe("v2.search e2e", () => {
       .filter((r): r is SearchResultWeb => !isDocument(r))
       .map(r => (r.description || "").toString().toLowerCase());
     const allWebText = (webTitles.concat(webDescriptions)).join(" ");
-    expect(allWebText.includes("firecrawl")).toBe(true);
+    expect(allWebText.includes("freecrawl")).toBe(true);
   }, 90_000);
 
   test("result structure", async () => {
@@ -135,7 +135,7 @@ describe("v2.search e2e", () => {
           "html",
           { type: "json", prompt: "Extract the title and description from the page", schema },
         ],
-        headers: { "User-Agent": "Firecrawl-Test/1.0" },
+        headers: { "User-Agent": "Freecrawl-Test/1.0" },
         includeTags: ["h1", "h2", "p"],
         excludeTags: ["nav", "footer"],
         onlyMainContent: true,
@@ -221,7 +221,7 @@ describe("v2.search e2e", () => {
       properties: { title: { type: "string" } },
       required: ["title"],
     } as const;
-    const results = await client.search("site:docs.firecrawl.dev", {
+    const results = await client.search("site:docs.freecrawl.dev", {
       limit: 1,
       scrapeOptions: {
         formats: [{ type: "json", prompt: "Extract page title", schema: jsonSchema }],
@@ -233,7 +233,7 @@ describe("v2.search e2e", () => {
 
   test("with summary format, documents include summary when present", async () => {
     if (!client) throw new Error();
-    const results = await client.search("site:firecrawl.dev", {
+    const results = await client.search("site:freecrawl.dev", {
       limit: 1,
       scrapeOptions: { formats: ["summary"] },
     });

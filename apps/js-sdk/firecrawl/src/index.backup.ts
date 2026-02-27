@@ -4,20 +4,20 @@ import { zodToJsonSchema } from "zod-to-json-schema";
 import { TypedEventTarget } from "typescript-event-target";
 
 /**
- * Configuration interface for FirecrawlApp.
+ * Configuration interface for FreecrawlApp.
  * @param apiKey - Optional API key for authentication.
- * @param apiUrl - Optional base URL of the API; defaults to 'https://api.firecrawl.dev'.
+ * @param apiUrl - Optional base URL of the API; defaults to 'https://api.freecrawl.dev'.
  */
-export interface FirecrawlAppConfig {
+export interface FreecrawlAppConfig {
   apiKey?: string | null;
   apiUrl?: string | null;
 }
 
 /**
- * Metadata for a Firecrawl document.
+ * Metadata for a Freecrawl document.
  * Includes various optional properties for document metadata.
  */
-export interface FirecrawlDocumentMetadata {
+export interface FreecrawlDocumentMetadata {
   title?: string;
   description?: string;
   language?: string;
@@ -57,10 +57,10 @@ export interface FirecrawlDocumentMetadata {
 }
 
 /**
- * Document interface for Firecrawl.
- * Represents a document retrieved or processed by Firecrawl.
+ * Document interface for Freecrawl.
+ * Represents a document retrieved or processed by Freecrawl.
  */
-export interface FirecrawlDocument<T = any, ActionsSchema extends (ActionsResult | never) = never> {
+export interface FreecrawlDocument<T = any, ActionsSchema extends (ActionsResult | never) = never> {
   url?: string;
   markdown?: string;
   html?: string;
@@ -69,7 +69,7 @@ export interface FirecrawlDocument<T = any, ActionsSchema extends (ActionsResult
   extract?: T;
   json?: T;
   screenshot?: string;
-  metadata?: FirecrawlDocumentMetadata;
+  metadata?: FreecrawlDocumentMetadata;
   actions: ActionsSchema;
   changeTracking?: {
     previousScrapeAt: string | null;
@@ -195,7 +195,7 @@ export interface ActionsResult {
  * Response interface for scraping operations.
  * Defines the structure of the response received after a scraping operation.
  */
-export interface ScrapeResponse<LLMResult = any, ActionsSchema extends (ActionsResult | never) = never> extends FirecrawlDocument<LLMResult, ActionsSchema> {
+export interface ScrapeResponse<LLMResult = any, ActionsSchema extends (ActionsResult | never) = never> extends FreecrawlDocument<LLMResult, ActionsSchema> {
   success: true;
   warning?: string;
   error?: string;
@@ -270,7 +270,7 @@ export interface CrawlStatusResponse {
   creditsUsed: number;
   expiresAt: Date;
   next?: string;
-  data: FirecrawlDocument<undefined>[];
+  data: FreecrawlDocument<undefined>[];
 };
 
 /**
@@ -285,7 +285,7 @@ export interface BatchScrapeStatusResponse {
   creditsUsed: number;
   expiresAt: Date;
   next?: string;
-  data: FirecrawlDocument<undefined>[];
+  data: FreecrawlDocument<undefined>[];
 };
 
 /**
@@ -366,10 +366,10 @@ export interface ErrorResponse {
 }
 
 /**
- * Custom error class for Firecrawl.
+ * Custom error class for Freecrawl.
  * Extends the built-in Error class to include a status code.
  */
-export class FirecrawlError extends Error {
+export class FreecrawlError extends Error {
   statusCode: number;
   details?: any;
   constructor(message: string, statusCode: number, details?: any) {
@@ -401,7 +401,7 @@ export interface SearchParams {
  */
 export interface SearchResponse {
   success: boolean;
-  data: FirecrawlDocument<undefined>[];
+  data: FreecrawlDocument<undefined>[];
   warning?: string;
   error?: string;
 }
@@ -568,16 +568,16 @@ export interface GenerateLLMsTextStatusResponse {
 }
 
 /**
- * Main class for interacting with the Firecrawl API.
+ * Main class for interacting with the Freecrawl API.
  * Provides methods for scraping, searching, crawling, and mapping web content.
  */
-export default class FirecrawlApp {
+export default class FreecrawlApp {
   public apiKey: string;
   public apiUrl: string;
   public version: string =  "1.25.1";
   
   private isCloudService(url: string): boolean {
-    return url.includes('api.firecrawl.dev');
+    return url.includes('api.freecrawl.dev');
   }
 
   private async getVersion(): Promise<string> {
@@ -595,14 +595,14 @@ export default class FirecrawlApp {
   }
 
   /**
-   * Initializes a new instance of the FirecrawlApp class.
-   * @param config - Configuration options for the FirecrawlApp instance.
+   * Initializes a new instance of the FreecrawlApp class.
+   * @param config - Configuration options for the FreecrawlApp instance.
    */
-  constructor({ apiKey = null, apiUrl = null }: FirecrawlAppConfig) {
-    const baseUrl = apiUrl || "https://api.firecrawl.dev";
+  constructor({ apiKey = null, apiUrl = null }: FreecrawlAppConfig) {
+    const baseUrl = apiUrl || "https://api.freecrawl.dev";
     
     if (this.isCloudService(baseUrl) && typeof apiKey !== "string") {
-      throw new FirecrawlError("No API key provided", 401);
+      throw new FreecrawlError("No API key provided", 401);
     }
 
     this.apiKey = apiKey || '';
@@ -611,7 +611,7 @@ export default class FirecrawlApp {
   }
 
   /**
-   * Scrapes a URL using the Firecrawl API.
+   * Scrapes a URL using the Freecrawl API.
    * @param url - The URL to scrape.
    * @param params - Additional parameters for the scrape request.
    * @returns The response from the scrape operation.
@@ -675,7 +675,7 @@ export default class FirecrawlApp {
             ...responseData.data
           };
         } else {
-          throw new FirecrawlError(`Failed to scrape URL. Error: ${responseData.error}`, response.status);
+          throw new FreecrawlError(`Failed to scrape URL. Error: ${responseData.error}`, response.status);
         }
       } else {
         this.handleError(response, "scrape URL");
@@ -687,7 +687,7 @@ export default class FirecrawlApp {
   }
 
   /**
-   * Searches using the Firecrawl API and optionally scrapes the results.
+   * Searches using the Freecrawl API and optionally scrapes the results.
    * @param query - The search query string.
    * @param params - Optional parameters for the search request.
    * @returns The response from the search operation.
@@ -744,27 +744,27 @@ export default class FirecrawlApp {
         if (responseData.success) {
           return {
             success: true,
-            data: responseData.data as FirecrawlDocument<any>[],
+            data: responseData.data as FreecrawlDocument<any>[],
             warning: responseData.warning,
           };
         } else {
-          throw new FirecrawlError(`Failed to search. Error: ${responseData.error}`, response.status);
+          throw new FreecrawlError(`Failed to search. Error: ${responseData.error}`, response.status);
         }
       } else {
         this.handleError(response, "search");
       }
     } catch (error: any) {
       if (error.response?.data?.error) {
-        throw new FirecrawlError(`Request failed with status code ${error.response.status}. Error: ${error.response.data.error} ${error.response.data.details ? ` - ${JSON.stringify(error.response.data.details)}` : ''}`, error.response.status);
+        throw new FreecrawlError(`Request failed with status code ${error.response.status}. Error: ${error.response.data.error} ${error.response.data.details ? ` - ${JSON.stringify(error.response.data.details)}` : ''}`, error.response.status);
       } else {
-        throw new FirecrawlError(error.message, 500);
+        throw new FreecrawlError(error.message, 500);
       }
     }
     return { success: false, error: "Internal server error.", data: [] };
   }
 
   /**
-   * Initiates a crawl job for a URL using the Firecrawl API.
+   * Initiates a crawl job for a URL using the Freecrawl API.
    * @param url - The URL to crawl.
    * @param params - Additional parameters for the crawl request.
    * @param pollInterval - Time in seconds for job status checks.
@@ -793,9 +793,9 @@ export default class FirecrawlApp {
       }
     } catch (error: any) {
       if (error.response?.data?.error) {
-        throw new FirecrawlError(`Request failed with status code ${error.response.status}. Error: ${error.response.data.error} ${error.response.data.details ? ` - ${JSON.stringify(error.response.data.details)}` : ''}`, error.response.status);
+        throw new FreecrawlError(`Request failed with status code ${error.response.status}. Error: ${error.response.data.error} ${error.response.data.details ? ` - ${JSON.stringify(error.response.data.details)}` : ''}`, error.response.status);
       } else {
-        throw new FirecrawlError(error.message, 500);
+        throw new FreecrawlError(error.message, 500);
       }
     }
     return { success: false, error: "Internal server error." };
@@ -821,16 +821,16 @@ export default class FirecrawlApp {
       }
     } catch (error: any) {
       if (error.response?.data?.error) {
-        throw new FirecrawlError(`Request failed with status code ${error.response.status}. Error: ${error.response.data.error} ${error.response.data.details ? ` - ${JSON.stringify(error.response.data.details)}` : ''}`, error.response.status);
+        throw new FreecrawlError(`Request failed with status code ${error.response.status}. Error: ${error.response.data.error} ${error.response.data.details ? ` - ${JSON.stringify(error.response.data.details)}` : ''}`, error.response.status);
       } else {
-        throw new FirecrawlError(error.message, 500);
+        throw new FreecrawlError(error.message, 500);
       }
     }
     return { success: false, error: "Internal server error." };
   }
 
   /**
-   * Checks the status of a crawl job using the Firecrawl API.
+   * Checks the status of a crawl job using the Freecrawl API.
    * @param id - The ID of the crawl operation.
    * @param getAllData - Paginate through all the pages of documents, returning the full list of all documents. (default: `false`)
    * @param nextURL - The `next` URL from the previous crawl status. Only required if you're not manually increasing `skip`. Only used when `getAllData = false`.
@@ -840,7 +840,7 @@ export default class FirecrawlApp {
    */
   async checkCrawlStatus(id?: string, getAllData = false, nextURL?: string, skip?: number, limit?: number): Promise<CrawlStatusResponse | ErrorResponse> {
     if (!id) {
-      throw new FirecrawlError("No crawl ID provided", 400);
+      throw new FreecrawlError("No crawl ID provided", 400);
     }
 
     const headers: AxiosRequestHeaders = this.prepareHeaders();
@@ -902,7 +902,7 @@ export default class FirecrawlApp {
         this.handleError(response, "check crawl status");
       }
     } catch (error: any) {
-      throw new FirecrawlError(error.message, 500);
+      throw new FreecrawlError(error.message, 500);
     }
     return { success: false, error: "Internal server error." };
   }
@@ -925,13 +925,13 @@ export default class FirecrawlApp {
         this.handleError(response, "check crawl errors");
       }
     } catch (error: any) {
-      throw new FirecrawlError(error.message, 500);
+      throw new FreecrawlError(error.message, 500);
     }
     return { success: false, error: "Internal server error." };
   }
 
   /**
-   * Cancels a crawl job using the Firecrawl API.
+   * Cancels a crawl job using the Freecrawl API.
    * @param id - The ID of the crawl operation.
    * @returns The response from the cancel crawl operation.
    */
@@ -948,7 +948,7 @@ export default class FirecrawlApp {
         this.handleError(response, "cancel crawl job");
       }
     } catch (error: any) {
-      throw new FirecrawlError(error.message, 500);
+      throw new FreecrawlError(error.message, 500);
     }
     return { success: false, error: "Internal server error." };
   }
@@ -972,11 +972,11 @@ export default class FirecrawlApp {
       return new CrawlWatcher(id, this);
     }
 
-    throw new FirecrawlError("Crawl job failed to start", 400);
+    throw new FreecrawlError("Crawl job failed to start", 400);
   }
 
   /**
-   * Maps a URL using the Firecrawl API.
+   * Maps a URL using the Freecrawl API.
    * @param url - The URL to map.
    * @param params - Additional parameters for the map request.
    * @returns The response from the map operation.
@@ -997,13 +997,13 @@ export default class FirecrawlApp {
         this.handleError(response, "map");
       }
     } catch (error: any) {
-      throw new FirecrawlError(error.message, 500);
+      throw new FreecrawlError(error.message, 500);
     }
     return { success: false, error: "Internal server error." };
   }
 
   /**
-   * Initiates a batch scrape job for multiple URLs using the Firecrawl API.
+   * Initiates a batch scrape job for multiple URLs using the Freecrawl API.
    * @param url - The URLs to scrape.
    * @param params - Additional parameters for the scrape request.
    * @param pollInterval - Time in seconds for job status checks.
@@ -1071,9 +1071,9 @@ export default class FirecrawlApp {
       }
     } catch (error: any) {
       if (error.response?.data?.error) {
-        throw new FirecrawlError(`Request failed with status code ${error.response.status}. Error: ${error.response.data.error} ${error.response.data.details ? ` - ${JSON.stringify(error.response.data.details)}` : ''}`, error.response.status);
+        throw new FreecrawlError(`Request failed with status code ${error.response.status}. Error: ${error.response.data.error} ${error.response.data.details ? ` - ${JSON.stringify(error.response.data.details)}` : ''}`, error.response.status);
       } else {
-        throw new FirecrawlError(error.message, 500);
+        throw new FreecrawlError(error.message, 500);
       }
     }
     return { success: false, error: "Internal server error." };
@@ -1101,9 +1101,9 @@ export default class FirecrawlApp {
       }
     } catch (error: any) {
       if (error.response?.data?.error) {
-        throw new FirecrawlError(`Request failed with status code ${error.response.status}. Error: ${error.response.data.error} ${error.response.data.details ? ` - ${JSON.stringify(error.response.data.details)}` : ''}`, error.response.status);
+        throw new FreecrawlError(`Request failed with status code ${error.response.status}. Error: ${error.response.data.error} ${error.response.data.details ? ` - ${JSON.stringify(error.response.data.details)}` : ''}`, error.response.status);
       } else {
-        throw new FirecrawlError(error.message, 500);
+        throw new FreecrawlError(error.message, 500);
       }
     }
     return { success: false, error: "Internal server error." };
@@ -1130,11 +1130,11 @@ export default class FirecrawlApp {
       return new CrawlWatcher(id, this);
     }
 
-    throw new FirecrawlError("Batch scrape job failed to start", 400);
+    throw new FreecrawlError("Batch scrape job failed to start", 400);
   }
 
   /**
-   * Checks the status of a batch scrape job using the Firecrawl API.
+   * Checks the status of a batch scrape job using the Freecrawl API.
    * @param id - The ID of the batch scrape operation.
    * @param getAllData - Paginate through all the pages of documents, returning the full list of all documents. (default: `false`)
    * @param nextURL - The `next` URL from the previous batch scrape status. Only required if you're not manually increasing `skip`. Only used when `getAllData = false`.
@@ -1144,7 +1144,7 @@ export default class FirecrawlApp {
    */
   async checkBatchScrapeStatus(id?: string, getAllData = false, nextURL?: string, skip?: number, limit?: number): Promise<BatchScrapeStatusResponse | ErrorResponse> {
     if (!id) {
-      throw new FirecrawlError("No batch scrape ID provided", 400);
+      throw new FreecrawlError("No batch scrape ID provided", 400);
     }
 
     const headers: AxiosRequestHeaders = this.prepareHeaders();
@@ -1206,7 +1206,7 @@ export default class FirecrawlApp {
         this.handleError(response, "check batch scrape status");
       }
     } catch (error: any) {
-      throw new FirecrawlError(error.message, 500);
+      throw new FreecrawlError(error.message, 500);
     }
     return { success: false, error: "Internal server error." };
   }
@@ -1229,13 +1229,13 @@ export default class FirecrawlApp {
         this.handleError(response, "check batch scrape errors");
       }
     } catch (error: any) {
-      throw new FirecrawlError(error.message, 500);
+      throw new FreecrawlError(error.message, 500);
     }
     return { success: false, error: "Internal server error." };
   }
 
   /**
-   * Extracts information from URLs using the Firecrawl API.
+   * Extracts information from URLs using the Freecrawl API.
    * Currently in Beta. Expect breaking changes on future minor versions.
    * @param urls - The URLs to extract information from. Optional if using other methods for data extraction.
    * @param params - Additional parameters for the extract request.
@@ -1257,7 +1257,7 @@ export default class FirecrawlApp {
         }
       }
     } catch (error: any) {
-      throw new FirecrawlError("Invalid schema. Schema must be either a valid Zod schema or JSON schema object.", 400);
+      throw new FreecrawlError("Invalid schema. Schema must be either a valid Zod schema or JSON schema object.", 400);
     }
     
     try {
@@ -1286,10 +1286,10 @@ export default class FirecrawlApp {
                 sources: extractStatus?.sources || undefined,
               };
             } else {
-              throw new FirecrawlError(`Failed to extract data. Error: ${extractStatus.error}`, statusResponse.status);
+              throw new FreecrawlError(`Failed to extract data. Error: ${extractStatus.error}`, statusResponse.status);
             }
           } else if (extractStatus.status === "failed" || extractStatus.status === "cancelled") {
-            throw new FirecrawlError(`Extract job ${extractStatus.status}. Error: ${extractStatus.error}`, statusResponse.status);
+            throw new FreecrawlError(`Extract job ${extractStatus.status}. Error: ${extractStatus.error}`, statusResponse.status);
           }
           await new Promise(resolve => setTimeout(resolve, 1000)); // Polling interval
         } while (extractStatus.status !== "completed");
@@ -1297,13 +1297,13 @@ export default class FirecrawlApp {
         this.handleError(response, "extract");
       }
     } catch (error: any) {
-      throw new FirecrawlError(error.message, 500, error.response?.data?.details);
+      throw new FreecrawlError(error.message, 500, error.response?.data?.details);
     }
     return { success: false, error: "Internal server error."};
   }
 
   /**
-   * Initiates an asynchronous extract job for a URL using the Firecrawl API.
+   * Initiates an asynchronous extract job for a URL using the Freecrawl API.
    * @param url - The URL to extract data from.
    * @param params - Additional parameters for the extract request.
    * @param idempotencyKey - Optional idempotency key for the request.
@@ -1329,7 +1329,7 @@ export default class FirecrawlApp {
         }
       }
     } catch (error: any) {
-      throw new FirecrawlError("Invalid schema. Schema must be either a valid Zod schema or JSON schema object.", 400);
+      throw new FreecrawlError("Invalid schema. Schema must be either a valid Zod schema or JSON schema object.", 400);
     }
 
     try {
@@ -1345,7 +1345,7 @@ export default class FirecrawlApp {
         this.handleError(response, "start extract job");
       }
     } catch (error: any) {
-      throw new FirecrawlError(error.message, 500, error.response?.data?.details);
+      throw new FreecrawlError(error.message, 500, error.response?.data?.details);
     }
     return { success: false, error: "Internal server error." };
   }
@@ -1368,7 +1368,7 @@ export default class FirecrawlApp {
         this.handleError(response, "get extract status");
       }
     } catch (error: any) {
-      throw new FirecrawlError(error.message, 500);
+      throw new FreecrawlError(error.message, 500);
     }
   }
 
@@ -1485,7 +1485,7 @@ export default class FirecrawlApp {
               statusData.data = data;
               return statusData;
             } else {
-              throw new FirecrawlError("Crawl job completed but no data was returned", 500);
+              throw new FreecrawlError("Crawl job completed but no data was returned", 500);
             }
           } else if (
             ["active", "paused", "pending", "queued", "waiting", "scraping"].includes(statusData.status)
@@ -1495,7 +1495,7 @@ export default class FirecrawlApp {
               setTimeout(resolve, checkInterval * 1000)
             );
           } else {
-            throw new FirecrawlError(
+            throw new FreecrawlError(
               `Crawl job failed or was stopped. Status: ${statusData.status}`,
               500
             );
@@ -1515,7 +1515,7 @@ export default class FirecrawlApp {
           continue;
         }
         
-        throw new FirecrawlError(error, 500);
+        throw new FreecrawlError(error, 500);
       }
     }
   }
@@ -1576,7 +1576,7 @@ export default class FirecrawlApp {
    */
   handleError(response: AxiosResponse, action: string): void {
     if (!response) {
-      throw new FirecrawlError(
+      throw new FreecrawlError(
         `No response received while trying to ${action}. This may be a network error or the server is unreachable.`,
         0
       );
@@ -1586,13 +1586,13 @@ export default class FirecrawlApp {
       const errorMessage: string =
         response.data.error || "Unknown error occurred";
       const details = response.data.details ? ` - ${JSON.stringify(response.data.details)}` : '';
-      throw new FirecrawlError(
+      throw new FreecrawlError(
         `Failed to ${action}. Status code: ${response.status}. Error: ${errorMessage}${details}`,
         response.status,
         response?.data?.details
       );
     } else {
-      throw new FirecrawlError(
+      throw new FreecrawlError(
         `Unexpected error occurred while trying to ${action}. Status code: ${response.status}`,
         response.status
       );
@@ -1632,7 +1632,7 @@ export default class FirecrawlApp {
       }
 
       if (!response.id) {
-        throw new FirecrawlError(`Failed to start research. No job ID returned.`, 500);
+        throw new FreecrawlError(`Failed to start research. No job ID returned.`, 500);
       }
 
       const jobId = response.id;
@@ -1670,7 +1670,7 @@ export default class FirecrawlApp {
         }
 
         if (researchStatus.status === "failed") {
-          throw new FirecrawlError(
+          throw new FreecrawlError(
             `Research job ${researchStatus.status}. Error: ${researchStatus.error}`, 
             500
           );
@@ -1685,7 +1685,7 @@ export default class FirecrawlApp {
 
       return { success: false, error: "Research job terminated unexpectedly" };
     } catch (error: any) {
-      throw new FirecrawlError(error.message, 500, error.response?.data?.details);
+      throw new FreecrawlError(error.message, 500, error.response?.data?.details);
     }
   }
 
@@ -1729,9 +1729,9 @@ export default class FirecrawlApp {
       }
     } catch (error: any) {
       if (error.response?.data?.error) {
-        throw new FirecrawlError(`Request failed with status code ${error.response.status}. Error: ${error.response.data.error} ${error.response.data.details ? ` - ${JSON.stringify(error.response.data.details)}` : ''}`, error.response.status);
+        throw new FreecrawlError(`Request failed with status code ${error.response.status}. Error: ${error.response.data.error} ${error.response.data.details ? ` - ${JSON.stringify(error.response.data.details)}` : ''}`, error.response.status);
       } else {
-        throw new FirecrawlError(error.message, 500);
+        throw new FreecrawlError(error.message, 500);
       }
     }
     return { success: false, error: "Internal server error." };
@@ -1753,15 +1753,15 @@ export default class FirecrawlApp {
       if (response.status === 200) {
         return response.data;
       } else if (response.status === 404) {
-        throw new FirecrawlError("Deep research job not found", 404);
+        throw new FreecrawlError("Deep research job not found", 404);
       } else {
         this.handleError(response, "check deep research status");
       }
     } catch (error: any) {
       if (error.response?.data?.error) {
-        throw new FirecrawlError(`Request failed with status code ${error.response.status}. Error: ${error.response.data.error} ${error.response.data.details ? ` - ${JSON.stringify(error.response.data.details)}` : ''}`, error.response.status);
+        throw new FreecrawlError(`Request failed with status code ${error.response.status}. Error: ${error.response.data.error} ${error.response.data.details ? ` - ${JSON.stringify(error.response.data.details)}` : ''}`, error.response.status);
       } else {
-        throw new FirecrawlError(error.message, 500);
+        throw new FreecrawlError(error.message, 500);
       }
     }
     return { success: false, error: "Internal server error." };
@@ -1794,7 +1794,7 @@ export default class FirecrawlApp {
       }
 
       if (!response.id) {
-        throw new FirecrawlError(`Failed to start research. No job ID returned.`, 500);
+        throw new FreecrawlError(`Failed to start research. No job ID returned.`, 500);
       }
 
       const jobId = response.id;
@@ -1822,7 +1822,7 @@ export default class FirecrawlApp {
         }
 
         if (researchStatus.status === "failed") {
-          throw new FirecrawlError(
+          throw new FreecrawlError(
             `Research job ${researchStatus.status}. Error: ${researchStatus.error}`, 
             500
           );
@@ -1837,7 +1837,7 @@ export default class FirecrawlApp {
 
       return { success: false, error: "Research job terminated unexpectedly" };
     } catch (error: any) {
-      throw new FirecrawlError(error.message, 500, error.response?.data?.details);
+      throw new FreecrawlError(error.message, 500, error.response?.data?.details);
     }
   }
 
@@ -1864,9 +1864,9 @@ export default class FirecrawlApp {
       }
     } catch (error: any) {
       if (error.response?.data?.error) {
-        throw new FirecrawlError(`Request failed with status code ${error.response.status}. Error: ${error.response.data.error} ${error.response.data.details ? ` - ${JSON.stringify(error.response.data.details)}` : ''}`, error.response.status);
+        throw new FreecrawlError(`Request failed with status code ${error.response.status}. Error: ${error.response.data.error} ${error.response.data.details ? ` - ${JSON.stringify(error.response.data.details)}` : ''}`, error.response.status);
       } else {
-        throw new FirecrawlError(error.message, 500);
+        throw new FreecrawlError(error.message, 500);
       }
     }
     return { success: false, error: "Internal server error." };
@@ -1889,15 +1889,15 @@ export default class FirecrawlApp {
       if (response.status === 200) {
         return response.data;
       } else if (response.status === 404) {
-        throw new FirecrawlError("Deep research job not found", 404);
+        throw new FreecrawlError("Deep research job not found", 404);
       } else {
         this.handleError(response, "check deep research status");
       }
     } catch (error: any) {
       if (error.response?.data?.error) {
-        throw new FirecrawlError(`Request failed with status code ${error.response.status}. Error: ${error.response.data.error} ${error.response.data.details ? ` - ${JSON.stringify(error.response.data.details)}` : ''}`, error.response.status);
+        throw new FreecrawlError(`Request failed with status code ${error.response.status}. Error: ${error.response.data.error} ${error.response.data.details ? ` - ${JSON.stringify(error.response.data.details)}` : ''}`, error.response.status);
       } else {
-        throw new FirecrawlError(error.message, 500);
+        throw new FreecrawlError(error.message, 500);
       }
     }
     return { success: false, error: "Internal server error." };
@@ -1918,7 +1918,7 @@ export default class FirecrawlApp {
       }
 
       if (!response.id) {
-        throw new FirecrawlError(`Failed to start LLMs.txt generation. No job ID returned.`, 500);
+        throw new FreecrawlError(`Failed to start LLMs.txt generation. No job ID returned.`, 500);
       }
 
       const jobId = response.id;
@@ -1936,7 +1936,7 @@ export default class FirecrawlApp {
         }
 
         if (generationStatus.status === "failed") {
-          throw new FirecrawlError(
+          throw new FreecrawlError(
             `LLMs.txt generation job ${generationStatus.status}. Error: ${generationStatus.error}`, 
             500
           );
@@ -1951,7 +1951,7 @@ export default class FirecrawlApp {
 
       return { success: false, error: "LLMs.txt generation job terminated unexpectedly" };
     } catch (error: any) {
-      throw new FirecrawlError(error.message, 500, error.response?.data?.details);
+      throw new FreecrawlError(error.message, 500, error.response?.data?.details);
     }
   }
 
@@ -1978,9 +1978,9 @@ export default class FirecrawlApp {
       }
     } catch (error: any) {
       if (error.response?.data?.error) {
-        throw new FirecrawlError(`Request failed with status code ${error.response.status}. Error: ${error.response.data.error} ${error.response.data.details ? ` - ${JSON.stringify(error.response.data.details)}` : ''}`, error.response.status);
+        throw new FreecrawlError(`Request failed with status code ${error.response.status}. Error: ${error.response.data.error} ${error.response.data.details ? ` - ${JSON.stringify(error.response.data.details)}` : ''}`, error.response.status);
       } else {
-        throw new FirecrawlError(error.message, 500);
+        throw new FreecrawlError(error.message, 500);
       }
     }
     return { success: false, error: "Internal server error." };
@@ -2002,15 +2002,15 @@ export default class FirecrawlApp {
       if (response.status === 200) {
         return response.data;
       } else if (response.status === 404) {
-        throw new FirecrawlError("LLMs.txt generation job not found", 404);
+        throw new FreecrawlError("LLMs.txt generation job not found", 404);
       } else {
         this.handleError(response, "check LLMs.txt generation status");
       }
     } catch (error: any) {
       if (error.response?.data?.error) {
-        throw new FirecrawlError(`Request failed with status code ${error.response.status}. Error: ${error.response.data.error} ${error.response.data.details ? ` - ${JSON.stringify(error.response.data.details)}` : ''}`, error.response.status);
+        throw new FreecrawlError(`Request failed with status code ${error.response.status}. Error: ${error.response.data.error} ${error.response.data.details ? ` - ${JSON.stringify(error.response.data.details)}` : ''}`, error.response.status);
       } else {
-        throw new FirecrawlError(error.message, 500);
+        throw new FreecrawlError(error.message, 500);
       }
     }
     return { success: false, error: "Internal server error." };
@@ -2018,25 +2018,25 @@ export default class FirecrawlApp {
 }
 
 interface CrawlWatcherEvents {
-  document: CustomEvent<FirecrawlDocument<undefined>>,
+  document: CustomEvent<FreecrawlDocument<undefined>>,
   done: CustomEvent<{
     status: CrawlStatusResponse["status"];
-    data: FirecrawlDocument<undefined>[];
+    data: FreecrawlDocument<undefined>[];
   }>,
   error: CustomEvent<{
     status: CrawlStatusResponse["status"],
-    data: FirecrawlDocument<undefined>[],
+    data: FreecrawlDocument<undefined>[],
     error: string,
   }>,
 }
 
 export class CrawlWatcher extends TypedEventTarget<CrawlWatcherEvents> {
   private ws: WebSocket;
-  public data: FirecrawlDocument<undefined>[];
+  public data: FreecrawlDocument<undefined>[];
   public status: CrawlStatusResponse["status"];
   public id: string;
 
-  constructor(id: string, app: FirecrawlApp) {
+  constructor(id: string, app: FreecrawlApp) {
     super();
     this.id = id;
     // replace `http` with `ws` (`http://` -> `ws://` and `https://` -> `wss://`)
@@ -2057,7 +2057,7 @@ export class CrawlWatcher extends TypedEventTarget<CrawlWatcherEvents> {
     
     type DocumentMessage = {
       type: "document",
-      data: FirecrawlDocument<undefined>,
+      data: FreecrawlDocument<undefined>,
     }
     
     type DoneMessage = { type: "done" }

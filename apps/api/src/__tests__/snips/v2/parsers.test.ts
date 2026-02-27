@@ -67,7 +67,7 @@ describeIf(ALLOW_TEST_SUITE_WEBSITE)("Parsers parameter tests", () => {
         );
 
         expect(response.markdown).toBeDefined();
-        expect(response.markdown).toContain("Firecrawl");
+        expect(response.markdown).toContain("Freecrawl");
       },
       scrapeTimeout,
     );
@@ -84,7 +84,7 @@ describeIf(ALLOW_TEST_SUITE_WEBSITE)("Parsers parameter tests", () => {
         );
 
         expect(response.markdown).toBeDefined();
-        expect(response.markdown).toContain("Firecrawl");
+        expect(response.markdown).toContain("Freecrawl");
       },
       scrapeTimeout,
     );

@@ -1,10 +1,10 @@
-# Test Suite for Firecrawl
+# Test Suite for Freecrawl
 
-This document provides an overview of the test suite for the Firecrawl project. It includes instructions on how to run the tests and interpret the results.
+This document provides an overview of the test suite for the Freecrawl project. It includes instructions on how to run the tests and interpret the results.
 
 ## Overview
 
-The test suite is designed to ensure the reliability and performance of the Firecrawl system. It includes a series of automated tests that check various functionalities and performance metrics.
+The test suite is designed to ensure the reliability and performance of the Freecrawl system. It includes a series of automated tests that check various functionalities and performance metrics.
 
 ## Running the Tests
 

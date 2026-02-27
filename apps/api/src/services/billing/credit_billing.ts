@@ -210,7 +210,7 @@ async function supaCheckTeamCredits(
     return {
       success: false,
       message:
-        "Insufficient credits to perform this request. For more credits, you can upgrade your plan at https://firecrawl.dev/pricing.",
+        "Insufficient credits to perform this request. For more credits, you can upgrade your plan at https://freecrawl.dev/pricing.",
       remainingCredits,
       chunk,
     };

@@ -2,7 +2,7 @@
 import { logger } from "../lib/logger";
 
 const DASHBOARD_URL = process.env.DASHBOARD_URL || "http://dashboard:3000";
-const INTERNAL_API_KEY = process.env.INTERNAL_API_KEY || "firecrawl-internal-secret";
+const INTERNAL_API_KEY = process.env.INTERNAL_API_KEY || "freecrawl-internal-secret";
 
 interface UsageCallbackData {
   user_id: string;

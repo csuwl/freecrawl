@@ -1,7 +1,7 @@
 /**
  * E2E tests for v2 extract (proxied to v1), translated from Python tests
  */
-import Firecrawl from "../../../index";
+import Freecrawl from "../../../index";
 import { config } from "dotenv";
 import { getIdentity, getApiUrl } from "./utils/idmux";
 import { describe, test, expect, beforeAll } from "@jest/globals";
@@ -10,16 +10,16 @@ import { z } from "zod";
 config();
 
 const API_URL = getApiUrl();
-let client: Firecrawl;
+let client: Freecrawl;
 
 beforeAll(async () => {
   const { apiKey } = await getIdentity({ name: "js-e2e-extract" });
-  client = new Firecrawl({ apiKey, apiUrl: API_URL });
+  client = new Freecrawl({ apiKey, apiUrl: API_URL });
 });
 
 describe("v2.extract e2e", () => {
   test("extract minimal with prompt", async () => {
-    const resp = await client.extract({ urls: ["https://docs.firecrawl.dev"], prompt: "Extract the main page title" });
+    const resp = await client.extract({ urls: ["https://docs.freecrawl.dev"], prompt: "Extract the main page title" });
     expect(typeof resp.success === "boolean" || resp.success == null).toBe(true);
   }, 120_000);
 
@@ -30,7 +30,7 @@ describe("v2.extract e2e", () => {
       required: ["title"],
     } as const;
     const resp = await client.extract({
-      urls: ["https://docs.firecrawl.dev"],
+      urls: ["https://docs.freecrawl.dev"],
       schema,
       prompt: "Extract the main page title",
       showSources: true,
@@ -51,7 +51,7 @@ describe("v2.extract e2e", () => {
       title: z.string(),
     });
     const resp = await client.extract({
-      urls: ["https://docs.firecrawl.dev"],
+      urls: ["https://docs.freecrawl.dev"],
       schema: schema,
       prompt: "Extract the main page title",
       showSources: true,

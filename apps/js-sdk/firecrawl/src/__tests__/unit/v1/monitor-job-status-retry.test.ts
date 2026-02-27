@@ -1,12 +1,12 @@
-import FirecrawlApp from '../../../index';
+import FreecrawlApp from '../../../index';
 import { describe, test, expect, jest, beforeEach, afterEach } from '@jest/globals';
 
 describe('monitorJobStatus retry logic', () => {
-  let app: FirecrawlApp;
+  let app: FreecrawlApp;
   let originalConsoleWarn: typeof console.warn;
   
   beforeEach(() => {
-    app = new FirecrawlApp({ apiKey: 'test-key', apiUrl: 'https://test.com' });
+    app = new FreecrawlApp({ apiKey: 'test-key', apiUrl: 'https://test.com' });
     originalConsoleWarn = console.warn;
     console.warn = jest.fn();
   });

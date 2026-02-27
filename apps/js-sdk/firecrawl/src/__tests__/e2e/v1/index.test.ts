@@ -1,4 +1,4 @@
-import FirecrawlApp, { type CrawlParams, type CrawlResponse, type CrawlStatusResponse, type MapResponse, type ScrapeResponse } from '../../../index';
+import FreecrawlApp, { type CrawlParams, type CrawlResponse, type CrawlStatusResponse, type MapResponse, type ScrapeResponse } from '../../../index';
 import { v4 as uuidv4 } from 'uuid';
 import dotenv from 'dotenv';
 import { describe, test, expect } from '@jest/globals';
@@ -6,41 +6,41 @@ import { describe, test, expect } from '@jest/globals';
 dotenv.config();
 
 const TEST_API_KEY = process.env.TEST_API_KEY;
-const API_URL = process.env.API_URL ?? "https://api.firecrawl.dev";
+const API_URL = process.env.API_URL ?? "https://api.freecrawl.dev";
 
-describe('FirecrawlApp E2E Tests', () => {
+describe('FreecrawlApp E2E Tests', () => {
   test.concurrent('should throw error for no API key only for cloud service', async () => {
-    if (API_URL.includes('api.firecrawl.dev')) {
+    if (API_URL.includes('api.freecrawl.dev')) {
       // Should throw for cloud service
       expect(() => {
-        new FirecrawlApp({ apiKey: null, apiUrl: API_URL });
+        new FreecrawlApp({ apiKey: null, apiUrl: API_URL });
       }).toThrow("No API key provided");
     } else {
       // Should not throw for self-hosted
       expect(() => {
-        new FirecrawlApp({ apiKey: null, apiUrl: API_URL });
+        new FreecrawlApp({ apiKey: null, apiUrl: API_URL });
       }).not.toThrow();
     }
   });
 
   test.concurrent('should throw error for invalid API key on scrape', async () => {
-    if (API_URL.includes('api.firecrawl.dev')) {
-      const invalidApp = new FirecrawlApp({ apiKey: "invalid_api_key", apiUrl: API_URL });
+    if (API_URL.includes('api.freecrawl.dev')) {
+      const invalidApp = new FreecrawlApp({ apiKey: "invalid_api_key", apiUrl: API_URL });
       await expect(invalidApp.scrapeUrl('https://roastmywebsite.ai')).rejects.toThrow("Unexpected error occurred while trying to scrape URL. Status code: 401");
     } else {
-      const invalidApp = new FirecrawlApp({ apiKey: "invalid_api_key", apiUrl: API_URL });
+      const invalidApp = new FreecrawlApp({ apiKey: "invalid_api_key", apiUrl: API_URL });
       await expect(invalidApp.scrapeUrl('https://roastmywebsite.ai')).resolves.not.toThrow();
     }
   });
 
   test.concurrent('should throw error for unsupported URL on scrape', async () => {
-    const app = new FirecrawlApp({ apiKey: TEST_API_KEY, apiUrl: API_URL });
+    const app = new FreecrawlApp({ apiKey: TEST_API_KEY, apiUrl: API_URL });
     const unsupportedUrl = "https://facebook.com/fake-test";
     await expect(app.scrapeUrl(unsupportedUrl)).rejects.toThrow("do not support this site");
   });
 
   test.concurrent('should return successful response for valid scrape', async () => {
-    const app = new FirecrawlApp({ apiKey: TEST_API_KEY, apiUrl: API_URL });
+    const app = new FreecrawlApp({ apiKey: TEST_API_KEY, apiUrl: API_URL });
 
     const response = await app.scrapeUrl('https://roastmywebsite.ai');
     if (!response.success) {
@@ -49,7 +49,7 @@ describe('FirecrawlApp E2E Tests', () => {
   }, 30000); // 30 seconds timeout
 
   test.concurrent('should return successful response with valid API key and options', async () => {
-    const app = new FirecrawlApp({ apiKey: TEST_API_KEY, apiUrl: API_URL });
+    const app = new FreecrawlApp({ apiKey: TEST_API_KEY, apiUrl: API_URL });
     const response = await app.scrapeUrl(
       'https://roastmywebsite.ai', {
       formats: ['markdown', 'html', 'rawHtml', 'screenshot', 'links'],
@@ -67,7 +67,7 @@ describe('FirecrawlApp E2E Tests', () => {
   }, 30000); // 30 seconds timeout
 
   test.concurrent('should return successful response with valid API key and screenshot fullPage', async () => {
-    const app = new FirecrawlApp({ apiKey: TEST_API_KEY, apiUrl: API_URL });
+    const app = new FreecrawlApp({ apiKey: TEST_API_KEY, apiUrl: API_URL });
     const response = await app.scrapeUrl(
       'https://roastmywebsite.ai', {
       formats: ['screenshot@fullPage'],
@@ -82,7 +82,7 @@ describe('FirecrawlApp E2E Tests', () => {
   }, 30000); // 30 seconds timeout
 
   test.concurrent('should return successful response for valid scrape with PDF file', async () => {
-    const app = new FirecrawlApp({ apiKey: TEST_API_KEY, apiUrl: API_URL });
+    const app = new FreecrawlApp({ apiKey: TEST_API_KEY, apiUrl: API_URL });
     const response = await app.scrapeUrl('https://arxiv.org/pdf/astro-ph/9301001.pdf');
     if (!response.success) {
       throw new Error(response.error);
@@ -93,7 +93,7 @@ describe('FirecrawlApp E2E Tests', () => {
   }, 30000); // 30 seconds timeout
 
   test.concurrent('should return successful response for valid scrape with PDF file without explicit extension', async () => {
-    const app = new FirecrawlApp({ apiKey: TEST_API_KEY, apiUrl: API_URL });
+    const app = new FreecrawlApp({ apiKey: TEST_API_KEY, apiUrl: API_URL });
     const response = await app.scrapeUrl('https://arxiv.org/pdf/astro-ph/9301001');
     if (!response.success) {
       throw new Error(response.error);
@@ -104,7 +104,7 @@ describe('FirecrawlApp E2E Tests', () => {
   }, 30000); // 30 seconds timeout
 
   test.concurrent('should return successful response for valid scrape with PDF file and parsePDF true', async () => {
-    const app = new FirecrawlApp({ apiKey: TEST_API_KEY, apiUrl: API_URL });
+    const app = new FreecrawlApp({ apiKey: TEST_API_KEY, apiUrl: API_URL });
     const response = await app.scrapeUrl('https://arxiv.org/pdf/astro-ph/9301001.pdf', {
       parsePDF: true
     });
@@ -117,7 +117,7 @@ describe('FirecrawlApp E2E Tests', () => {
   }, 30000); // 30 seconds timeout
 
   test.concurrent('should return successful response for valid scrape with PDF file and parsePDF false', async () => {
-    const app = new FirecrawlApp({ apiKey: TEST_API_KEY, apiUrl: API_URL });
+    const app = new FreecrawlApp({ apiKey: TEST_API_KEY, apiUrl: API_URL });
     const response = await app.scrapeUrl('https://arxiv.org/pdf/astro-ph/9301001.pdf', {
       parsePDF: false
     });
@@ -130,17 +130,17 @@ describe('FirecrawlApp E2E Tests', () => {
   }, 30000); // 30 seconds timeout
 
   test.concurrent('should throw error for invalid API key on crawl', async () => {
-    if (API_URL.includes('api.firecrawl.dev')) {
-      const invalidApp = new FirecrawlApp({ apiKey: "invalid_api_key", apiUrl: API_URL });
+    if (API_URL.includes('api.freecrawl.dev')) {
+      const invalidApp = new FreecrawlApp({ apiKey: "invalid_api_key", apiUrl: API_URL });
       await expect(invalidApp.crawlUrl('https://roastmywebsite.ai')).rejects.toThrow("Request failed with status code 401");
     } else {
-      const invalidApp = new FirecrawlApp({ apiKey: "invalid_api_key", apiUrl: API_URL });
+      const invalidApp = new FreecrawlApp({ apiKey: "invalid_api_key", apiUrl: API_URL });
       await expect(invalidApp.crawlUrl('https://roastmywebsite.ai')).resolves.not.toThrow();
     }
   });
 
   test.concurrent('should return successful response for crawl and wait for completion', async () => {
-    const app = new FirecrawlApp({ apiKey: TEST_API_KEY, apiUrl: API_URL });
+    const app = new FreecrawlApp({ apiKey: TEST_API_KEY, apiUrl: API_URL });
     const response = await app.crawlUrl('https://roastmywebsite.ai', {}, 30) as CrawlStatusResponse;
     expect(response).not.toHaveProperty("next"); // wait until done
     expect(response.data.length).toBeGreaterThan(0);
@@ -150,7 +150,7 @@ describe('FirecrawlApp E2E Tests', () => {
   }, 60000); // 60 seconds timeout
 
   test.concurrent('should return successful response for crawl with options and wait for completion', async () => {
-    const app = new FirecrawlApp({ apiKey: TEST_API_KEY, apiUrl: API_URL });
+    const app = new FreecrawlApp({ apiKey: TEST_API_KEY, apiUrl: API_URL });
     const response = await app.crawlUrl('https://roastmywebsite.ai', {
       excludePaths: ['blog/*'],
       includePaths: ['/'],
@@ -181,7 +181,7 @@ describe('FirecrawlApp E2E Tests', () => {
   }, 60000); // 60 seconds timeout
 
   test.concurrent('should handle idempotency key for crawl', async () => {
-    const app = new FirecrawlApp({ apiKey: TEST_API_KEY, apiUrl: API_URL });
+    const app = new FreecrawlApp({ apiKey: TEST_API_KEY, apiUrl: API_URL });
     const uniqueIdempotencyKey = uuidv4();
     const response = await app.asyncCrawlUrl('https://roastmywebsite.ai', {}, uniqueIdempotencyKey) as CrawlResponse;
     expect(response).not.toBeNull();
@@ -191,8 +191,8 @@ describe('FirecrawlApp E2E Tests', () => {
   });
 
   test.concurrent('should check crawl status', async () => {
-    const app = new FirecrawlApp({ apiKey: TEST_API_KEY, apiUrl: API_URL });
-    const response = await app.asyncCrawlUrl('https://firecrawl.dev', { limit: 20, scrapeOptions: { formats: ['markdown', 'html', 'rawHtml', 'screenshot', 'links'] } } as CrawlParams) as CrawlResponse;
+    const app = new FreecrawlApp({ apiKey: TEST_API_KEY, apiUrl: API_URL });
+    const response = await app.asyncCrawlUrl('https://freecrawl.dev', { limit: 20, scrapeOptions: { formats: ['markdown', 'html', 'rawHtml', 'screenshot', 'links'] } } as CrawlParams) as CrawlResponse;
     expect(response).not.toBeNull();
     expect(response.id).toBeDefined();
 
@@ -234,23 +234,23 @@ describe('FirecrawlApp E2E Tests', () => {
   }, 60000); // 60 seconds timeout
 
   test.concurrent('should throw error for invalid API key on map', async () => {
-    if (API_URL.includes('api.firecrawl.dev')) {
-      const invalidApp = new FirecrawlApp({ apiKey: "invalid_api_key", apiUrl: API_URL });
+    if (API_URL.includes('api.freecrawl.dev')) {
+      const invalidApp = new FreecrawlApp({ apiKey: "invalid_api_key", apiUrl: API_URL });
       await expect(invalidApp.mapUrl('https://roastmywebsite.ai')).rejects.toThrow("Request failed with status code 401");
     } else {
-      const invalidApp = new FirecrawlApp({ apiKey: "invalid_api_key", apiUrl: API_URL });
+      const invalidApp = new FreecrawlApp({ apiKey: "invalid_api_key", apiUrl: API_URL });
       await expect(invalidApp.mapUrl('https://roastmywebsite.ai')).resolves.not.toThrow();
     }
   });
 
   test.concurrent('should throw error for unsupported URL on map', async () => {
-    const app = new FirecrawlApp({ apiKey: TEST_API_KEY, apiUrl: API_URL });
+    const app = new FreecrawlApp({ apiKey: TEST_API_KEY, apiUrl: API_URL });
     const unsupportedUrl = "https://facebook.com/fake-test";
     await expect(app.mapUrl(unsupportedUrl)).rejects.toThrow("403");
   });
 
   test.concurrent('should return successful response for valid map', async () => {
-    const app = new FirecrawlApp({ apiKey: TEST_API_KEY, apiUrl: API_URL }); const response = await app.mapUrl('https://roastmywebsite.ai') as MapResponse;
+    const app = new FreecrawlApp({ apiKey: TEST_API_KEY, apiUrl: API_URL }); const response = await app.mapUrl('https://roastmywebsite.ai') as MapResponse;
     expect(response).not.toBeNull();
 
     expect(response.links?.length).toBeGreaterThan(0);
@@ -262,8 +262,8 @@ describe('FirecrawlApp E2E Tests', () => {
 
 
   test('should search with string query', async () => {
-    const app = new FirecrawlApp({ apiUrl: API_URL, apiKey: TEST_API_KEY });
-    const response = await app.search("firecrawl");
+    const app = new FreecrawlApp({ apiUrl: API_URL, apiKey: TEST_API_KEY });
+    const response = await app.search("freecrawl");
     expect(response.success).toBe(true);
     expect(response.data?.length).toBeGreaterThan(0);
     expect(response.data?.[0]?.markdown).not.toBeDefined();
@@ -272,8 +272,8 @@ describe('FirecrawlApp E2E Tests', () => {
   }, 30000); // 30 seconds timeout
 
   test('should search with params object', async () => {
-    const app = new FirecrawlApp({ apiUrl: API_URL, apiKey: TEST_API_KEY });
-    const response = await app.search("firecrawl", {
+    const app = new FreecrawlApp({ apiUrl: API_URL, apiKey: TEST_API_KEY });
+    const response = await app.search("freecrawl", {
       limit: 3,
       lang: 'en',
       country: 'us',
@@ -294,7 +294,7 @@ describe('FirecrawlApp E2E Tests', () => {
   }, 30000); // 30 seconds timeout
 
   test('should handle invalid API key for search', async () => {
-    const app = new FirecrawlApp({ apiUrl: API_URL, apiKey: "invalid_api_key" });
+    const app = new FreecrawlApp({ apiUrl: API_URL, apiKey: "invalid_api_key" });
     await expect(app.search("test query")).rejects.toThrow("Request failed with status code 401");
   });
 

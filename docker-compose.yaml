@@ -1,7 +1,7 @@
-name: firecrawl
+name: freecrawl
 
 x-common-service: &common-service
-  image: ghcr.io/firecrawl/firecrawl
+  image: ghcr.io/freecrawl/freecrawl
   build: apps/api
 
   ulimits:
@@ -55,7 +55,7 @@ x-common-env: &common-env
 
 services:
   playwright-service:
-    image: ghcr.io/firecrawl/playwright-service:latest
+    image: ghcr.io/freecrawl/playwright-service:latest
     environment:
       PORT: 3000
       PROXY_SERVER: ${PROXY_SERVER}

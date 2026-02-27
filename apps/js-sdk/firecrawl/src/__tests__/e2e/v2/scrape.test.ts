@@ -1,7 +1,7 @@
 /**
  * E2E tests for v2 scrape
  */
-import Firecrawl from "../../../index";
+import Freecrawl from "../../../index";
 import { z } from "zod";
 import { config } from "dotenv";
 import { getIdentity, getApiUrl } from "./utils/idmux";
@@ -10,11 +10,11 @@ import { describe, test, expect, beforeAll } from "@jest/globals";
 config();
 
 const API_URL = getApiUrl();
-let client: Firecrawl;
+let client: Freecrawl;
 
 beforeAll(async () => {
   const { apiKey } = await getIdentity({ name: "js-e2e-scrape" });
-  client = new Firecrawl({ apiKey, apiUrl: API_URL });
+  client = new Freecrawl({ apiKey, apiUrl: API_URL });
 });
 
 describe("v2.scrape e2e", () => {
@@ -28,13 +28,13 @@ describe("v2.scrape e2e", () => {
 
   test("minimal: scrape only required params", async () => {
     if (!client) throw new Error();
-    const doc = await client.scrape("https://docs.firecrawl.dev");
+    const doc = await client.scrape("https://docs.freecrawl.dev");
     assertValidDocument(doc);
   }, 60_000);
 
   test("maximal: scrape with all options", async () => {
     if (!client) throw new Error();
-    const doc = await client.scrape("https://docs.firecrawl.dev", {
+    const doc = await client.scrape("https://docs.freecrawl.dev", {
       formats: [
         "markdown",
         "html",
@@ -55,7 +55,7 @@ describe("v2.scrape e2e", () => {
         },
       ],
       parsers: ["pdf"],
-      headers: { "User-Agent": "firecrawl-tests" },
+      headers: { "User-Agent": "freecrawl-tests" },
       includeTags: ["article"],
       excludeTags: ["nav"],
       onlyMainContent: true,
@@ -80,7 +80,7 @@ describe("v2.scrape e2e", () => {
       items: z.array(z.string().url()).optional(),
     });
 
-    const doc = await client.scrape("https://docs.firecrawl.dev", {
+    const doc = await client.scrape("https://docs.freecrawl.dev", {
       formats: [
         {
           type: "json",
@@ -94,7 +94,7 @@ describe("v2.scrape e2e", () => {
 
   test("summary format returns summary string", async () => {
     if (!client) throw new Error();
-    const doc = await client.scrape("https://firecrawl.dev", { formats: ["summary"] });
+    const doc = await client.scrape("https://freecrawl.dev", { formats: ["summary"] });
     expect(typeof doc.summary).toBe("string");
     expect((doc.summary || "").length).toBeGreaterThan(10);
   }, 90_000);
@@ -107,7 +107,7 @@ describe("v2.scrape e2e", () => {
     ["screenshot", "screenshot"],
   ])("basic format: %s", async (fmt, expectField) => {
     if (!client) throw new Error();
-    const doc = await client.scrape("https://docs.firecrawl.dev", { formats: [fmt as any] });
+    const doc = await client.scrape("https://docs.freecrawl.dev", { formats: [fmt as any] });
     if (expectField !== "links" && expectField !== "screenshot") {
       assertValidDocument(doc);
     }
@@ -123,14 +123,14 @@ describe("v2.scrape e2e", () => {
 
   test("images format: extract all images from webpage", async () => {
     if (!client) throw new Error();
-    const doc = await client.scrape("https://firecrawl.dev", {
+    const doc = await client.scrape("https://freecrawl.dev", {
       formats: ["images"],
     });
     expect(doc.images).toBeTruthy();
     expect(Array.isArray(doc.images)).toBe(true);
     expect(doc.images?.length).toBeGreaterThan(0);
-    // Should find firecrawl logo/branding images
-    expect(doc.images?.some(img => img.includes("firecrawl") || img.includes("logo"))).toBe(true);
+    // Should find freecrawl logo/branding images
+    expect(doc.images?.some(img => img.includes("freecrawl") || img.includes("logo"))).toBe(true);
   }, 60_000);
 
   test("images format: works with multiple formats", async () => {

@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - apps/js-sdk/firecrawl/**
+      - apps/js-sdk/freecrawl/**
 
 env:
   IDMUX_URL: ${{ secrets.IDMUX_URL }}
@@ -25,7 +25,7 @@ jobs:
         with:
           node-version: "20"
           cache: "pnpm"
-          cache-dependency-path: './apps/js-sdk/firecrawl/pnpm-lock.yaml'
+          cache-dependency-path: './apps/js-sdk/freecrawl/pnpm-lock.yaml'
       - name: Tailscale
         uses: tailscale/github-action@v4
         with:
@@ -35,10 +35,10 @@ jobs:
           use-cache: 'true'
       - name: Install dependencies
         run: pnpm install
-        working-directory: ./apps/js-sdk/firecrawl
+        working-directory: ./apps/js-sdk/freecrawl
       - name: Build
         run: pnpm run build
-        working-directory: ./apps/js-sdk/firecrawl
+        working-directory: ./apps/js-sdk/freecrawl
       - name: Run tests
         run: pnpm run test
-        working-directory: ./apps/js-sdk/firecrawl
+        working-directory: ./apps/js-sdk/freecrawl

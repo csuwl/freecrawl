@@ -11,7 +11,7 @@ import type { Logger } from "winston";
 import {
   computeEngpickerVerdict,
   type EngpickerUrlResult,
-} from "@mendable/firecrawl-rs";
+} from "@mendable/freecrawl-rs";
 
 type EngpickerJob = {
   id: number;

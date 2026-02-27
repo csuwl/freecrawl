@@ -1,25 +1,25 @@
-# Firecrawl Docker 部署状态报告
+# Freecrawl Docker 部署状态报告
 
 ## 📅 部署时间
 2026-02-25 21:55
 
 ## 📍 部署位置
-`/Users/wl/opencode-project/firecrawl`
+`/Users/wl/opencode-project/freecrawl`
 
 ---
 
 ## ✅ 已完成
 
 ### 1. 代码准备
-- [x] 从 GitHub 克隆 Firecrawl 仓库
+- [x] 从 GitHub 克隆 Freecrawl 仓库
 - [x] 配置 `.env` 环境文件
 - [x] 修改 docker-compose.yaml 使用预构建镜像
 
 ### 2. 基础服务部署（运行中）
 ```
 NAME                   STATUS                    PORTS
-firecrawl-redis-1      Up 23 minutes             6379/tcp
-firecrawl-rabbitmq-1   Up 23 minutes (healthy)   5672/tcp, 15672/tcp
+freecrawl-redis-1      Up 23 minutes             6379/tcp
+freecrawl-rabbitmq-1   Up 23 minutes (healthy)   5672/tcp, 15672/tcp
 ```
 
 **测试结果**：
@@ -32,8 +32,8 @@ firecrawl-rabbitmq-1   Up 23 minutes (healthy)   5672/tcp, 15672/tcp
 
 ### 核心服务（因网络限制无法下载）
 ```
-ghcr.io/firecrawl/firecrawl:latest
-ghcr.io/firecrawl/playwright-service:latest
+ghcr.io/freecrawl/freecrawl:latest
+ghcr.io/freecrawl/playwright-service:latest
 ```
 
 **原因**：国内访问 `ghcr.io` (GitHub Container Registry) 速度受限，500MB+ 镜像下载超时。
@@ -44,7 +44,7 @@ ghcr.io/firecrawl/playwright-service:latest
 
 ### 方法 1：等待网络条件改善后重试
 ```bash
-cd /Users/wl/opencode-project/firecrawl
+cd /Users/wl/opencode-project/freecrawl
 
 # 使用代理重试
 export ALL_PROXY=socks5://127.0.0.1:1080
@@ -52,12 +52,12 @@ docker compose pull
 docker compose up -d
 ```
 
-### 方法 2：使用云版 Firecrawl API
+### 方法 2：使用云版 Freecrawl API
 ```python
-# pip install firecrawl-py
-from firecrawl import Firecrawl
+# pip install freecrawl-py
+from freecrawl import Freecrawl
 
-app = Firecrawl(api_key="fc-你的API密钥")
+app = Freecrawl(api_key="fc-你的API密钥")
 result = app.scrape("https://example.com")
 print(result)
 ```
@@ -73,7 +73,7 @@ cat ~/.docker/daemon.json
 osascript -e 'quit app "Docker"' && sleep 5 && open -a Docker
 
 # 3. 等待 Docker 启动后重试
-cd /Users/wl/opencode-project/firecrawl
+cd /Users/wl/opencode-project/freecrawl
 docker compose pull
 docker compose up -d
 ```
@@ -94,7 +94,7 @@ NUM_WORKERS_PER_QUEUE=4
 CRAWL_CONCURRENT_REQUESTS=5
 MAX_CONCURRENT_JOBS=3
 BROWSER_POOL_SIZE=3
-BULL_AUTH_KEY=firecrawl-admin
+BULL_AUTH_KEY=freecrawl-admin
 LOGGING_LEVEL=INFO
 ```
 
@@ -116,7 +116,7 @@ LOGGING_LEVEL=INFO
 
 ### 访问地址
 - **API**: http://localhost:3002
-- **队列管理**: http://localhost:3002/admin/firecrawl-admin/queues
+- **队列管理**: http://localhost:3002/admin/freecrawl-admin/queues
 - **RabbitMQ 管理界面**: http://localhost:15672 (guest/guest)
 
 ### 测试命令
@@ -129,7 +129,7 @@ curl -X POST http://localhost:3002/v2/scrape \
 # 测试爬虫
 curl -X POST http://localhost:3002/v2/crawl \
   -H 'Content-Type: application/json' \
-  -d '{"url": "https://docs.firecrawl.dev"}'
+  -d '{"url": "https://docs.freecrawl.dev"}'
 ```
 
 ---
@@ -141,10 +141,10 @@ curl -X POST http://localhost:3002/v2/crawl \
 - ⏸️ 核心服务等待镜像下载
 
 **推荐方案**：
-1. **快速测试** → 使用 Firecrawl 云版 API
+1. **快速测试** → 使用 Freecrawl 云版 API
 2. **生产环境** → 等待网络改善或使用海外服务器部署
 
 **文件位置**：
-- 项目根目录: `/Users/wl/opencode-project/firecrawl`
-- 配置文件: `/Users/wl/opencode-project/firecrawl/.env`
-- 部署报告: `/Users/wl/opencode-project/firecrawl/DEPLOYMENT_STATUS.md`
+- 项目根目录: `/Users/wl/opencode-project/freecrawl`
+- 配置文件: `/Users/wl/opencode-project/freecrawl/.env`
+- 部署报告: `/Users/wl/opencode-project/freecrawl/DEPLOYMENT_STATUS.md`

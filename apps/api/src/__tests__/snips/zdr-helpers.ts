@@ -45,7 +45,7 @@ export const logIgnoreList = [
 ];
 
 export async function getLogs() {
-  const winstonLogFiles = ["firecrawl-app.log", "firecrawl-worker.log"];
+  const winstonLogFiles = ["freecrawl-app.log", "freecrawl-worker.log"];
   const existingLogFiles: string[] = [];
 
   for (const file of winstonLogFiles) {
@@ -59,7 +59,7 @@ export async function getLogs() {
 
   if (existingLogFiles.length === 0) {
     console.warn(
-      "No log file found (checked firecrawl-app.log, firecrawl-worker.log)",
+      "No log file found (checked freecrawl-app.log, freecrawl-worker.log)",
     );
     return [];
   }

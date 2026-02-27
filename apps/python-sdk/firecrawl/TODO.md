@@ -9,22 +9,22 @@ self = <test_crawl.TestCrawlE2E object at 0x1039a5810>
     def test_get_active_crawls_with_running_crawl(self):
         """Test getting active crawls when there's a running crawl."""
         # Start a crawl
-        start_job = self.client.start_crawl("https://docs.firecrawl.dev", limit=5)
+        start_job = self.client.start_crawl("https://docs.freecrawl.dev", limit=5)
         assert start_job.id is not None
     
         # Get active crawls
 >       active_crawls_response = self.client.active_crawls()
                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-firecrawl/__tests__/e2e/v2/test_crawl.py:149: 
+freecrawl/__tests__/e2e/v2/test_crawl.py:149: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-firecrawl/v2/client.py:386: in active_crawls
+freecrawl/v2/client.py:386: in active_crawls
     return self.get_active_crawls()
            ^^^^^^^^^^^^^^^^^^^^^^^^
-firecrawl/v2/client.py:377: in get_active_crawls
+freecrawl/v2/client.py:377: in get_active_crawls
     return crawl_module.get_active_crawls(self.http_client)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-firecrawl/v2/methods/crawl.py:446: in get_active_crawls
+freecrawl/v2/methods/crawl.py:446: in get_active_crawls
     handle_response_error(response, "get active crawls")
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
@@ -39,7 +39,7 @@ response = <Response [500]>, action = 'get active crawls'
             action: Description of the action being performed
     
         Raises:
-            FirecrawlError: Appropriate error based on status code
+            FreecrawlError: Appropriate error based on status code
         """
         try:
             response_json = response.json()
@@ -81,9 +81,9 @@ response = <Response [500]>, action = 'get active crawls'
         elif response.status_code == 500:
             message = f"Internal Server Error: Failed to {action}. {error_message} - {error_details}"
 >           raise InternalServerError(message, response.status_code, response)
-E           firecrawl.v2.utils.error_handler.InternalServerError: Internal Server Error: Failed to get active crawls. An unexpected error occurred. Please contact help@firecrawl.com for help. Your exception ID is c775af539e3a44f286664e55c488638e - No additional error details provided.
+E           freecrawl.v2.utils.error_handler.InternalServerError: Internal Server Error: Failed to get active crawls. An unexpected error occurred. Please contact help@freecrawl.com for help. Your exception ID is c775af539e3a44f286664e55c488638e - No additional error details provided.
 
-firecrawl/v2/utils/error_handler.py:104: InternalServerError
+freecrawl/v2/utils/error_handler.py:104: InternalServerError
 ==================================================================== short test summary info =====================================================================
-FAILED firecrawl/__tests__/e2e/v2/test_crawl.py::TestCrawlE2E::test_get_active_crawls_with_running_crawl - firecrawl.v2.utils.error_handler.InternalServerError: Internal Server Error: Failed to get active crawls. An unexpected error occurred. Please contact help@f...
+FAILED freecrawl/__tests__/e2e/v2/test_crawl.py::TestCrawlE2E::test_get_active_crawls_with_running_crawl - freecrawl.v2.utils.error_handler.InternalServerError: Internal Server Error: Failed to get active crawls. An unexpected error occurred. Please contact help@f...
 ======================================================================= 1 failed in 1.17s ========================================================================

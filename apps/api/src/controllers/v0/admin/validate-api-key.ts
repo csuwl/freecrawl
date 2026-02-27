@@ -14,7 +14,7 @@ function extractExternalUserId(
   email: string,
   integrationSlug: string,
 ): string | null {
-  const syntheticDomain = `@${integrationSlug}.partner.firecrawl.dev`;
+  const syntheticDomain = `@${integrationSlug}.partner.freecrawl.dev`;
   if (email.endsWith(syntheticDomain)) {
     return email.slice(0, -syntheticDomain.length);
   }

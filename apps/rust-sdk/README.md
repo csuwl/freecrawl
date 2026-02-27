@@ -1,13 +1,13 @@
-# Firecrawl Rust SDK
-The Firecrawl Rust SDK is a library that allows you to easily scrape and crawl websites, and output the data in a format ready for use with language models (LLMs). It provides a simple and intuitive interface for interacting with the Firecrawl API.
+# Freecrawl Rust SDK
+The Freecrawl Rust SDK is a library that allows you to easily scrape and crawl websites, and output the data in a format ready for use with language models (LLMs). It provides a simple and intuitive interface for interacting with the Freecrawl API.
 
 ## Installation
 
-To install the Firecrawl Rust SDK, add the following to your `Cargo.toml`:
+To install the Freecrawl Rust SDK, add the following to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-firecrawl = "^0.1"
+freecrawl = "^0.1"
 tokio = { version = "^1", features = ["full"] }
 ```
 
@@ -15,15 +15,15 @@ To add it in your codebase.
 
 ## Usage
 
-First, you need to obtain an API key from [firecrawl.dev](https://firecrawl.dev). Then, you need to initialize the `FirecrawlApp` like so:
+First, you need to obtain an API key from [freecrawl.dev](https://freecrawl.dev). Then, you need to initialize the `FreecrawlApp` like so:
 
 ```rust
-use firecrawl::FirecrawlApp;
+use freecrawl::FreecrawlApp;
 
 #[tokio::main]
 async fn main() {
-    // Initialize the FirecrawlApp with the API key
-    let app = FirecrawlApp::new("fc-YOUR-API-KEY").expect("Failed to initialize FirecrawlApp");
+    // Initialize the FreecrawlApp with the API key
+    let app = FreecrawlApp::new("fc-YOUR-API-KEY").expect("Failed to initialize FreecrawlApp");
 
     // ...
 }
@@ -34,7 +34,7 @@ async fn main() {
 To scrape a single URL, use the `scrape_url` method. It takes the URL as a parameter and returns the scraped data as a `Document`.
 
 ```rust
-let scrape_result = app.scrape_url("https://firecrawl.dev", None).await;
+let scrape_result = app.scrape_url("https://freecrawl.dev", None).await;
 match scrape_result {
     Ok(data) => println!("Scrape result:\n{}", data.markdown),
     Err(e) => eprintln!("Scrape failed: {}", e),
@@ -132,7 +132,7 @@ Map all associated links from a starting URL.
 
 ```rust
 let map_result = app
-    .map_url("https://firecrawl.dev", None)
+    .map_url("https://freecrawl.dev", None)
     .await;
 
 match map_result {
@@ -143,11 +143,11 @@ match map_result {
 
 ## Error Handling
 
-The SDK handles errors returned by the Firecrawl API and by our dependencies, and combines them into the `FirecrawlError` enum, implementing `Error`, `Debug` and `Display`. All of our methods return a `Result<T, FirecrawlError>`.
+The SDK handles errors returned by the Freecrawl API and by our dependencies, and combines them into the `FreecrawlError` enum, implementing `Error`, `Debug` and `Display`. All of our methods return a `Result<T, FreecrawlError>`.
 
 ## Running the Tests with Cargo
 
-To ensure the functionality of the Firecrawl Rust SDK, we have included end-to-end tests using `cargo`. These tests cover various aspects of the SDK, including URL scraping, web searching, and website crawling.
+To ensure the functionality of the Freecrawl Rust SDK, we have included end-to-end tests using `cargo`. These tests cover various aspects of the SDK, including URL scraping, web searching, and website crawling.
 
 ### Running the Tests
 
@@ -159,8 +159,8 @@ $ cargo test --test e2e_with_auth
 
 ## Contributing
 
-Contributions to the Firecrawl Rust SDK are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request on the GitHub repository.
+Contributions to the Freecrawl Rust SDK are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request on the GitHub repository.
 
 ## License
 
-The Firecrawl Rust SDK is open-source and released under the [AGPL License](https://www.gnu.org/licenses/agpl-3.0.en.html).
+The Freecrawl Rust SDK is open-source and released under the [AGPL License](https://www.gnu.org/licenses/agpl-3.0.en.html).

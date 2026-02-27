@@ -1,6 +1,6 @@
 import { load } from "cheerio";
 import { logger } from "../../../lib/logger";
-import { extractImages as _extractImages } from "@mendable/firecrawl-rs";
+import { extractImages as _extractImages } from "@mendable/freecrawl-rs";
 
 function resolveImageUrl(
   src: string,

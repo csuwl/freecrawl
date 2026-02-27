@@ -710,7 +710,7 @@ const BROWSER_ACTIVITY_INSERT_INTERVAL = 10000;
       return;
     }
 
-    await withSpan("firecrawl-index-worker-process-insert-jobs", async span => {
+    await withSpan("freecrawl-index-worker-process-insert-jobs", async span => {
       setSpanAttributes(span, {
         "index.worker.operation": "process_insert_jobs",
         "index.worker.type": "scheduled",
@@ -735,7 +735,7 @@ const BROWSER_ACTIVITY_INSERT_INTERVAL = 10000;
     if (isShuttingDown) {
       return;
     }
-    await withSpan("firecrawl-index-worker-process-omce-jobs", async span => {
+    await withSpan("freecrawl-index-worker-process-omce-jobs", async span => {
       setSpanAttributes(span, {
         "index.worker.operation": "process_omce_jobs",
         "index.worker.type": "scheduled",

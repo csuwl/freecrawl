@@ -1,5 +1,5 @@
 {
-  "name": "firecrawl-scraper-js",
+  "name": "freecrawl-scraper-js",
   "version": "1.0.0",
   "description": "",
   "main": "src/index.ts",
@@ -33,7 +33,7 @@
     "index-worker:production": "node dist/src/services/indexing/index-worker.js",
     "mongo-docker": "docker run -d -p 2717:27017 -v ./mongo-data:/data/db --name mongodb mongo:latest",
     "mongo-docker-console": "docker exec -it mongodb mongosh",
-    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org caleb-peffer --project firecrawl-scraper-js ./dist && sentry-cli sourcemaps upload --org caleb-peffer --project firecrawl-scraper-js ./dist",
+    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org caleb-peffer --project freecrawl-scraper-js ./dist && sentry-cli sourcemaps upload --org caleb-peffer --project freecrawl-scraper-js ./dist",
     "prepare": "cd ../.. && husky ./apps/api/.husky",
     "knip": "knip"
   },
@@ -80,7 +80,7 @@
     "@bull-board/express": "^6.14.0",
     "@dqbd/tiktoken": "^1.0.22",
     "@google-cloud/storage": "^7.18.0",
-    "@mendable/firecrawl-rs": "workspace:*",
+    "@mendable/freecrawl-rs": "workspace:*",
     "@openrouter/ai-sdk-provider": "^0.4.5",
     "@sentry/cli": "^2.58.2",
     "@sentry/node": "^10.27.0",
@@ -152,7 +152,7 @@
       "oxc-resolver": true
     },
     "onlyBuiltDependencies": [
-      "@mendable/firecrawl-rs",
+      "@mendable/freecrawl-rs",
       "@sentry-internal/node-cpu-profiler",
       "@sentry/cli",
       "bigint-buffer",

@@ -35,7 +35,7 @@ describe("E2E Tests for v1 API Routes", () => {
     it.concurrent("should require authorization", async () => {
       const response: any = await request(TEST_URL)
         .post("/v1/scrape")
-        .send({ url: "https://firecrawl.dev" });
+        .send({ url: "https://freecrawl.dev" });
 
       expect(response.statusCode).toBe(401);
     });
@@ -62,7 +62,7 @@ describe("E2E Tests for v1 API Routes", () => {
           .post("/v1/scrape")
           .set("Authorization", `Bearer invalid-api-key`)
           .set("Content-Type", "application/json")
-          .send({ url: "https://firecrawl.dev" });
+          .send({ url: "https://freecrawl.dev" });
         expect(response.statusCode).toBe(401);
       },
     );
@@ -93,15 +93,15 @@ describe("E2E Tests for v1 API Routes", () => {
         expect(response.body.data.metadata.error).toBeUndefined();
         expect(response.body.data.metadata.title).toBe("Roast My Website");
         expect(response.body.data.metadata.description).toBe(
-          "Welcome to Roast My Website, the ultimate tool for putting your website through the wringer! This repository harnesses the power of Firecrawl to scrape and capture screenshots of websites, and then unleashes the latest LLM vision models to mercilessly roast them. 🌶️",
+          "Welcome to Roast My Website, the ultimate tool for putting your website through the wringer! This repository harnesses the power of Freecrawl to scrape and capture screenshots of websites, and then unleashes the latest LLM vision models to mercilessly roast them. 🌶️",
         );
         expect(response.body.data.metadata.keywords).toBe(
-          "Roast My Website,Roast,Website,GitHub,Firecrawl",
+          "Roast My Website,Roast,Website,GitHub,Freecrawl",
         );
         expect(response.body.data.metadata.robots).toBe("follow, index");
         expect(response.body.data.metadata.ogTitle).toBe("Roast My Website");
         expect(response.body.data.metadata.ogDescription).toBe(
-          "Welcome to Roast My Website, the ultimate tool for putting your website through the wringer! This repository harnesses the power of Firecrawl to scrape and capture screenshots of websites, and then unleashes the latest LLM vision models to mercilessly roast them. 🌶️",
+          "Welcome to Roast My Website, the ultimate tool for putting your website through the wringer! This repository harnesses the power of Freecrawl to scrape and capture screenshots of websites, and then unleashes the latest LLM vision models to mercilessly roast them. 🌶️",
         );
         expect(response.body.data.metadata.ogUrl).toBe(
           "https://www.roastmywebsite.ai",
@@ -443,7 +443,7 @@ describe("E2E Tests for v1 API Routes", () => {
           .post("/v1/scrape")
           .set("Authorization", `Bearer ${config.TEST_API_KEY}`)
           .set("Content-Type", "application/json")
-          .send({ url: "https://firecrawl.dev", timeout: 1000 });
+          .send({ url: "https://freecrawl.dev", timeout: 1000 });
 
         expect(response.statusCode).toBe(408);
       },
@@ -536,7 +536,7 @@ describe("E2E Tests for v1 API Routes", () => {
         expect(response.body.data).not.toHaveProperty("rawHtml");
         expect(response.body.data).toHaveProperty("links");
         expect(response.body.data).toHaveProperty("metadata");
-        expect(response.body.data.links).toContain("https://firecrawl.dev");
+        expect(response.body.data.links).toContain("https://freecrawl.dev");
         expect(response.body.data.metadata.statusCode).toBe(200);
         expect(response.body.data.metadata.error).toBeUndefined();
       },
@@ -548,7 +548,7 @@ describe("E2E Tests for v1 API Routes", () => {
     it.concurrent("should require authorization", async () => {
       const response: any = await request(TEST_URL)
         .post("/v1/map")
-        .send({ url: "https://firecrawl.dev" });
+        .send({ url: "https://freecrawl.dev" });
       expect(response.statusCode).toBe(401);
     });
 
@@ -559,7 +559,7 @@ describe("E2E Tests for v1 API Routes", () => {
           .post("/v1/map")
           .set("Authorization", `Bearer invalid-api-key`)
           .set("Content-Type", "application/json")
-          .send({ url: "https://firecrawl.dev" });
+          .send({ url: "https://freecrawl.dev" });
         expect(response.statusCode).toBe(401);
       },
     );
@@ -620,7 +620,7 @@ describe("E2E Tests for v1 API Routes", () => {
       "should return a successful response with a valid API key and search and allowSubdomains",
       async () => {
         const mapRequest = {
-          url: "https://firecrawl.dev",
+          url: "https://freecrawl.dev",
           search: "docs",
           includeSubdomains: true,
         };
@@ -641,10 +641,10 @@ describe("E2E Tests for v1 API Routes", () => {
         expect(Array.isArray(links)).toBe(true);
         expect(links.length).toBeGreaterThan(0);
 
-        const containsDocsFirecrawlDev = links.some((link: string) =>
-          link.includes("docs.firecrawl.dev"),
+        const containsDocsFreecrawlDev = links.some((link: string) =>
+          link.includes("docs.freecrawl.dev"),
         );
-        expect(containsDocsFirecrawlDev).toBe(true);
+        expect(containsDocsFreecrawlDev).toBe(true);
       },
     );
 
@@ -652,7 +652,7 @@ describe("E2E Tests for v1 API Routes", () => {
       "should return a successful response with a valid API key and search and allowSubdomains and www",
       async () => {
         const mapRequest = {
-          url: "https://www.firecrawl.dev",
+          url: "https://www.freecrawl.dev",
           search: "docs",
           includeSubdomains: true,
         };
@@ -673,10 +673,10 @@ describe("E2E Tests for v1 API Routes", () => {
         expect(Array.isArray(links)).toBe(true);
         expect(links.length).toBeGreaterThan(0);
 
-        const containsDocsFirecrawlDev = links.some((link: string) =>
-          link.includes("docs.firecrawl.dev"),
+        const containsDocsFreecrawlDev = links.some((link: string) =>
+          link.includes("docs.freecrawl.dev"),
         );
-        expect(containsDocsFirecrawlDev).toBe(true);
+        expect(containsDocsFreecrawlDev).toBe(true);
       },
       10000,
     );
@@ -685,7 +685,7 @@ describe("E2E Tests for v1 API Routes", () => {
       "should return a successful response with a valid API key and search and not allowSubdomains and www",
       async () => {
         const mapRequest = {
-          url: "https://www.firecrawl.dev",
+          url: "https://www.freecrawl.dev",
           search: "docs",
           includeSubdomains: false,
         };
@@ -705,7 +705,7 @@ describe("E2E Tests for v1 API Routes", () => {
         const links = response.body.links as unknown[];
         expect(Array.isArray(links)).toBe(true);
         expect(links.length).toBeGreaterThan(0);
-        expect(links[0]).not.toContain("docs.firecrawl.dev");
+        expect(links[0]).not.toContain("docs.freecrawl.dev");
       },
     );
 
@@ -732,7 +732,7 @@ describe("E2E Tests for v1 API Routes", () => {
     it.concurrent("should require authorization", async () => {
       const response: any = await request(TEST_URL)
         .post("/v1/crawl")
-        .send({ url: "https://firecrawl.dev" });
+        .send({ url: "https://freecrawl.dev" });
       expect(response.statusCode).toBe(401);
     });
 
@@ -758,7 +758,7 @@ describe("E2E Tests for v1 API Routes", () => {
           .post("/v1/crawl")
           .set("Authorization", `Bearer invalid-api-key`)
           .set("Content-Type", "application/json")
-          .send({ url: "https://firecrawl.dev" });
+          .send({ url: "https://freecrawl.dev" });
         expect(response.statusCode).toBe(401);
       },
     );
@@ -768,7 +768,7 @@ describe("E2E Tests for v1 API Routes", () => {
         .post("/v1/crawl")
         .set("Authorization", `Bearer ${config.TEST_API_KEY}`)
         .set("Content-Type", "application/json")
-        .send({ url: "https://firecrawl.dev" });
+        .send({ url: "https://freecrawl.dev" });
 
       expect(response.statusCode).toBe(200);
       expect(response.body).toHaveProperty("id");
@@ -788,7 +788,7 @@ describe("E2E Tests for v1 API Routes", () => {
           .set("Authorization", `Bearer ${config.TEST_API_KEY}`)
           .set("Content-Type", "application/json")
           .send({
-            url: "https://firecrawl.dev",
+            url: "https://freecrawl.dev",
             limit: 40,
             includePaths: ["blog/*"],
           });
@@ -820,7 +820,7 @@ describe("E2E Tests for v1 API Routes", () => {
         );
         expect(urls.length).toBeGreaterThan(5);
         urls.forEach((url: string) => {
-          expect(url).toContain("firecrawl.dev/blog");
+          expect(url).toContain("freecrawl.dev/blog");
         });
 
         expect(completedResponse.statusCode).toBe(200);
@@ -844,7 +844,7 @@ describe("E2E Tests for v1 API Routes", () => {
           .set("Authorization", `Bearer ${config.TEST_API_KEY}`)
           .set("Content-Type", "application/json")
           .send({
-            url: "https://firecrawl.dev",
+            url: "https://freecrawl.dev",
             limit: 40,
             excludePaths: ["blog/*"],
           });
@@ -876,7 +876,7 @@ describe("E2E Tests for v1 API Routes", () => {
         );
         expect(urls.length).toBeGreaterThan(3);
         urls.forEach((url: string) => {
-          expect(url.startsWith("https://www.firecrawl.dev/blog/")).toBeFalsy();
+          expect(url.startsWith("https://www.freecrawl.dev/blog/")).toBeFalsy();
         });
       },
       90000,
@@ -982,7 +982,7 @@ describe("E2E Tests for v1 API Routes", () => {
           .post("/v1/crawl")
           .set("Authorization", `Bearer ${config.TEST_API_KEY}`)
           .set("Content-Type", "application/json")
-          .send({ url: "https://docs.firecrawl.dev" });
+          .send({ url: "https://docs.freecrawl.dev" });
         expect(crawlResponse.statusCode).toBe(200);
 
         let isCompleted = false;
@@ -1031,7 +1031,7 @@ describe("E2E Tests for v1 API Routes", () => {
           .post("/v1/crawl")
           .set("Authorization", `Bearer ${config.TEST_API_KEY}`)
           .set("Content-Type", "application/json")
-          .send({ url: "https://docs.firecrawl.dev", limit: 10 });
+          .send({ url: "https://docs.freecrawl.dev", limit: 10 });
 
         expect(crawlResponse.statusCode).toBe(200);
 

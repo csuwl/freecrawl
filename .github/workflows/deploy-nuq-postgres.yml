@@ -27,5 +27,5 @@ jobs:
 
       - name: 'Build NuQ Postgres Image'
         run: |
-          docker build . --tag ghcr.io/firecrawl/nuq-postgres:latest
-          docker push ghcr.io/firecrawl/nuq-postgres:latest
+          docker build . --tag ghcr.io/freecrawl/nuq-postgres:latest
+          docker push ghcr.io/freecrawl/nuq-postgres:latest

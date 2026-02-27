@@ -36,7 +36,7 @@ describeIf(TEST_PRODUCTION)("Zero Data Retention", () => {
       const testId = crypto.randomUUID();
       const scrape1 = await scrape(
         {
-          url: "https://firecrawl.dev/?test=" + testId,
+          url: "https://freecrawl.dev/?test=" + testId,
           zeroDataRetention: scope === "Request-scoped" ? true : undefined,
         },
         identity,
@@ -77,7 +77,7 @@ describeIf(TEST_PRODUCTION)("Zero Data Retention", () => {
 
         const crawl1 = await crawl(
           {
-            url: "https://firecrawl.dev",
+            url: "https://freecrawl.dev",
             limit: 10,
             zeroDataRetention: scope === "Request-scoped" ? true : undefined,
           },
@@ -133,7 +133,7 @@ describeIf(TEST_PRODUCTION)("Zero Data Retention", () => {
 
         const crawl1 = await batchScrape(
           {
-            urls: ["https://firecrawl.dev", "https://mendable.ai"],
+            urls: ["https://freecrawl.dev", "https://mendable.ai"],
             zeroDataRetention: scope === "Request-scoped" ? true : undefined,
           },
           identity,

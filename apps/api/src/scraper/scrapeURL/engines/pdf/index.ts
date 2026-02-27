@@ -27,7 +27,7 @@ import {
   shouldParsePDF,
   getPDFMaxPages,
 } from "../../../../controllers/v2/types";
-import { getPdfMetadata } from "@mendable/firecrawl-rs";
+import { getPdfMetadata } from "@mendable/freecrawl-rs";
 import { captureExceptionWithZdrCheck } from "../../../../services/sentry";
 
 type PDFProcessorResult = { html: string; markdown?: string };

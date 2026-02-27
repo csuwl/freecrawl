@@ -38,10 +38,10 @@ const providerList: Record<Provider, any> = {
   fireworks, //FIREWORKS_API_KEY
   deepinfra, //DEEPINFRA_API_KEY
   vertex: createVertex({
-    project: "firecrawl",
+    project: "freecrawl",
     //https://github.com/vercel/ai/issues/6644 bug
     baseURL:
-      "https://aiplatform.googleapis.com/v1/projects/firecrawl/locations/global/publishers/google",
+      "https://aiplatform.googleapis.com/v1/projects/freecrawl/locations/global/publishers/google",
     location: "global",
     googleAuthOptions: config.VERTEX_CREDENTIALS
       ? {

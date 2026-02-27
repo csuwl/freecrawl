@@ -15,7 +15,7 @@ export type Identity = {
 let cachedIdentity: Identity | null = null;
 
 export function getApiUrl(): string {
-  return process.env.TEST_URL ?? process.env.FIRECRAWL_API_URL ?? "https://api.firecrawl.dev";
+  return process.env.TEST_URL ?? process.env.FIRECRAWL_API_URL ?? "https://api.freecrawl.dev";
 }
 
 export async function getIdentity(req: IdmuxRequest = {}): Promise<Identity> {

@@ -52,7 +52,7 @@ jobs:
         with:
           context: ./apps/api
           push: true
-          tags: ghcr.io/${{ env.REPO_OWNER }}/firecrawl:${{ env.PLATFORM_SUFFIX }}
+          tags: ghcr.io/${{ env.REPO_OWNER }}/freecrawl:${{ env.PLATFORM_SUFFIX }}
           platforms: ${{ matrix.platform }}
           provenance: false
 
@@ -75,7 +75,7 @@ jobs:
 
       - name: 'Create and Push Multi-Arch Manifest'
         run: |
-          docker manifest create ghcr.io/${{ env.REPO_OWNER }}/firecrawl:latest \
-            ghcr.io/${{ env.REPO_OWNER }}/firecrawl:linux-amd64 \
-            ghcr.io/${{ env.REPO_OWNER }}/firecrawl:linux-arm64
-          docker manifest push ghcr.io/${{ env.REPO_OWNER }}/firecrawl:latest
+          docker manifest create ghcr.io/${{ env.REPO_OWNER }}/freecrawl:latest \
+            ghcr.io/${{ env.REPO_OWNER }}/freecrawl:linux-amd64 \
+            ghcr.io/${{ env.REPO_OWNER }}/freecrawl:linux-arm64
+          docker manifest push ghcr.io/${{ env.REPO_OWNER }}/freecrawl:latest

@@ -92,8 +92,8 @@ app.use(`/admin/${config.BULL_AUTH_KEY}/queues`, serverAdapter.getRouter());
 
 app.get("/", (_, res) => {
   res.json({
-    message: "Firecrawl API",
-    documentation_url: "https://docs.firecrawl.dev",
+    message: "Freecrawl API",
+    documentation_url: "https://docs.freecrawl.dev",
   });
 });
 

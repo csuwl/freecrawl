@@ -62,7 +62,7 @@ describe("Scrape tests", () => {
         identity,
       );
 
-      expect(response.markdown).toContain("Firecrawl");
+      expect(response.markdown).toContain("Freecrawl");
     },
     scrapeTimeout,
   );
@@ -228,7 +228,7 @@ describe("Scrape tests", () => {
         identity,
       );
 
-      expect(response.markdown).toContain("Firecrawl");
+      expect(response.markdown).toContain("Freecrawl");
     },
     scrapeTimeout,
   );
@@ -290,7 +290,7 @@ describe("Scrape tests", () => {
           identity,
         );
 
-        expect(response.markdown).toContain("Firecrawl");
+        expect(response.markdown).toContain("Freecrawl");
 
         // Give time to propagate to read replica
         await new Promise(resolve => setTimeout(resolve, 1000));

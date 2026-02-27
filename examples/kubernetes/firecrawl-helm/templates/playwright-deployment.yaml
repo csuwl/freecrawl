@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "firecrawl.fullname" . }}-playwright
+  name: {{ include "freecrawl.fullname" . }}-playwright
   labels:
-    app: {{ include "firecrawl.name" . }}-playwright
+    app: {{ include "freecrawl.name" . }}-playwright
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ include "firecrawl.name" . }}-playwright
+      app: {{ include "freecrawl.name" . }}-playwright
   template:
     metadata:
       labels:
-        app: {{ include "firecrawl.name" . }}-playwright
+        app: {{ include "freecrawl.name" . }}-playwright
     spec:
       {{- if .Values.image.dockerSecretEnabled }}
       imagePullSecrets:
@@ -26,7 +26,7 @@ spec:
             - containerPort: {{ .Values.service.playwright.port }}
           envFrom:
             - configMapRef:
-                name: {{ include "firecrawl.fullname" . }}-playwright-config
+                name: {{ include "freecrawl.fullname" . }}-playwright-config
           livenessProbe:
             httpGet:
               path: /health/liveness

@@ -1,6 +1,6 @@
-# Firecrawl Dashboard
+# Freecrawl Dashboard
 
-基于 Firecrawl 的用户界面和管理后台。
+基于 Freecrawl 的用户界面和管理后台。
 
 ## 功能
 
@@ -35,11 +35,11 @@ pnpm start
 ## 环境变量
 
 ```bash
-# Firecrawl API
+# Freecrawl API
 FIRECRAWL_API_URL=http://localhost:3002
 
 # 数据库
-DATABASE_URL=postgresql://firecrawl:firecrawl@localhost:5432/firecrawl
+DATABASE_URL=postgresql://freecrawl:freecrawl@localhost:5432/freecrawl
 
 # Supabase (可选，用于认证)
 NEXT_PUBLIC_SUPABASE_URL=http://localhost:54321
@@ -53,8 +53,8 @@ JWT_SECRET=your-super-secret-jwt-key
 
 ```bash
 # 构建
-docker build -t firecrawl-dashboard .
+docker build -t freecrawl-dashboard .
 
 # 运行
-docker run -p 3000:3000 firecrawl-dashboard
+docker run -p 3000:3000 freecrawl-dashboard
 ```

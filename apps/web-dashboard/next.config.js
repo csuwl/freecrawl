@@ -2,7 +2,7 @@
 const nextConfig = {
   output: 'standalone',
   reactStrictMode: true,
-  // Proxy API requests to Firecrawl backend
+  // Proxy API requests to Freecrawl backend
   async rewrites() {
     return [
       {

@@ -130,7 +130,7 @@ describe("Map tests", () => {
     async () => {
       const response = await map(
         {
-          url: "http://firecrawl.com",
+          url: "http://freecrawl.com",
           limit: 5,
         },
         identity,
@@ -140,18 +140,18 @@ describe("Map tests", () => {
       expect(response.body.success).toBe(true);
       expect(response.body.links.length).toBeGreaterThan(0);
 
-      const nonFirecrawlLinks = response.body.links.filter(
-        link => !link.url.includes("firecrawl.dev"),
+      const nonFreecrawlLinks = response.body.links.filter(
+        link => !link.url.includes("freecrawl.dev"),
       );
-      if (nonFirecrawlLinks.length > 0) {
+      if (nonFreecrawlLinks.length > 0) {
         console.log(
-          "Links not containing 'firecrawl.dev':",
-          JSON.stringify(nonFirecrawlLinks, null, 2),
+          "Links not containing 'freecrawl.dev':",
+          JSON.stringify(nonFreecrawlLinks, null, 2),
         );
       }
 
       expect(
-        response.body.links.every(link => link.url.includes("firecrawl.dev")),
+        response.body.links.every(link => link.url.includes("freecrawl.dev")),
       ).toBe(true);
     },
     60000,

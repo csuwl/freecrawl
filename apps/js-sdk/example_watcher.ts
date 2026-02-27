@@ -1,16 +1,16 @@
 /*
- Advanced watcher example using the v2 FirecrawlClient.
+ Advanced watcher example using the v2 FreecrawlClient.
 
  Run with:
-   node --env-file=.env -r esbuild-register apps/js-sdk/firecrawl/src/examples/watcher.ts
+   node --env-file=.env -r esbuild-register apps/js-sdk/freecrawl/src/examples/watcher.ts
  or compile with your bundler, ensuring FIRECRAWL_API_KEY is set.
 */
 
-import { FirecrawlClient } from "./firecrawl/src/v2/client";
+import { FreecrawlClient } from "./freecrawl/src/v2/client";
 
 async function main() {
   const apiKey = process.env.FIRECRAWL_API_KEY || "fc-YOUR_API_KEY";
-  const client = new FirecrawlClient({ apiKey });
+  const client = new FreecrawlClient({ apiKey });
 
   // Start a crawl and attach a watcher for real-time updates
   const start = await client.startCrawl("https://example.com", { limit: 5 });

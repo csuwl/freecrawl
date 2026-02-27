@@ -194,8 +194,8 @@ jobs:
 
       - name: Run Docker Postgres
         run: |
-          docker build -t firecrawl/nuq-postgres:latest ./apps/nuq-postgres
-          docker run -d -p 5432:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=postgres --name postgres firecrawl/nuq-postgres:latest
+          docker build -t freecrawl/nuq-postgres:latest ./apps/nuq-postgres
+          docker run -d -p 5432:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=postgres --name postgres freecrawl/nuq-postgres:latest
 
       - name: Run tests
         run: pnpm harness pnpm test:snips
@@ -207,8 +207,8 @@ jobs:
         if: always()
         run: |
           mkdir -p logs
-          cp ./apps/api/firecrawl-app.log logs/firecrawl.log || true
-          cp ./apps/api/firecrawl-worker.log logs/firecrawl-worker.log || true
+          cp ./apps/api/freecrawl-app.log logs/freecrawl.log || true
+          cp ./apps/api/freecrawl-worker.log logs/freecrawl-worker.log || true
 
       - name: Copy SearXNG logs
         if: always() && matrix.search == 'searxng'
@@ -371,8 +371,8 @@ jobs:
 
   #     - name: Run Docker Postgres
   #       run: |
-  #         docker build -t firecrawl/nuq-postgres:latest ./apps/nuq-postgres
-  #         docker run -d -p 5432:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=postgres --name postgres firecrawl/nuq-postgres:latest
+  #         docker build -t freecrawl/nuq-postgres:latest ./apps/nuq-postgres
+  #         docker run -d -p 5432:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=postgres --name postgres freecrawl/nuq-postgres:latest
 
   #     - name: Run tests
   #       run: pnpm harness pnpm test:snips
@@ -384,7 +384,7 @@ jobs:
   #       if: always()
   #       run: |
   #         mkdir -p logs
-  #         cp ./apps/api/firecrawl.log logs/firecrawl.log
+  #         cp ./apps/api/freecrawl.log logs/freecrawl.log
   #         cd logs
   #         zip -r logs.zip ./*
   #         echo "${{ secrets.LOG_ENCRYPTION_KEY }}" | gpg --batch --yes --passphrase-fd 0 -c logs.zip

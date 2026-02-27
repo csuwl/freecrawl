@@ -32,7 +32,7 @@ const configSchema = z.object({
   PORT: z.coerce.number().default(3002),
   IS_PRODUCTION: z.stringbool().optional(),
   IS_KUBERNETES: z.stringbool().optional(),
-  FIRECRAWL_APP_HOST: z.string().default("firecrawl-app-service"),
+  FIRECRAWL_APP_HOST: z.string().default("freecrawl-app-service"),
   FIRECRAWL_APP_PORT: z.string().default("3002"),
   FIRECRAWL_APP_SCHEME: z.string().default("http"),
   LOGGING_LEVEL: z.string().optional(),
@@ -164,7 +164,7 @@ const configSchema = z.object({
   ALLOW_LOCAL_WEBHOOKS: z.stringbool().optional(),
   WEBHOOK_USE_RABBITMQ: z.stringbool().optional(),
 
-  // Firecrawl Features
+  // Freecrawl Features
   FIRECRAWL_DEBUG_FILTER_LINKS: z.stringbool().optional(),
   FIRECRAWL_LOG_TO_FILE: z.stringbool().optional(),
   FIRECRAWL_SAVE_MOCKS: z.stringbool().optional(),

@@ -56,15 +56,15 @@ describe("Standalone scrapeURL tests", () => {
         expect(out.document.metadata.error).toBeUndefined();
         expect(out.document.metadata.title).toBe("Roast My Website");
         expect(out.document.metadata.description).toBe(
-          "Welcome to Roast My Website, the ultimate tool for putting your website through the wringer! This repository harnesses the power of Firecrawl to scrape and capture screenshots of websites, and then unleashes the latest LLM vision models to mercilessly roast them. 🌶️",
+          "Welcome to Roast My Website, the ultimate tool for putting your website through the wringer! This repository harnesses the power of Freecrawl to scrape and capture screenshots of websites, and then unleashes the latest LLM vision models to mercilessly roast them. 🌶️",
         );
         expect(out.document.metadata.keywords).toBe(
-          "Roast My Website,Roast,Website,GitHub,Firecrawl",
+          "Roast My Website,Roast,Website,GitHub,Freecrawl",
         );
         expect(out.document.metadata.robots).toBe("follow, index");
         expect(out.document.metadata.ogTitle).toBe("Roast My Website");
         expect(out.document.metadata.ogDescription).toBe(
-          "Welcome to Roast My Website, the ultimate tool for putting your website through the wringer! This repository harnesses the power of Firecrawl to scrape and capture screenshots of websites, and then unleashes the latest LLM vision models to mercilessly roast them. 🌶️",
+          "Welcome to Roast My Website, the ultimate tool for putting your website through the wringer! This repository harnesses the power of Freecrawl to scrape and capture screenshots of websites, and then unleashes the latest LLM vision models to mercilessly roast them. 🌶️",
         );
         expect(out.document.metadata.ogUrl).toBe(
           "https://www.roastmywebsite.ai",
@@ -317,7 +317,7 @@ describe("Standalone scrapeURL tests", () => {
           expect(typeof out.document.screenshot).toBe("string");
           expect(
             out.document.screenshot!.startsWith(
-              "https://service.firecrawl.dev/storage/v1/object/public/media/",
+              "https://service.freecrawl.dev/storage/v1/object/public/media/",
             ),
           );
           // TODO: attempt to fetch screenshot
@@ -346,7 +346,7 @@ describe("Standalone scrapeURL tests", () => {
           expect(typeof out.document.screenshot).toBe("string");
           expect(
             out.document.screenshot!.startsWith(
-              "https://service.firecrawl.dev/storage/v1/object/public/media/",
+              "https://service.freecrawl.dev/storage/v1/object/public/media/",
             ),
           );
           // TODO: attempt to fetch screenshot
@@ -428,7 +428,7 @@ describe("Standalone scrapeURL tests", () => {
   it("LLM extract with prompt and schema", async () => {
     const out = await scrapeURL(
       "test:llm-extract-prompt-schema",
-      "https://firecrawl.dev",
+      "https://freecrawl.dev",
       scrapeOptions.parse({
         formats: ["extract"],
         extract: {
@@ -467,7 +467,7 @@ describe("Standalone scrapeURL tests", () => {
   it("LLM extract with schema only", async () => {
     const out = await scrapeURL(
       "test:llm-extract-schema",
-      "https://firecrawl.dev",
+      "https://freecrawl.dev",
       scrapeOptions.parse({
         formats: ["extract"],
         extract: {

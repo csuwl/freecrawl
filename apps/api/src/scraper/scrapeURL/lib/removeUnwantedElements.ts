@@ -2,7 +2,7 @@
 
 import { AnyNode, Cheerio, load } from "cheerio"; // rustified
 import { ScrapeOptions } from "../../../controllers/v2/types";
-import { transformHtml } from "@mendable/firecrawl-rs";
+import { transformHtml } from "@mendable/freecrawl-rs";
 import { logger } from "../../../lib/logger";
 import { queryOMCESignatures } from "../../../services/index";
 

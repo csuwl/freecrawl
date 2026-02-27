@@ -4,4 +4,4 @@
 
 ### Added
 
-- [feat] Firecrawl rust sdk.
+- [feat] Freecrawl rust sdk.

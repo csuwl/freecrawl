@@ -40,7 +40,7 @@ function prepareExtractPayload(args: {
 
 /**
  * @deprecated The extract endpoint is in maintenance mode and its use is discouraged.
- * Review https://docs.firecrawl.dev/developer-guides/usage-guides/choosing-the-data-extractor to find a replacement.
+ * Review https://docs.freecrawl.dev/developer-guides/usage-guides/choosing-the-data-extractor to find a replacement.
  */
 export async function startExtract(http: HttpClient, args: Parameters<typeof prepareExtractPayload>[0]): Promise<ExtractResponse> {
   const payload = prepareExtractPayload(args);
@@ -56,7 +56,7 @@ export async function startExtract(http: HttpClient, args: Parameters<typeof pre
 
 /**
  * @deprecated The extract endpoint is in maintenance mode and its use is discouraged.
- * Review https://docs.firecrawl.dev/developer-guides/usage-guides/choosing-the-data-extractor to find a replacement.
+ * Review https://docs.freecrawl.dev/developer-guides/usage-guides/choosing-the-data-extractor to find a replacement.
  */
 export async function getExtractStatus(http: HttpClient, jobId: string): Promise<ExtractResponse> {
   try {
@@ -71,7 +71,7 @@ export async function getExtractStatus(http: HttpClient, jobId: string): Promise
 
 /**
  * @deprecated The extract endpoint is in maintenance mode and its use is discouraged.
- * Review https://docs.firecrawl.dev/developer-guides/usage-guides/choosing-the-data-extractor to find a replacement.
+ * Review https://docs.freecrawl.dev/developer-guides/usage-guides/choosing-the-data-extractor to find a replacement.
  */
 export async function waitExtract(
   http: HttpClient,
@@ -90,7 +90,7 @@ export async function waitExtract(
 
 /**
  * @deprecated The extract endpoint is in maintenance mode and its use is discouraged.
- * Review https://docs.firecrawl.dev/developer-guides/usage-guides/choosing-the-data-extractor to find a replacement.
+ * Review https://docs.freecrawl.dev/developer-guides/usage-guides/choosing-the-data-extractor to find a replacement.
  */
 export async function extract(
   http: HttpClient,

@@ -10,7 +10,7 @@ interface APIRequest {
   };
 }
 
-const SUPPORT_EMAIL = "support@firecrawl.com";
+const SUPPORT_EMAIL = "support@freecrawl.com";
 
 export function checkPermissions(
   request: APIRequest,

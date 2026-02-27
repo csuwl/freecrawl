@@ -199,7 +199,7 @@ describe("Crawl tests", () => {
   //     const res = await crawl(
   //       {
   //         url: base,
-  //         includePaths: ["^https://(www\\.)?firecrawl\\.dev/blog$"],
+  //         includePaths: ["^https://(www\\.)?freecrawl\\.dev/blog$"],
   //         regexOnFullURL: true,
   //         limit: 10,
   //       },
@@ -296,7 +296,7 @@ describe("Crawl tests", () => {
   //     if (res.success) {
   //         expect(res.data.length).toBeGreaterThan(1);
   //         for (const page of res.data) {
-  //             expect(page.metadata.url ?? page.metadata.sourceURL).toMatch(/^https:\/\/(www\.)?firecrawl\.dev\/blog/);
+  //             expect(page.metadata.url ?? page.metadata.sourceURL).toMatch(/^https:\/\/(www\.)?freecrawl\.dev\/blog/);
   //         }
   //     }
   // }, 300000);
@@ -313,7 +313,7 @@ describe("Crawl tests", () => {
   //     if (res.success) {
   //         expect(res.data.length).toBeGreaterThan(1);
   //         for (const page of res.data) {
-  //             expect(page.metadata.url ?? page.metadata.sourceURL).not.toMatch(/^https:\/\/(www\.)?firecrawl\.dev\/blog\/.+$/);
+  //             expect(page.metadata.url ?? page.metadata.sourceURL).not.toMatch(/^https:\/\/(www\.)?freecrawl\.dev\/blog\/.+$/);
   //         }
   //     }
   // }, 300000);
@@ -460,7 +460,7 @@ describe("Crawl tests", () => {
               // Should only include pages matching the explicit includePaths
               expect(url.pathname).toMatch(/^\/blog/);
               // Should not include external links despite prompt
-              // expect(url.hostname).toMatch(/firecrawl\.dev$/); // TODO: port to new dynamic url system
+              // expect(url.hostname).toMatch(/freecrawl\.dev$/); // TODO: port to new dynamic url system
             }
           }
         },

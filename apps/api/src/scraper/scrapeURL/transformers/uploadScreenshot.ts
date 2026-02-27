@@ -28,7 +28,7 @@ export function uploadScreenshot(meta: Meta, document: Document): Document {
         },
       );
 
-    document.screenshot = `https://service.firecrawl.dev/storage/v1/object/public/media/${encodeURIComponent(fileName)}`;
+    document.screenshot = `https://service.freecrawl.dev/storage/v1/object/public/media/${encodeURIComponent(fileName)}`;
   }
 
   return document;

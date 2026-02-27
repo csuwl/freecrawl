@@ -70,7 +70,7 @@ v1Router.use(requestTimingMiddleware("v1"));
 //         config: {
 //           discoverable: true,
 //           description:
-//             "The search endpoint combines web search (SERP) with Firecrawl's scraping capabilities to return full page content for any query. Requires micropayment via X402 protocol",
+//             "The search endpoint combines web search (SERP) with Freecrawl's scraping capabilities to return full page content for any query. Requires micropayment via X402 protocol",
 //           mimeType: "application/json",
 //           maxTimeoutSeconds: 120,
 //           inputSchema: {
@@ -320,7 +320,7 @@ if (isX402Enabled()) {
     paymentMiddleware(
       createX402RouteConfig(
         "POST /x402/search",
-        "The search endpoint combines web search (SERP) with Firecrawl's scraping capabilities to return full page content for any query. Requires micropayment via X402 protocol",
+        "The search endpoint combines web search (SERP) with Freecrawl's scraping capabilities to return full page content for any query. Requires micropayment via X402 protocol",
         {},
         {},
       ),

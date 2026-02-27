@@ -1,22 +1,22 @@
-import Firecrawl from "../../../index";
+import Freecrawl from "../../../index";
 import { config } from "dotenv";
 import { describe, test, expect, beforeAll } from "@jest/globals";
 import { getIdentity } from "./utils/idmux";
 
 config();
 
-const API_URL = process.env.FIRECRAWL_API_URL ?? "https://api.firecrawl.dev";
-let client: Firecrawl;
+const API_URL = process.env.FIRECRAWL_API_URL ?? "https://api.freecrawl.dev";
+let client: Freecrawl;
 
 beforeAll(async () => {
   const { apiKey } = await getIdentity({ name: "js-e2e-watcher" });
-  client = new Firecrawl({ apiKey, apiUrl: API_URL });
+  client = new Freecrawl({ apiKey, apiUrl: API_URL });
 });
 
 describe("v2.watcher e2e", () => {
   test("crawl watcher minimal", async () => {
     // client is initialized in beforeAll
-    const start = await client.startCrawl("https://docs.firecrawl.dev", { limit: 3 });
+    const start = await client.startCrawl("https://docs.freecrawl.dev", { limit: 3 });
 
     expect(typeof start.id).toBe("string");
 
@@ -57,8 +57,8 @@ describe("v2.watcher e2e", () => {
   test("batch watcher with options (kind, pollInterval, timeout)", async () => {
     // client is initialized in beforeAll
     const urls = [
-      "https://docs.firecrawl.dev",
-      "https://firecrawl.dev",
+      "https://docs.freecrawl.dev",
+      "https://freecrawl.dev",
     ];
 
     const start = await client.startBatchScrape(urls, { options: { formats: ["markdown"] }, ignoreInvalidURLs: true });

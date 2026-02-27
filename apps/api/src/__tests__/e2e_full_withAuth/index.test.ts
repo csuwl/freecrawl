@@ -39,7 +39,7 @@ describe("E2E Tests for API Routes", () => {
           .post("/v0/scrape")
           .set("Authorization", `Bearer invalid-api-key`)
           .set("Content-Type", "application/json")
-          .send({ url: "https://firecrawl.dev" });
+          .send({ url: "https://freecrawl.dev" });
         expect(response.statusCode).toBe(401);
       },
     );
@@ -85,15 +85,15 @@ describe("E2E Tests for API Routes", () => {
         expect(response.body.data.metadata.pageError).toBeUndefined();
         expect(response.body.data.metadata.title).toBe("Roast My Website");
         expect(response.body.data.metadata.description).toBe(
-          "Welcome to Roast My Website, the ultimate tool for putting your website through the wringer! This repository harnesses the power of Firecrawl to scrape and capture screenshots of websites, and then unleashes the latest LLM vision models to mercilessly roast them. 🌶️",
+          "Welcome to Roast My Website, the ultimate tool for putting your website through the wringer! This repository harnesses the power of Freecrawl to scrape and capture screenshots of websites, and then unleashes the latest LLM vision models to mercilessly roast them. 🌶️",
         );
         expect(response.body.data.metadata.keywords).toBe(
-          "Roast My Website,Roast,Website,GitHub,Firecrawl",
+          "Roast My Website,Roast,Website,GitHub,Freecrawl",
         );
         expect(response.body.data.metadata.robots).toBe("follow, index");
         expect(response.body.data.metadata.ogTitle).toBe("Roast My Website");
         expect(response.body.data.metadata.ogDescription).toBe(
-          "Welcome to Roast My Website, the ultimate tool for putting your website through the wringer! This repository harnesses the power of Firecrawl to scrape and capture screenshots of websites, and then unleashes the latest LLM vision models to mercilessly roast them. 🌶️",
+          "Welcome to Roast My Website, the ultimate tool for putting your website through the wringer! This repository harnesses the power of Freecrawl to scrape and capture screenshots of websites, and then unleashes the latest LLM vision models to mercilessly roast them. 🌶️",
         );
         expect(response.body.data.metadata.ogUrl).toBe(
           "https://www.roastmywebsite.ai",
@@ -289,7 +289,7 @@ describe("E2E Tests for API Routes", () => {
     //     .post("/v0/scrape")
     //     .set("Authorization", `Bearer ${config.TEST_API_KEY}`)
     //     .set("Content-Type", "application/json")
-    //     .send({ url: "https://firecrawl.dev", pageOptions: { waitFor: 7000 } });
+    //     .send({ url: "https://freecrawl.dev", pageOptions: { waitFor: 7000 } });
     //   const endTime = Date.now();
     //   const duration = endTime - startTime;
 
@@ -299,7 +299,7 @@ describe("E2E Tests for API Routes", () => {
     //   expect(response.body.data).toHaveProperty("markdown");
     //   expect(response.body.data).toHaveProperty("metadata");
     //   expect(response.body.data).not.toHaveProperty("html");
-    //   expect(response.body.data.content).toContain("🔥 Firecrawl");
+    //   expect(response.body.data.content).toContain("🔥 Freecrawl");
     //   expect(duration).toBeGreaterThanOrEqual(7000);
     // }, 12000); // 12 seconds timeout
 
@@ -449,7 +449,7 @@ describe("E2E Tests for API Routes", () => {
           .post("/v0/crawl")
           .set("Authorization", `Bearer invalid-api-key`)
           .set("Content-Type", "application/json")
-          .send({ url: "https://firecrawl.dev" });
+          .send({ url: "https://freecrawl.dev" });
         expect(response.statusCode).toBe(401);
       },
     );
@@ -472,7 +472,7 @@ describe("E2E Tests for API Routes", () => {
           .post("/v0/crawl")
           .set("Authorization", `Bearer ${config.TEST_API_KEY}`)
           .set("Content-Type", "application/json")
-          .send({ url: "https://firecrawl.dev" });
+          .send({ url: "https://freecrawl.dev" });
         expect(response.statusCode).toBe(200);
         expect(response.body).toHaveProperty("jobId");
         expect(response.body.jobId).toMatch(
@@ -491,7 +491,7 @@ describe("E2E Tests for API Routes", () => {
           .set("Authorization", `Bearer ${config.TEST_API_KEY}`)
           .set("Content-Type", "application/json")
           .set("x-idempotency-key", uniqueIdempotencyKey)
-          .send({ url: "https://docs.firecrawl.dev" });
+          .send({ url: "https://docs.freecrawl.dev" });
 
         expect(firstResponse.statusCode).toBe(200);
 
@@ -501,7 +501,7 @@ describe("E2E Tests for API Routes", () => {
           .set("Authorization", `Bearer ${config.TEST_API_KEY}`)
           .set("Content-Type", "application/json")
           .set("x-idempotency-key", uniqueIdempotencyKey)
-          .send({ url: "https://docs.firecrawl.dev" });
+          .send({ url: "https://docs.freecrawl.dev" });
 
         expect(secondResponse.statusCode).toBe(409);
         expect(secondResponse.body.error).toBe("Idempotency key already used");
@@ -1011,7 +1011,7 @@ describe("E2E Tests for API Routes", () => {
           expect.arrayContaining([
             expect.objectContaining({
               url: expect.stringContaining(
-                "https://firecrawl.dev/?ref=mendable+banner",
+                "https://freecrawl.dev/?ref=mendable+banner",
               ),
             }),
             expect.objectContaining({
@@ -1040,7 +1040,7 @@ describe("E2E Tests for API Routes", () => {
           .post("/v0/crawlWebsitePreview")
           .set("Authorization", `Bearer invalid-api-key`)
           .set("Content-Type", "application/json")
-          .send({ url: "https://firecrawl.dev" });
+          .send({ url: "https://freecrawl.dev" });
         expect(response.statusCode).toBe(401);
       },
     );
@@ -1054,7 +1054,7 @@ describe("E2E Tests for API Routes", () => {
     //     .send({ url: unsupportedUrl });
     // // is returning 429 instead of 403
     //   expect(response.statusCode).toBe(403);
-    //   expect(response.body.error).toContain("Firecrawl currently does not support social media scraping due to policy restrictions. We're actively working on building support for it.");
+    //   expect(response.body.error).toContain("Freecrawl currently does not support social media scraping due to policy restrictions. We're actively working on building support for it.");
     // });
 
     it.concurrent(
@@ -1064,7 +1064,7 @@ describe("E2E Tests for API Routes", () => {
           .post("/v0/scrape")
           .set("Authorization", `Bearer ${config.TEST_API_KEY}`)
           .set("Content-Type", "application/json")
-          .send({ url: "https://firecrawl.dev", timeout: 1000 });
+          .send({ url: "https://freecrawl.dev", timeout: 1000 });
 
         expect(response.statusCode).toBe(408);
       },

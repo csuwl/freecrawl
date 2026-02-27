@@ -236,7 +236,7 @@ describeIf(TEST_PRODUCTION)("Billing tests", () => {
 
       const results = await search(
         {
-          query: "firecrawl",
+          query: "freecrawl",
         },
         identity,
       );

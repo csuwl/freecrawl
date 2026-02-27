@@ -1,7 +1,7 @@
 /**
  * E2E tests for v2 usage endpoints (translated from Python tests)
  */
-import Firecrawl from "../../../index";
+import Freecrawl from "../../../index";
 import { config } from "dotenv";
 import { getIdentity, getApiUrl } from "./utils/idmux";
 import { describe, test, expect, beforeAll } from "@jest/globals";
@@ -9,11 +9,11 @@ import { describe, test, expect, beforeAll } from "@jest/globals";
 config();
 
 const API_URL = getApiUrl();
-let client: Firecrawl;
+let client: Freecrawl;
 
 beforeAll(async () => {
   const { apiKey } = await getIdentity({ name: "js-e2e-usage" });
-  client = new Firecrawl({ apiKey, apiUrl: API_URL });
+  client = new Freecrawl({ apiKey, apiUrl: API_URL });
 });
 
 describe("v2.usage e2e", () => {

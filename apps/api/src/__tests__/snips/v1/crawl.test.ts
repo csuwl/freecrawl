@@ -94,7 +94,7 @@ describeIf(ALLOW_TEST_SUITE_WEBSITE)("Crawl tests", () => {
   //     const res = await crawl(
   //       {
   //         url: base,
-  //         includePaths: ["^https://(www\\.)?firecrawl\\.dev/blog$"],
+  //         includePaths: ["^https://(www\\.)?freecrawl\\.dev/blog$"],
   //         regexOnFullURL: true,
   //         limit: 10,
   //       },
@@ -189,7 +189,7 @@ describeIf(ALLOW_TEST_SUITE_WEBSITE)("Crawl tests", () => {
   //     if (res.success) {
   //         expect(res.data.length).toBeGreaterThan(1);
   //         for (const page of res.data) {
-  //             expect(page.metadata.url ?? page.metadata.sourceURL).toMatch(/^https:\/\/(www\.)?firecrawl\.dev\/blog/);
+  //             expect(page.metadata.url ?? page.metadata.sourceURL).toMatch(/^https:\/\/(www\.)?freecrawl\.dev\/blog/);
   //         }
   //     }
   // }, 300000);
@@ -206,7 +206,7 @@ describeIf(ALLOW_TEST_SUITE_WEBSITE)("Crawl tests", () => {
   //     if (res.success) {
   //         expect(res.data.length).toBeGreaterThan(1);
   //         for (const page of res.data) {
-  //             expect(page.metadata.url ?? page.metadata.sourceURL).not.toMatch(/^https:\/\/(www\.)?firecrawl\.dev\/blog\/.+$/);
+  //             expect(page.metadata.url ?? page.metadata.sourceURL).not.toMatch(/^https:\/\/(www\.)?freecrawl\.dev\/blog\/.+$/);
   //         }
   //     }
   // }, 300000);

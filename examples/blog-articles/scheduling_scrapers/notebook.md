@@ -36,11 +36,11 @@ Let's begin by setting up your development environment and writing your first sc
 
 Scheduling web scrapers is an easy process, as you will discover through this tutorial. The real challenge lies in ensuring that the scrapers don't break the day after they are put on schedule. Common issues include websites changing their HTML structure, implementing new anti-bot measures, or modifying their robots.txt policies. Additionally, network issues, rate limiting, and IP blocking can cause scheduled scrapers to fail.
 
-For these reasons, it is almost impossible to build long-lasting scrapers written in Python frameworks. But the web scraping landscape is changing as more AI-based tools are emerging, like [Firecrawl](firecrawl.dev).
+For these reasons, it is almost impossible to build long-lasting scrapers written in Python frameworks. But the web scraping landscape is changing as more AI-based tools are emerging, like [Freecrawl](freecrawl.dev).
 
-Firecrawl provides an AI-powered web scraping API that can identify and extract data from HTML elements based on semantic descriptions in Python classes. While traditional scrapers rely on specific HTML selectors that can break when websites change, Firecrawl's AI approach helps maintain scraper reliability over time.
+Freecrawl provides an AI-powered web scraping API that can identify and extract data from HTML elements based on semantic descriptions in Python classes. While traditional scrapers rely on specific HTML selectors that can break when websites change, Freecrawl's AI approach helps maintain scraper reliability over time.
 
-For demonstration purposes, we'll implement examples using Firecrawl, though the scheduling techniques covered in this tutorial can be applied to any Python web scraper built with common libraries like BeautifulSoup, Scrapy, Selenium, or `lxml`. If you want to follow along with a scraper of your own, make sure to have it in a script and ready to go.
+For demonstration purposes, we'll implement examples using Freecrawl, though the scheduling techniques covered in this tutorial can be applied to any Python web scraper built with common libraries like BeautifulSoup, Scrapy, Selenium, or `lxml`. If you want to follow along with a scraper of your own, make sure to have it in a script and ready to go.
 
 ## Prerequisites
 
@@ -50,7 +50,7 @@ Otherwise, let's jump in by setting up the tools we will use for the tutorial.
 
 ### Environment setup
 
-We will mainly use Firecrawl in this article, so, please make sure that you sign up at [firecrawl.dev](firecrawl.dev), choose the free plan and get an API token.
+We will mainly use Freecrawl in this article, so, please make sure that you sign up at [freecrawl.dev](freecrawl.dev), choose the free plan and get an API token.
 
 Then, create a new working directory on your machine to follow along in this tutorial:
 
@@ -70,14 +70,14 @@ venv\Scripts\activate     # For Windows
 Now, let's install the libraries we will use:
 
 ```bash
-pip install requests beautifulsoup4 firecrawl-py python-dotenv
+pip install requests beautifulsoup4 freecrawl-py python-dotenv
 ```
 
 We will touch on what each library does as we use them.
 
-### Firecrawl API key setup
+### Freecrawl API key setup
 
-Since we will push our code to a GitHub repository later, you will need to save your Firecrawl API key securely by using a `.env` file:
+Since we will push our code to a GitHub repository later, you will need to save your Freecrawl API key securely by using a `.env` file:
 
 ```bash
 touch .env
@@ -95,18 +95,18 @@ echo ".env" >> .gitignore
 
 In this tutorial, we will build a scraper for [the Hacker News homepage](https://news.ycombinator.com/) that extracts post title, URL, author, rank, number of upvotes and date.
 
-![Hacker News Homepage showing posts to be scraped using automated scheduling with Firecrawl](scheduling-scrapers-images/hacker_news_homepage.png)
+![Hacker News Homepage showing posts to be scraped using automated scheduling with Freecrawl](scheduling-scrapers-images/hacker_news_homepage.png)
 
-Like we mentioned, we will build the scraper in Firecrawl but I have also prepared an identical scraper written {link to the script after the PR is merged} in BeautifulSoup if you want a more traditional approach.
+Like we mentioned, we will build the scraper in Freecrawl but I have also prepared an identical scraper written {link to the script after the PR is merged} in BeautifulSoup if you want a more traditional approach.
 
 -----
 
-In your working directory, create a new `firecrawl_scraper.py` script and import the following packages:
+In your working directory, create a new `freecrawl_scraper.py` script and import the following packages:
 
 ```python
-# firecrawl_scraper.py
+# freecrawl_scraper.py
 import json
-from firecrawl import FirecrawlApp
+from freecrawl import FreecrawlApp
 from dotenv import load_dotenv
 from pydantic import BaseModel, Field
 from typing import List
@@ -116,7 +116,7 @@ load_dotenv()
 BASE_URL = "https://news.ycombinator.com/"
 ```
 
-After the imports, we are calling `load_dotenv()` so that our Firecrawl API key is loaded from the `.env` file. Then, we are defining a new variable containing the URL we will scrape.
+After the imports, we are calling `load_dotenv()` so that our Freecrawl API key is loaded from the `.env` file. Then, we are defining a new variable containing the URL we will scrape.
 
 Next, we create a Pydantic model to specify the information we want to scrape from each Hacker News post:
 
@@ -134,11 +134,11 @@ class NewsItem(BaseModel):
 
 Pydantic models are Python classes that provide data validation and serialization capabilities. They allow you to define the structure and types of your data using Python type hints, while automatically handling validation, serialization, and documentation.
 
-In the context of our Firecrawl scraper, the `NewsItem` model defines the exact structure of data we want to extract from each Hacker News post. Each field in the model (`title`, `source_url`, `author`, etc.) specifies what data should be scraped and includes a description of what that field represents.
+In the context of our Freecrawl scraper, the `NewsItem` model defines the exact structure of data we want to extract from each Hacker News post. Each field in the model (`title`, `source_url`, `author`, etc.) specifies what data should be scraped and includes a description of what that field represents.
 
-This model is crucial for Firecrawl because it uses the model's schema to understand exactly what data to extract from the webpage. When we pass this model to Firecrawl, it will automatically attempt to find and extract data matching these field definitions from the HTML structure of Hacker News.
+This model is crucial for Freecrawl because it uses the model's schema to understand exactly what data to extract from the webpage. When we pass this model to Freecrawl, it will automatically attempt to find and extract data matching these field definitions from the HTML structure of Hacker News.
 
-For example, when Firecrawl sees we want a "title" field, it will look for elements on the page that are likely to contain post titles based on their HTML structure and content. The `Field` descriptions help provide additional context about what each piece of data represents.
+For example, when Freecrawl sees we want a "title" field, it will look for elements on the page that are likely to contain post titles based on their HTML structure and content. The `Field` descriptions help provide additional context about what each piece of data represents.
 
 Next, we create another model called `NewsData` that contains a list of `NewsItem` objects. This model will serve as a container for all the news items we scrape from Hacker News. The `news_items` field is defined as a List of `NewsItem` objects, which means it can store multiple news items in a single data structure.
 
@@ -149,11 +149,11 @@ class NewsData(BaseModel):
 
 Without this second model, our scraper will return not one but all news items.
 
-Now, we define a new function that will run Firecrawl based on the scraping schema we just defined:
+Now, we define a new function that will run Freecrawl based on the scraping schema we just defined:
 
 ```python
-def get_firecrawl_news_data():
-    app = FirecrawlApp()
+def get_freecrawl_news_data():
+    app = FreecrawlApp()
 
     data = app.scrape_url(
         BASE_URL,
@@ -166,12 +166,12 @@ def get_firecrawl_news_data():
     return data
 ```
 
-This function initializes a FirecrawlApp instance and uses it to scrape data from Hacker News. It passes the `BASE_URL` and parameters specifying that we want to extract data according to our `NewsData` schema. The schema tells Firecrawl exactly what fields to look for and extract from each news item on the page. The function returns the scraped data which will contain a list of news items matching our defined structure.
+This function initializes a FreecrawlApp instance and uses it to scrape data from Hacker News. It passes the `BASE_URL` and parameters specifying that we want to extract data according to our `NewsData` schema. The schema tells Freecrawl exactly what fields to look for and extract from each news item on the page. The function returns the scraped data which will contain a list of news items matching our defined structure.
 
 Let's quickly test it:
 
 ```python
-data = get_firecrawl_news_data()
+data = get_freecrawl_news_data()
 
 print(type(data))
 ```
@@ -180,7 +180,7 @@ print(type(data))
 <class 'dict'>
 ```
 
-Firecrawl always returns the scraped data in a dictionary. Let's look at the keys:
+Freecrawl always returns the scraped data in a dictionary. Let's look at the keys:
 
 ```python
 data['metadata']
@@ -231,12 +231,12 @@ The output shows 30 news items, confirming that our scraper successfully extract
 Now, let's create a new function that saves this data to a JSON file:
 
 ```python
-def save_firecrawl_news_data():
+def save_freecrawl_news_data():
     # Get the data
-    data = get_firecrawl_news_data()
+    data = get_freecrawl_news_data()
     # Format current date for filename
     date_str = datetime.now().strftime("%Y_%m_%d_%H_%M")
-    filename = f"firecrawl_hacker_news_data_{date_str}.json"
+    filename = f"freecrawl_hacker_news_data_{date_str}.json"
 
     # Save the news items to JSON file
     with open(filename, "w") as f:
@@ -245,16 +245,16 @@ def save_firecrawl_news_data():
     return filename
 ```
 
-`save_firecrawl_news_data()` handles saving the scraped Hacker News data to a JSON file. It first calls `get_firecrawl_news_data()` to fetch the latest data from Hacker News. Then, it generates a filename using the current timestamp in the format `YYYY_MM_DD_HH_MM`. The data is saved to this timestamped JSON file with proper indentation, and the filename is returned. This allows us to maintain a historical record of the scraped data with clear timestamps indicating when each scrape occurred.
+`save_freecrawl_news_data()` handles saving the scraped Hacker News data to a JSON file. It first calls `get_freecrawl_news_data()` to fetch the latest data from Hacker News. Then, it generates a filename using the current timestamp in the format `YYYY_MM_DD_HH_MM`. The data is saved to this timestamped JSON file with proper indentation, and the filename is returned. This allows us to maintain a historical record of the scraped data with clear timestamps indicating when each scrape occurred.
 
-Finally, add a `__main__` block to the `firecrawl_scraper.py` script to allow running the scraper directly from the command line:
+Finally, add a `__main__` block to the `freecrawl_scraper.py` script to allow running the scraper directly from the command line:
 
 ```python
 if __name__ == "__main__":
-    save_firecrawl_news_data()
+    save_freecrawl_news_data()
 ```
 
-The complete scraper script is available in [our GitHub repository](https://github.com/firecrawl/firecrawl/blob/main/examples/hacker_news_scraper/firecrawl_scraper.py). For reference, we also provide [a BeautifulSoup implementation of the same scraper](https://github.com/firecrawl/firecrawl/blob/main/examples/hacker_news_scraper/bs4_scraper.py).
+The complete scraper script is available in [our GitHub repository](https://github.com/freecrawl/freecrawl/blob/main/examples/hacker_news_scraper/freecrawl_scraper.py). For reference, we also provide [a BeautifulSoup implementation of the same scraper](https://github.com/freecrawl/freecrawl/blob/main/examples/hacker_news_scraper/bs4_scraper.py).
 
 ## Local Web Scraping Automation Methods
 
@@ -321,21 +321,21 @@ There is much more to the `schedule` library than what we just covered (you shou
 
 ### Using Python's `schedule` library to schedule web scrapers
 
-Now that we know the basics of `schedule`, let's use it for our Firecrawl scraper. Start by creating a new `scrape_scheduler.py` script and making the necessary imports:
+Now that we know the basics of `schedule`, let's use it for our Freecrawl scraper. Start by creating a new `scrape_scheduler.py` script and making the necessary imports:
 
 ```python
 import schedule
 import time
-from firecrawl_scraper import save_firecrawl_news_data
+from freecrawl_scraper import save_freecrawl_news_data
 ```
 
-Here, we import the `schedule` module itself and the `save_firecrawl_news_data()` function from `firecrawl_scraper.py` that downloads the top 30 posts of Hacker News.
+Here, we import the `schedule` module itself and the `save_freecrawl_news_data()` function from `freecrawl_scraper.py` that downloads the top 30 posts of Hacker News.
 
 Then, to run this function on schedule, like every hour, we only need to add a few lines of code:
 
 ```python
 # Schedule the scraper to run every hour
-schedule.every().hour.do(save_firecrawl_news_data)
+schedule.every().hour.do(save_freecrawl_news_data)
 
 while True:
     schedule.run_pending()
@@ -350,7 +350,7 @@ python scrape_scheduler.py
 
 > **Tip**: For debugging purposes, start with a shorter interval like 60 seconds before implementing the hourly schedule.
 
-The scheduler will continue running until you terminate the main terminal process executing the `scrape_scheduler.py` script. Thanks to Firecrawl's AI-powered HTML parsing and layout adaptation capabilities, the scraper is quite resilient to website changes and has a low probability of breaking.
+The scheduler will continue running until you terminate the main terminal process executing the `scrape_scheduler.py` script. Thanks to Freecrawl's AI-powered HTML parsing and layout adaptation capabilities, the scraper is quite resilient to website changes and has a low probability of breaking.
 
 Nevertheless, web scraping can be unpredictable, so it's recommended to review [the exception handling](https://schedule.readthedocs.io/en/stable/exception-handling.html) section of the `schedule` documentation to handle potential errors gracefully.
 
@@ -376,7 +376,7 @@ Let's see how to use `asyncio` for scheduling scrapers:
 ```python
 import asyncio
 import time
-from firecrawl_scraper import save_firecrawl_news_data
+from freecrawl_scraper import save_freecrawl_news_data
 
 
 async def schedule_scraper(interval_hours: float = 1):
@@ -384,7 +384,7 @@ async def schedule_scraper(interval_hours: float = 1):
         try:
             print(f"Starting scrape at {time.strftime('%Y-%m-%d %H:%M:%S')}")
             # Run the scraper
-            filename = save_firecrawl_news_data()
+            filename = save_freecrawl_news_data()
             print(f"Data saved to {filename}")
 
         except Exception as e:
@@ -454,7 +454,7 @@ The scheduling format uses five time fields: minute, hour, day of month, month, 
 
 Cron jobs are especially reliable for web scraping because they're built into the operating system, use minimal resources, and continue running even after system reboots.
 
-So, let's run the `save_firecrawl_news_data()` function on a schedule using cron. First, we will create a dedicated script for the cron job named `cron_scraper.py`:
+So, let's run the `save_freecrawl_news_data()` function on a schedule using cron. First, we will create a dedicated script for the cron job named `cron_scraper.py`:
 
 ```python
 # cron_scraper.py
@@ -462,7 +462,7 @@ import sys
 import logging
 from datetime import datetime
 from pathlib import Path
-from firecrawl_scraper import save_firecrawl_news_data
+from freecrawl_scraper import save_freecrawl_news_data
 
 # Set up logging
 log_dir = Path("logs")
@@ -479,7 +479,7 @@ logging.basicConfig(
 def main():
     try:
         logging.info("Starting scraping job")
-        filename = save_firecrawl_news_data()  # Actual scraping function
+        filename = save_freecrawl_news_data()  # Actual scraping function
         logging.info(f"Successfully saved data to {filename}")
     except Exception as e:
         logging.error(f"Scraping failed: {str(e)}", exc_info=True)
@@ -535,7 +535,7 @@ For hourly execution, the same pattern applies but with `0 * * * *` timing to ru
 
 As soon as you save your crontab file with these commands, the schedule starts and you should see a `logs` directory in the same folder as your `cron_scraper.py`. It must look like this if you have been following along:
 
-!["Logs directory showing successful automated web scraping schedule execution with cron jobs and Firecrawl"](scheduling-scrapers-images/output.png)
+!["Logs directory showing successful automated web scraping schedule execution with cron jobs and Freecrawl"](scheduling-scrapers-images/output.png)
 
 You can always check the status of your cron jobs with the following command as well:
 
@@ -636,7 +636,7 @@ This directory will contain our GitHub Actions workflow files with YAML format. 
 At this stage, create a new `scraper.yml` file inside `.github/workflows` and paste the following contents:
 
 ```yaml
-name: Run Firecrawl Scraper
+name: Run Freecrawl Scraper
 
 on:
   schedule:
@@ -658,10 +658,10 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pydantic firecrawl-py
+          pip install pydantic freecrawl-py
 
       - name: Run scraper
-        run: python firecrawl_scraper.py
+        run: python freecrawl_scraper.py
         env:
           # Add any environment variables your scraper needs
           FIRECRAWL_API_KEY: ${{ secrets.FIRECRAWL_API_KEY }}
@@ -678,7 +678,7 @@ jobs:
 Let's break down the key components of this GitHub Actions workflow file:
 
 Workflow name:
-The workflow is named "Run Firecrawl Scraper" which helps identify it in the GitHub Actions interface.
+The workflow is named "Run Freecrawl Scraper" which helps identify it in the GitHub Actions interface.
 
 Triggers:
 
@@ -699,14 +699,14 @@ Step details:
    - Configures Python 3.9 environment
 3. Dependencies:
    - Upgrades `pip`
-   - Installs required packages: `pydantic` and `firecrawl-py`
+   - Installs required packages: `pydantic` and `freecrawl-py`
 4. Scraper Execution:
-   - Runs `firecrawl_scraper.py`
+   - Runs `freecrawl_scraper.py`
    - Uses `FIRECRAWL_API_KEY` from repository secrets
 5. Committing the changes:
     - Creates a commit persisting the downloaded data using GitHub Actions bot.
 
-To run this action successfully, you'll need to store your Firecrawl API key in GitHub secrets. Navigate to your repository's Settings, then Secrets and variables → Actions. Click the "New repository secret" button and add your API key, making sure to use the exact key name specified in `scraper.yml`.
+To run this action successfully, you'll need to store your Freecrawl API key in GitHub secrets. Navigate to your repository's Settings, then Secrets and variables → Actions. Click the "New repository secret" button and add your API key, making sure to use the exact key name specified in `scraper.yml`.
 
 After ensuring that everything is set up correctly, commit and push the latest changes to GitHub:
 
@@ -717,11 +717,11 @@ git commit -m "Add a workflow to scrape on a schedule"
 
 Once you do, the workflow must show up in the Actions tab of your repository like below:
 
-!["GitHub Actions workflow showing successful execution of scheduled web scraping with Firecrawl"](scheduling-scrapers-images/actions.png)
+!["GitHub Actions workflow showing successful execution of scheduled web scraping with Freecrawl"](scheduling-scrapers-images/actions.png)
 
 Click on the workflow name and press the "Run workflow" button. This launches the action manually and starts the schedule. If you check in after some time, you should see more automatic runs and the results persisted in your repository:
 
-!["GitHub Actions workflow showing multiple successful executions of scheduled web scraping with Firecrawl over a 24 hour period"](scheduling-scrapers-images/finished_actions.png)
+!["GitHub Actions workflow showing multiple successful executions of scheduled web scraping with Freecrawl over a 24 hour period"](scheduling-scrapers-images/finished_actions.png)
 
 Caution: I left the workflow running overnight (at five minute intervals) and was nastily surprised by 96 workflow runs the next day. Thankfully, GitHub actions are free (up to 2000 min/month) unlike AWS instances.
 
@@ -733,7 +733,7 @@ When scheduling web scrapers, following best practices ensures reliability, effi
 
 ### 1. Rate limiting and delays
 
-Scraping engines like Firecrawl usually come with built-in rate limiting. However, if you are using custom scrapers written with Python libraries, you must always respect website servers by implementing proper rate limiting and delay strategies. For example, the below example shows adding random delays between your requests in-between requests to respect server load and avoid getting your IP blocked:
+Scraping engines like Freecrawl usually come with built-in rate limiting. However, if you are using custom scrapers written with Python libraries, you must always respect website servers by implementing proper rate limiting and delay strategies. For example, the below example shows adding random delays between your requests in-between requests to respect server load and avoid getting your IP blocked:
 
 ```python
 import time
@@ -897,4 +897,4 @@ Maintenance guidelines:
 
 Throughout this guide, we've explored how to effectively schedule web scrapers using local Python and operation system tools as well as GitHub actions. From basic setup to advanced optimization techniques, we've covered the essential components needed to build reliable, automated data collection pipelines. The workflow we've created not only handles the technical aspects of scheduling but also incorporates best practices for rate limiting, error handling, and data storage - crucial elements for any production-grade scraping system.
 
-For those looking to enhance their web scraping capabilities further, I recommend exploring Firecrawl's comprehensive features through their [/crawl endpoint guide](https://www.firecrawl.dev/blog/mastering-the-crawl-endpoint-in-firecrawl) and [/scrape endpoint tutorial](https://www.firecrawl.dev/blog/mastering-firecrawl-scrape-endpoint). These resources, along with the [official documentation](https://docs.firecrawl.dev), provide deeper insights into advanced topics like JavaScript rendering, structured data extraction, and batch operations that can significantly improve your web scraping workflows. Whether you're building training datasets for AI models or monitoring websites for changes, combining scheduled scraping with these powerful tools can help you build more sophisticated and efficient data collection systems.
+For those looking to enhance their web scraping capabilities further, I recommend exploring Freecrawl's comprehensive features through their [/crawl endpoint guide](https://www.freecrawl.dev/blog/mastering-the-crawl-endpoint-in-freecrawl) and [/scrape endpoint tutorial](https://www.freecrawl.dev/blog/mastering-freecrawl-scrape-endpoint). These resources, along with the [official documentation](https://docs.freecrawl.dev), provide deeper insights into advanced topics like JavaScript rendering, structured data extraction, and batch operations that can significantly improve your web scraping workflows. Whether you're building training datasets for AI models or monitoring websites for changes, combining scheduled scraping with these powerful tools can help you build more sophisticated and efficient data collection systems.

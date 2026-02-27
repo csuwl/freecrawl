@@ -1,5 +1,5 @@
 import type { ZodTypeAny } from 'zod';
-// Public types for Firecrawl JS/TS SDK v2 (camelCase only)
+// Public types for Freecrawl JS/TS SDK v2 (camelCase only)
 
 export type FormatString =
   | 'markdown'
@@ -651,7 +651,7 @@ export class SdkError extends Error {
     jobId?: string
   ) {
     super(message);
-    this.name = 'FirecrawlSdkError';
+    this.name = 'FreecrawlSdkError';
     this.status = status;
     this.code = code;
     this.details = details;

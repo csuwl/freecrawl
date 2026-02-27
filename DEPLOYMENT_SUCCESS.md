@@ -1,10 +1,10 @@
-# 🎉 Firecrawl Docker 部署成功！
+# 🎉 Freecrawl Docker 部署成功！
 
 ## 📅 部署完成时间
 2026-02-26 09:42
 
 ## 📍 部署位置
-`/Users/wl/opencode-project/firecrawl`
+`/Users/wl/opencode-project/freecrawl`
 
 ---
 
@@ -78,7 +78,7 @@ curl -X POST http://localhost:3002/v2/crawl \
 ```bash
 curl -X POST http://localhost:3002/v2/search \
   -H 'Content-Type: application/json' \
-  -d '{"query": "Firecrawl web scraping", "limit": 5}'
+  -d '{"query": "Freecrawl web scraping", "limit": 5}'
 ```
 
 ### 4. 批量爬取 (Batch Scrape)
@@ -100,8 +100,8 @@ curl -X POST http://localhost:3002/v2/batch/scrape \
 
 ### Bull Queue 管理面板
 ```
-URL: http://localhost:3002/admin/firecrawl-admin/queues
-访问密钥: firecrawl-admin
+URL: http://localhost:3002/admin/freecrawl-admin/queues
+访问密钥: freecrawl-admin
 ```
 
 ### RabbitMQ 管理界面
@@ -199,8 +199,8 @@ docker compose restart playwright-service api
 ## 📈 资源使用
 
 ### 当前镜像大小
-- `ghcr.io/firecrawl/firecrawl: 853MB`
-- `ghcr.io/firecrawl/playwright-service: 1.33GB`
+- `ghcr.io/freecrawl/freecrawl: 853MB`
+- `ghcr.io/freecrawl/playwright-service: 1.33GB`
 - `postgres:17: ~250MB`
 - `redis:alpine: 97MB`
 - `rabbitmq:3-management: 252MB`
@@ -225,10 +225,10 @@ docker compose restart playwright-service api
 
 ## 📚 文档链接
 
-- **官方文档**: https://docs.firecrawl.dev
-- **GitHub**: https://github.com/firecrawl/firecrawl
-- **API 参考**: https://docs.firecrawl.dev/api-reference/v2-introduction
+- **官方文档**: https://docs.freecrawl.dev
+- **GitHub**: https://github.com/freecrawl/freecrawl
+- **API 参考**: https://docs.freecrawl.dev/api-reference/v2-introduction
 
 ---
 
-**部署完成！🎉 开始使用 Firecrawl 进行网页爬取吧！**
+**部署完成！🎉 开始使用 Freecrawl 进行网页爬取吧！**

@@ -5,7 +5,7 @@ import { ScrapeRequest } from "../../controllers/v1/types";
 
 configDotenv();
 const FIRECRAWL_API_URL = "http://127.0.0.1:3002";
-const E2E_TEST_SERVER_URL = "http://firecrawl-e2e-test.vercel.app"; // @rafaelsideguide/firecrawl-e2e-test
+const E2E_TEST_SERVER_URL = "http://freecrawl-e2e-test.vercel.app"; // @rafaelsideguide/freecrawl-e2e-test
 
 describe("E2E Tests for v1 API Routes", () => {
   it.concurrent(
@@ -51,7 +51,7 @@ describe("E2E Tests for v1 API Routes", () => {
       expect(response.body.data).toHaveProperty("markdown");
 
       expect(response.body.data.markdown).toContain(
-        "This page is used for end-to-end (e2e) testing with Firecrawl.",
+        "This page is used for end-to-end (e2e) testing with Freecrawl.",
       );
       expect(response.body.data.markdown).toContain(
         "Content with id #content-1",
@@ -60,7 +60,7 @@ describe("E2E Tests for v1 API Routes", () => {
       expect(response.body.data.markdown).toContain("Click me!");
       expect(response.body.data.markdown).toContain(
         "Power your AI apps with clean data crawled from any website. It's also open-source.",
-      ); // firecrawl.dev inside an iframe
+      ); // freecrawl.dev inside an iframe
       expect(response.body.data.markdown).toContain(
         "This content loads only when you see it. Don't blink! 👼",
       ); // the browser always scroll to the bottom
@@ -100,7 +100,7 @@ describe("E2E Tests for v1 API Routes", () => {
         '<header class="row-start-1" style="">Header</header>',
       );
       expect(response.body.data.html).toContain(
-        '<p style="">This page is used for end-to-end (e2e) testing with Firecrawl.</p>',
+        '<p style="">This page is used for end-to-end (e2e) testing with Freecrawl.</p>',
       );
     },
     30000,
@@ -130,7 +130,7 @@ describe("E2E Tests for v1 API Routes", () => {
       expect(response.body.data).toHaveProperty("rawHtml");
 
       expect(response.body.data.rawHtml).toContain(
-        ">This page is used for end-to-end (e2e) testing with Firecrawl.</p>",
+        ">This page is used for end-to-end (e2e) testing with Freecrawl.</p>",
       );
       expect(response.body.data.rawHtml).toContain(">Header</header>");
     },
@@ -147,7 +147,7 @@ describe("E2E Tests for v1 API Routes", () => {
       // @ts-ignore
       const scrapeRequest = {
         url: E2E_TEST_SERVER_URL,
-        headers: { "e2e-header-test": "firecrawl" },
+        headers: { "e2e-header-test": "freecrawl" },
       } as ScrapeRequest;
 
       const response: any = await request(FIRECRAWL_API_URL)
@@ -163,7 +163,7 @@ describe("E2E Tests for v1 API Routes", () => {
       }
 
       expect(response.body.data.markdown).toContain(
-        "e2e-header-test: firecrawl",
+        "e2e-header-test: freecrawl",
       );
     },
     30000,
@@ -190,7 +190,7 @@ describe("E2E Tests for v1 API Routes", () => {
       }
 
       expect(response.body.data.markdown).not.toContain(
-        "<p>This page is used for end-to-end (e2e) testing with Firecrawl.</p>",
+        "<p>This page is used for end-to-end (e2e) testing with Freecrawl.</p>",
       );
       expect(response.body.data.markdown).toContain(
         "Content with id #content-1",
@@ -220,7 +220,7 @@ describe("E2E Tests for v1 API Routes", () => {
       }
 
       expect(response.body.data.markdown).toContain(
-        "This page is used for end-to-end (e2e) testing with Firecrawl.",
+        "This page is used for end-to-end (e2e) testing with Freecrawl.",
       );
       expect(response.body.data.markdown).not.toContain(
         "Content with id #content-1",
@@ -251,7 +251,7 @@ describe("E2E Tests for v1 API Routes", () => {
       }
 
       expect(response.body.data.markdown).toContain(
-        "This page is used for end-to-end (e2e) testing with Firecrawl.",
+        "This page is used for end-to-end (e2e) testing with Freecrawl.",
       );
       expect(response.body.data.html).toContain(
         '<header class="row-start-1" style="">Header</header>',
@@ -513,7 +513,7 @@ describe("E2E Tests for v1 API Routes", () => {
         0,
       );
       expect(response.body.data.actions.screenshots[0]).toContain(
-        "https://service.firecrawl.dev/storage/v1/object/public/media/screenshot-",
+        "https://service.freecrawl.dev/storage/v1/object/public/media/screenshot-",
       );
 
       // TODO compare screenshot with expected screenshot
@@ -555,17 +555,17 @@ describe("E2E Tests for v1 API Routes", () => {
         0,
       );
       expect(response.body.data.actions.screenshots[0]).toContain(
-        "https://service.firecrawl.dev/storage/v1/object/public/media/screenshot-",
+        "https://service.freecrawl.dev/storage/v1/object/public/media/screenshot-",
       );
 
       if (!response.body.data.actions?.scrapes) {
         throw new Error("Expected response body to have scrapes array");
       }
       expect(response.body.data.actions.scrapes[0].url).toBe(
-        "https://firecrawl-e2e-test.vercel.app/",
+        "https://freecrawl-e2e-test.vercel.app/",
       );
       expect(response.body.data.actions.scrapes[0].html).toContain(
-        "This page is used for end-to-end (e2e) testing with Firecrawl.</p>",
+        "This page is used for end-to-end (e2e) testing with Freecrawl.</p>",
       );
       // TODO compare screenshot with expected full page screenshot
     },

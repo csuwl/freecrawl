@@ -30,7 +30,7 @@ export async function createPaymentIntent(
       amount: 1100,
       currency: "usd",
       customer: customer_id,
-      description: "Firecrawl: Auto re-charge of 1000 credits",
+      description: "Freecrawl: Auto re-charge of 1000 credits",
       payment_method_types: [defaultPaymentMethod?.type ?? "card"],
       payment_method: defaultPaymentMethod?.id,
       off_session: true,

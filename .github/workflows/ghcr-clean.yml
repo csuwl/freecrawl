@@ -10,8 +10,8 @@ jobs:
     steps:
       - uses: bots-house/ghcr-delete-image-action@v1.1.0
         with:
-          owner: firecrawl
-          name: firecrawl
+          owner: freecrawl
+          name: freecrawl
           # NOTE: using Personal Access Token
           token: ${{secrets.GITHUB_TOKEN}}
           # Keep latest N untagged images

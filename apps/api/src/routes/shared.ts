@@ -117,8 +117,8 @@ export function checkCreditsMiddleware(
               currencyName +
               ", you can upgrade your plan at " +
               (currencyName === "credits"
-                ? "https://firecrawl.dev/pricing or try changing the request limit to a lower value"
-                : "https://www.firecrawl.dev/extract#pricing") +
+                ? "https://freecrawl.dev/pricing or try changing the request limit to a lower value"
+                : "https://www.freecrawl.dev/extract#pricing") +
               ".",
           });
         }
@@ -264,7 +264,7 @@ export function countryCheck(
       success: false,
       error: isSelfHosted()
         ? "Use of headers, actions, and the FIRE-1 agent is not allowed by default in your country. Please check your server configuration."
-        : "Use of headers, actions, and the FIRE-1 agent is not allowed by default in your country. Please contact us at help@firecrawl.com",
+        : "Use of headers, actions, and the FIRE-1 agent is not allowed by default in your country. Please contact us at help@freecrawl.com",
     });
   }
 

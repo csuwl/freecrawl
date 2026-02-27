@@ -5,7 +5,7 @@ This script uses the DeepSeek V3 large language model (via Hugging Face's Infere
 ## Prerequisites
 
 - Python 3.8+
-- A FireCrawl API key (get one at [FireCrawl's website](https://firecrawl.app))
+- A FireCrawl API key (get one at [FireCrawl's website](https://freecrawl.app))
 - A Hugging Face API key with access to inference API
 
 ## Installation
@@ -26,7 +26,7 @@ pip install -r requirements.txt
 3. Create a `.env` file in the root directory with your API keys:
 
 ```
-FIRECRAWL_API_KEY=your_firecrawl_api_key
+FIRECRAWL_API_KEY=your_freecrawl_api_key
 HUGGINGFACE_API_KEY=your_huggingface_api_key
 ```
 

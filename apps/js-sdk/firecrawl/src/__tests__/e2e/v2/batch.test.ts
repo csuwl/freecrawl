@@ -1,7 +1,7 @@
 /**
  * E2E tests for v2 batch scrape (translated from Python tests)
  */
-import Firecrawl from "../../../index";
+import Freecrawl from "../../../index";
 import { config } from "dotenv";
 import { getIdentity, getApiUrl } from "./utils/idmux";
 import { describe, test, expect, beforeAll } from "@jest/globals";
@@ -9,18 +9,18 @@ import { describe, test, expect, beforeAll } from "@jest/globals";
 config();
 
 const API_URL = getApiUrl();
-let client: Firecrawl;
+let client: Freecrawl;
 
 beforeAll(async () => {
   const { apiKey } = await getIdentity({ name: "js-e2e-batch" });
-  client = new Firecrawl({ apiKey, apiUrl: API_URL });
+  client = new Freecrawl({ apiKey, apiUrl: API_URL });
 });
 
 describe("v2.batch e2e", () => {
   test("batch scrape minimal (wait)", async () => {
     const urls = [
-      "https://docs.firecrawl.dev",
-      "https://firecrawl.dev",
+      "https://docs.freecrawl.dev",
+      "https://freecrawl.dev",
     ];
     const job = await client.batchScrape(urls, { options: { formats: ["markdown"] }, pollInterval: 1, timeout: 180 });
     expect(["completed", "failed"]).toContain(job.status);
@@ -31,8 +31,8 @@ describe("v2.batch e2e", () => {
 
   test("batch scrape with wait returns job id for error retrieval", async () => {
     const urls = [
-      "https://docs.firecrawl.dev",
-      "https://firecrawl.dev",
+      "https://docs.freecrawl.dev",
+      "https://freecrawl.dev",
     ];
     const job = await client.batchScrape(urls, { options: { formats: ["markdown"] }, pollInterval: 1, timeout: 180 });
     // Verify job has id field
@@ -47,7 +47,7 @@ describe("v2.batch e2e", () => {
   }, 240_000);
 
   test("start batch minimal and status", async () => {
-    const urls = ["https://docs.firecrawl.dev", "https://firecrawl.dev"]; 
+    const urls = ["https://docs.freecrawl.dev", "https://freecrawl.dev"]; 
     const start = await client.startBatchScrape(urls, { options: { formats: ["markdown"] }, ignoreInvalidURLs: true });
     expect(typeof start.id).toBe("string");
     expect(typeof start.url).toBe("string");
@@ -60,7 +60,7 @@ describe("v2.batch e2e", () => {
   }, 120_000);
 
   test("wait batch with all params", async () => {
-    const urls = ["https://docs.firecrawl.dev", "https://firecrawl.dev"]; 
+    const urls = ["https://docs.freecrawl.dev", "https://freecrawl.dev"]; 
     const job = await client.batchScrape(urls, {
       options: {
         formats: [
@@ -84,7 +84,7 @@ describe("v2.batch e2e", () => {
   }, 300_000);
 
   test("cancel batch", async () => {
-    const urls = ["https://docs.firecrawl.dev", "https://firecrawl.dev"]; 
+    const urls = ["https://docs.freecrawl.dev", "https://freecrawl.dev"]; 
     const start = await client.startBatchScrape(urls, { options: { formats: ["markdown"] }, maxConcurrency: 1 });
     expect(typeof start.id).toBe("string");
     const cancelled = await client.cancelBatchScrape(start.id);
