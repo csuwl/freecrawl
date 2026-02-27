@@ -35,7 +35,9 @@
   </p>
 </div>
 
+
 ---
+
 
 # **🔥 Freecrawl**
 
@@ -53,6 +55,19 @@ _Pst. Hey, you, join our stargazers :)_
   <img src="https://img.shields.io/github/stars/freecrawl/freecrawl.svg?style=social&label=Star&maxAge=2592000" alt="GitHub stars">
 </a>
 
+
+---
+
+
+> **📌 项目说明 / Project Note**
+>
+> 本项目基于 [Firecrawl](https://github.com/mendableai/firecrawl) 进行修改和二次开发。
+>
+> This project is a modified and customized version of [Firecrawl](https://github.com/mendableai/firecrawl).
+>
+> 感谢 Firecrawl 团队的开源贡献！Thanks to the Firecrawl team for their open-source contribution!
+>
+
 ---
 
 ## Why Freecrawl?
@@ -66,7 +81,9 @@ _Pst. Hey, you, join our stargazers :)_
 - **Batch processing**: Scrape thousands of URLs asynchronously
 - **Change tracking**: Monitor website content changes over time
 
+
 ---
+
 
 ## Quick Start
 
@@ -94,7 +111,9 @@ Response:
 }
 ```
 
+
 ---
+
 
 ## Feature Overview
 
@@ -106,7 +125,9 @@ Response:
 | [**Crawl**](#crawling) | Scrape all URLs of a website with a single request |
 | [**Map**](#map) | Discover all URLs on a website instantly |
 
+
 ---
+
 
 ## Scrape
 
@@ -205,7 +226,9 @@ doc = app.scrape(
 )
 ```
 
+
 ---
+
 
 ## Search
 
@@ -256,7 +279,9 @@ results = freecrawl.search(
 )
 ```
 
+
 ---
+
 
 ## Agent
 
@@ -359,7 +384,9 @@ npx skills add freecrawl/cli
 
 Restart your agent after installing. See the [Skill + CLI docs](https://docs.freecrawl.dev/sdks/cli) for full setup.
 
+
 ---
+
 
 ## Crawling
 
@@ -408,7 +435,9 @@ curl -X GET 'https://api.freecrawl.dev/v2/crawl/123-456-789' \
 
 **Note:** The [SDKs](#sdks) handle polling automatically for a better developer experience.
 
+
 ---
+
 
 ## Map
 
@@ -444,7 +473,9 @@ result = app.map("https://firecrawl.dev", search="pricing")
 # Returns URLs ordered by relevance to "pricing"
 ```
 
+
 ---
+
 
 ## Batch Scraping
 
@@ -464,7 +495,9 @@ for doc in job.data:
     print(doc.metadata.source_url)
 ```
 
+
 ---
+
 
 ## SDKs
 
@@ -536,7 +569,9 @@ results.data.web.forEach(result => {
 - [Go SDK](https://github.com/mendableai/freecrawl-go)
 - [Rust SDK](https://docs.freecrawl.dev/sdks/rust)
 
+
 ---
+
 
 ## Integrations
 
@@ -553,7 +588,9 @@ results.data.web.forEach(result => {
 
 **Missing your favorite tool?** [Open an issue](https://github.com/mendableai/freecrawl/issues) and let us know!
 
+
 ---
+
 
 ## Resources
 
@@ -562,7 +599,9 @@ results.data.web.forEach(result => {
 - [Playground](https://firecrawl.dev/playground)
 - [Changelog](https://firecrawl.dev/changelog)
 
+
 ---
+
 
 ## Open Source vs Cloud
 
@@ -572,7 +611,9 @@ Freecrawl is open source under the AGPL-3.0 license. The cloud version at [freec
 
 To run locally, see the [Contributing Guide](https://github.com/csuwl/freecrawl/blob/main/CONTRIBUTING.md). To self-host, see [Self-Hosting Guide](https://docs.freecrawl.dev/contributing/self-host).
 
+
 ---
+
 
 ## Contributing
 
@@ -584,13 +625,17 @@ We love contributions! Please read our [Contributing Guide](https://github.com/c
   <img alt="contributors" src="https://contrib.rocks/image?repo=freecrawl/freecrawl"/>
 </a>
 
+
 ---
+
 
 ## License
 
 This project is primarily licensed under the GNU Affero General Public License v3.0 (AGPL-3.0). The SDKs and some UI components are licensed under the MIT License. See the LICENSE files in specific directories for details.
 
+
 ---
+
 
 **It is the sole responsibility of end users to respect websites' policies when scraping.** Users are advised to adhere to applicable privacy policies and terms of use. By default, Freecrawl respects robots.txt directives. By using Freecrawl, you agree to comply with these conditions.
 
